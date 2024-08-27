@@ -1,0 +1,105 @@
+#!/usr/bin/env python3
+"""A small script made to rename any file to its hash
+plus its original extension."""
+
+import argparse
+import hashlib
+import sys
+
+from os import path, rename
+
+
+def get_args():
+    """Initialize argparse object."""
+    description = "Calculates the hash of a file and then renames the file to its hash."
+    args = argparse.ArgumentParser(description=description)
+    args.add_argument("files", metavar="FILE(S)", nargs="+")
+    args.add_argument(
+        "-a",
+        help="Choose the hash algorithm to use.",
+        nargs="?",
+        default="sha256",
+        choices=["sha256", "sha1", "md5"],
+    )
+    args.add_argument(
+        "-i", help="Ignore errors, skip problematic files.", action="store_true"
+    )
+    return args
+
+
+def process_args(args):
+    """Process the args, execute the requested actions."""
+    # Print help if no arguments are given.
+    if len(sys.argv) == 1:
+        args.print_help()
+        sys.exit()
+
+    # Parse arguments after processing exit instructions.
+    args = args.parse_args()
+
+    # Use the algorithm flag to select the algorithm.
+    hashing_algorithm = {
+        "sha256": hashlib.sha256,
+        "sha1": hashlib.sha1,
+        "md5": hashlib.md5,
+    }[args.a]
+
+    for file in args.files:
+        file_hash = get_hash(file, args.i, hashing_algorithm)
+
+        if file_hash:
+            rename_file(file, file_hash)
+
+
+def get_hash(file_arg, ignore, hashing_algorithm):
+    """Calculate the hash of the file and return it."""
+    filename = path.basename(file_arg)
+    file_path = path.abspath(file_arg)
+    try:
+        # Open the file as read-only binary data, and calculate its hash.
+        with open(file_path, "rb") as fileobj:
+            buf = fileobj.read()
+
+    except FileNotFoundError:
+        print(f'"{filename}" doesn\'t exist.')
+        if ignore:
+            return False
+        sys.exit(1)
+
+    except IsADirectoryError:
+        print(f'"{filename}/" is a directory.')
+        if ignore:
+            return False
+        sys.exit(1)
+
+    else:
+        # Turn the hash into a hexadecimal string, then return it.
+        return hashing_algorithm(buf).hexdigest()
+
+
+def rename_file(file_arg, file_hash):
+    """Rename the file after calculating its hash."""
+    filename = path.basename(file_arg)
+    file_path = path.abspath(file_arg)
+    # Stores the new filename.
+    new_name = file_hash + path.splitext(file_arg)[1]
+    # Stores the file path without the filename.
+    parent_dirs = path.normpath(path.join(file_path, ".."))
+    # Stores the new file path.
+    target = path.join(parent_dirs, new_name)
+
+    # Don't rename the file if it's redundant to do so.
+    if target == file_path:
+        print(f'"{filename}" skipped.')
+    else:
+        rename(file_path, target)
+        print(f'"{filename}" -> "{new_name}"')
+
+
+def main():
+    """Main function."""
+    process_args(get_args())
+
+
+if __name__ == "__main__":
+    main()

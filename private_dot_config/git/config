@@ -1,0 +1,22 @@
+[core]
+quotePath = false
+
+[init]
+defaultBranch = main
+
+[pull]
+rebase = true
+
+[alias]
+a = add
+b = branch
+c = commit
+d = diff
+l = log
+lp = log --patch
+ls = log --stat
+pl = pull
+ps = push
+st = status
+sw = switch
+graph = log --graph --oneline --decorate=short

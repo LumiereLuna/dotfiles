@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+echo 'https://community.torproject.org/onion-services/'
+
+openssl genpkey -algorithm x25519 -out /tmp/k1.prv.pem
+
+cat /tmp/k1.prv.pem | grep -v " PRIVATE KEY" | tr -d "[:space:]" | base64 -id | tail --bytes=32 | base32 | sed 's/=//g' > /tmp/k1.prv.key
+
+openssl pkey -in /tmp/k1.prv.pem -pubout | grep -v " PUBLIC KEY" | tr -d "[:space:]" | base64 -id | tail --bytes=32 | base32 | sed 's/=//g' > /tmp/k1.pub.key
+
+echo 'Public key (copy line to <HiddenServiceDir>/authorized_clients/<name>.auth as-is):'
+echo -n 'descriptor:x25519:'
+cat /tmp/k1.pub.key
+
+echo 'Private key (copy line to <ClientOnionAuthDir>/<name>.auth_private, or just the key itself, which is everything after "x25519:"):'
+echo -n '<onion-addr-without-.onion-part>:descriptor:x25519:'
+cat /tmp/k1.prv.key
