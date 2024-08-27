@@ -58,9 +58,6 @@ if [[ "$INSIDE_EMACS" = 'vterm' ]] &&
 	source ${EMACS_VTERM_PATH}/etc/emacs-vterm-bash.sh
 fi
 
-if [ -f "$HOME/.fzf.sh" ]; then
-	source "$HOME/.fzf.sh"
-fi
 if [ $(command -v fzf) ]; then
 	# Set up fzf key bindings and fuzzy completion
 	eval "$(fzf --bash)"
