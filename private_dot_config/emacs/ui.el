@@ -1,7 +1,7 @@
 ;; -*- lexical-binding: t -*-
 
 (custom-set-variables '(custom-safe-themes t)
-                      '(line-spacing 0.5)
+                      '(line-spacing 0.3)
                       '(show-paren-context-when-offscreen 'child-frame)
                       '(prettify-symbols-unprettify-at-point t)
                       '(column-number-indicator-zero-based nil)
@@ -23,7 +23,7 @@
 (blink-cursor-mode 1)
 (global-visual-line-mode 1)
 
-(let ((mymonofont "CommitMono")
+(let ((mymonofont "IBM Plex Mono")
       (mysansfont "Roboto"))
   (when (and (member mymonofont (font-family-list))
              (member mysansfont (font-family-list)))
