@@ -363,9 +363,9 @@
   (modus-vivendi-palette-overrides '((fg-main "#dddddd")
                                      (bg-hl-line bg-magenta-nuanced)
                                      ;; Semantic palette.
-                                     (comment-colour "#ff9d96")
-                                     (string-colour "#ff97fd")
-                                     (function-colour "#de96ff")))
+                                     (comment-colour "#e0c304")
+                                     (string-colour "#04d2e0")
+                                     (function-colour "#e00488")))
   ;; White colourscheme.
   (modus-operandi-palette-overrides '((fg-main "#1c1c1c")
                                       (bg-hl-line bg-magenta-nuanced)
