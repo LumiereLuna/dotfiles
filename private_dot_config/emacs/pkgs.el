@@ -361,7 +361,6 @@
   (modus-themes-org-blocks 'tinted-background)
   ;; Cyberpunk-inspired colourscheme. (colours taken from doom-outrun-electric)
   (modus-vivendi-palette-overrides '((fg-main "#dddddd")
-                                     (bg-main "#fefbfe")
                                      (bg-hl-line bg-magenta-nuanced)
                                      ;; Semantic palette.
                                      (comment-colour "#ff9d96")
@@ -426,4 +425,4 @@
                                            (variable fg-main)
                                            (warning fg-main)))
   :config
-  (load-theme 'modus-operandi))
+  (load-theme 'modus-vivendi))
