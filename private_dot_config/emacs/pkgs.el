@@ -359,8 +359,9 @@
   (font-lock-keyword-face ((t (:weight bold))))
   :custom
   (modus-themes-org-blocks 'tinted-background)
-  ;; Cyberpunk-inspired colourscheme. (colours taken from doom-outrun-electric)
+  ;; Cyberpunk-inspired colourscheme.
   (modus-vivendi-palette-overrides '((fg-main "#dddddd")
+                                     (bg-main "#04000d")
                                      (bg-hl-line bg-magenta-nuanced)
                                      ;; Semantic palette.
                                      (comment-colour "#e0c304")
