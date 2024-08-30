@@ -46,6 +46,7 @@
   :hook
   (org-mode . variable-pitch-mode)
   (org-todo-repeat . org-reset-checkbox-state-subtree)
+  (after-init . (lambda () (find-file (concat org-directory "/*.org") t)))
   :custom-face
   (org-checkbox ((t (:inherit fixed-pitch))))
   (org-table ((t (:inherit fixed-pitch))))
