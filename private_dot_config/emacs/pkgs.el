@@ -318,6 +318,8 @@
 ;; handle large outputs."
 ;; https://github.com/akermu/emacs-libvterm
 (use-package vterm
+  :hook
+  (vterm-mode . (lambda () (setq-local evil-move-cursor-back nil)))
   :bind
   (("<leader> <return>" . vterm)
    (:map vterm-mode-map ("C-q" . vterm-send-next-key)))
@@ -326,7 +328,6 @@
   :init
   ;; Moving cursor backwards is the default vim behavior but it is not
   ;; appropriate in some cases like terminals.
-  (add-hook 'vterm-mode-hook (lambda () (setq-local evil-move-cursor-back nil)))
   (evil-set-initial-state 'vterm-mode 'emacs))
 
 ;; "Jinx is a fast just-in-time spell-checker for Emacs. Jinx

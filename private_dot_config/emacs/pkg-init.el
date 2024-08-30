@@ -20,8 +20,9 @@
 ;; your Emacs packages periodically."
 ;; https://github.com/rranelli/auto-package-update.el
 (use-package auto-package-update
+  :hook
+  (auto-package-update-after . (lambda () (setq confirm-kill-emacs nil) (restart-emacs)))
   :init
-  (add-hook 'auto-package-update-after-hook (lambda () (setq confirm-kill-emacs nil) (restart-emacs)))
   (setq auto-package-update-delete-old-versions t)
   :config
   (auto-package-update-at-time "07:00"))
