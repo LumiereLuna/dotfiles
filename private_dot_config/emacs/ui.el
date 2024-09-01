@@ -42,11 +42,6 @@
   :config
   (tool-bar-mode -1))
 
-(use-package pixel-scroll
-  :ensure nil
-  :config
-  (pixel-scroll-precision-mode 1))
-
 (use-package tab-bar
   :ensure nil
   :config
