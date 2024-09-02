@@ -54,7 +54,7 @@
   (org-code ((t (:inherit fixed-pitch))))
   :custom
   (org-directory `,(expand-file-name "Documents/org" my/home-directory))
-  (org-agenda-files `,(expand-file-name "agenda.txt" org-directory))
+  (org-agenda-files `(,org-directory))
   (org-capture-templates '(("d" "default"
                             entry (file+headline "todo.org" "Inbox")
                             "* TODO %?" :prepend t)))
