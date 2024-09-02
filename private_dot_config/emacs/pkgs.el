@@ -103,11 +103,6 @@
   (org-appear-autoentities t)
   (org-appear-autosubmarkers t))
 
-;; "Make org-mode stars a little more super"
-;; https://github.com/integral-dw/org-superstar-mode
-(use-package org-superstar
-  :hook (org-mode . org-superstar-mode))
-
 ;; "Org-roam is a plain-text knowledge management system. It brings
 ;; some of Roam's more powerful features into the Org-mode ecosystem."
 ;; https://github.com/org-roam/org-roam
