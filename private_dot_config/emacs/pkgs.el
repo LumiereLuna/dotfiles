@@ -108,7 +108,7 @@
 (use-package org-roam
   :custom
   (org-roam-directory `,(expand-file-name "Documents/org-roam" my/home-directory))
-  (org-roam-node-display-template `,(concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+  (org-roam-node-display-template "${title} ${tags}")
   (org-roam-mode-sections '((org-roam-backlinks-section :unique t) org-roam-reflinks-section))
   :config
   (defun my/org-roam-open-day-file ()
