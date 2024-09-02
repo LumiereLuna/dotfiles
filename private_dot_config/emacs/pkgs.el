@@ -66,7 +66,6 @@
   (org-ellipsis "   […]")
   (org-tags-column 0)
   (org-log-done 'time)
-  (org-latex-compiler "lualatex")
   (org-preview-latex-image-directory `,(expand-file-name "org-latex-preview" temporary-file-directory))
   (org-hide-emphasis-markers t)
   (org-pretty-entities t)
