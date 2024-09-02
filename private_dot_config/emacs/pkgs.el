@@ -57,9 +57,6 @@
   (org-agenda-files `,(expand-file-name "agenda.txt" org-directory))
   (org-capture-templates '(("d" "default"
                             entry (file+headline "todo.org" "Inbox")
-                            "* TODO %?" :prepend t)
-                           ("p" "programado"
-                            entry (file+headline "todo.org" "Programado")
                             "* TODO %?" :prepend t)))
   (org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "WAIT(w)" "|" "DONE(d)")))
   (org-agenda-window-setup 'current-window)
