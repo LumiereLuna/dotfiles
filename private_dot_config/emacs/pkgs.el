@@ -69,6 +69,7 @@
   (org-preview-latex-image-directory `,(expand-file-name "org-latex-preview" temporary-file-directory))
   (org-hide-emphasis-markers t)
   (org-pretty-entities t)
+  (org-image-actual-width '(400))
   :config
   (defvar-keymap my/org-major-mode-keymap
     :doc "My prefix map for org's major mode."
