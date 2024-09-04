@@ -70,6 +70,8 @@
   (org-hide-emphasis-markers t)
   (org-pretty-entities t)
   (org-image-actual-width '(400))
+  (org-agenda-custom-commands '(("n" todo "NEXT"
+                                 ((org-agenda-sorting-strategy '(category-up priority-up))))))
   :config
   (defvar-keymap my/org-major-mode-keymap
     :doc "My prefix map for org's major mode."
