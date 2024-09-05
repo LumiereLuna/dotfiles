@@ -1,16 +1,16 @@
 feed-sort-order lastupdated
 show-read-articles no
 show-read-feeds no
-auto-reload yes
+#auto-reload yes
 confirm-exit yes
 max-items 100
 
 datetime-format "%F"
 articlelist-format "%D %?T?|%-17T| ?%t"
-articlelist-title-format "%T [%U] (%u) %F"
-feedlist-format "%t %u"
+articlelist-title-format "%T (%u/%t) [%U] %F"
+feedlist-format "%t (%U) [%l]"
 feedlist-title-format "%?T?%T&All feeds? (%u/%t) %F"
-itemview-title-format "%F (%u) - %T"
+itemview-title-format "%F | %T"
 
 # Vi-like keybindings.
 bind-key j down feedlist
