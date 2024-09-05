@@ -282,6 +282,17 @@
 (use-package rainbow-delimiters
   :hook (lisp-mode emacs-lisp-mode))
 
+;; "[A] small Emacs minor mode that mimics the effect of fill-column
+;; in visual-line-mode. Instead of wrapping lines at the window edge,
+;; which is the standard behaviour of visual-line-mode, it wraps lines
+;; at fill-column (or visual-fill-column-width, if set)."
+;; https://codeberg.org/joostkremers/visual-fill-column
+(use-package visual-fill-column
+  :hook (text-mode)
+  :custom
+  (visual-fill-column-center-text t)
+  (visual-fill-column-extra-text-width '(5 . 5)))
+
 ;; https://git.sr.ht/~protesilaos/modus-themes
 (use-package modus-themes
   :if (or (display-graphic-p) (daemonp))
