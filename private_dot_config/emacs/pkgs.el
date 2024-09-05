@@ -291,7 +291,8 @@
   :hook (text-mode)
   :custom
   (visual-fill-column-center-text t)
-  (visual-fill-column-extra-text-width '(5 . 5)))
+  (visual-fill-column-extra-text-width '(5 . 5))
+  (visual-fill-column-enable-sensible-window-split t))
 
 ;; https://git.sr.ht/~protesilaos/modus-themes
 (use-package modus-themes
