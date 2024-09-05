@@ -1,7 +1,7 @@
 feed-sort-order lastupdated
 show-read-articles no
 show-read-feeds no
-#auto-reload yes
+auto-reload yes
 confirm-exit yes
 max-items 100
 
