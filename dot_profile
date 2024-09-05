@@ -13,6 +13,7 @@ PATH="$PATH:$HOME/.luarocks/bin"
 export PATH
 
 export PAGER=/usr/bin/less
+export LESS=-R
 
 if [ $(command -v nvim) ]; then
     export VISUAL=/usr/bin/nvim
