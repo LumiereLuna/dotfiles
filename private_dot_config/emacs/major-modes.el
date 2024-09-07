@@ -34,6 +34,11 @@
                                                  (typescript-mode . typescript-ts-mode)
                                                  (yaml-mode . yaml-ts-mode))))
 
+;; ########## Ledger ##########
+
+(use-package ledger-mode
+  :mode "\\.dat\\'")
+
 ;; ########## Lua ##########
 
 ;; https://github.com/immerrr/lua-mode
