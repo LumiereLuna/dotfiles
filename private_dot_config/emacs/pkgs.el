@@ -57,10 +57,10 @@
   (org-roam-directory `,(expand-file-name "Documents/org-roam" my/home-directory))
   (org-roam-node-display-template "${title} ${tags}")
   :config
-  (defun my/org-roam-open-day-file ()
+  (defun my/org-roam-open-current-file ()
     (interactive)
     (find-file
-     (concat org-roam-directory "/notes/" (format-time-string "%Y-%m-%d") ".org")))
+     (concat org-roam-directory "/notes/" (format-time-string "%Y") ".org")))
   (defvar-keymap my/org-roam-mode-keymap
     :doc "My prefix map for roam's commands."
     "f" #'org-roam-node-find
@@ -68,7 +68,7 @@
     "b" #'org-roam-buffer-toggle
     "a" #'org-roam-alias-add
     "t" #'org-roam-tag-add
-    "d" #'my/org-roam-open-day-file)
+    "c" #'my/org-roam-open-current-file)
   (keymap-set global-map "<leader> r" my/org-roam-mode-keymap)
   (custom-set-variables '(org-cite-global-bibliography `(,(expand-file-name "library.bib" org-roam-directory))))
   ;; Customise the appearance of org-roam-buffer.
