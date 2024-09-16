@@ -238,6 +238,12 @@
 (use-package yasnippet-snippets
   :defer t)
 
+;; "Magit is an interface to the version control system Git,
+;; implemented as an Emacs package."
+;; https://github.com/magit/magit
+(use-package magit
+  :defer t)
+
 ;; ########## Misc ##########
 
 ;; "Emacs-libvterm (vterm) is fully-fledged terminal emulator inside GNU Emacs
