@@ -11,14 +11,3 @@ articlelist-title-format "%T (%u/%t) [%U] %F"
 feedlist-format "%t (%U) [%l]"
 feedlist-title-format "%?T?%T&All feeds? (%u/%t) %F"
 itemview-title-format "%F | %T"
-
-# Vi-like keybindings.
-bind-key j down feedlist
-bind-key k up feedlist
-bind-key j next articlelist
-bind-key k prev articlelist
-bind-key J next-feed articlelist
-bind-key K prev-feed articlelist
-bind-key j down article
-bind-key k up article
-
