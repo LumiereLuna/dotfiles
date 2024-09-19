@@ -12,3 +12,5 @@ set expandtab
 
 set showmatch
 set laststatus=0
+
+set mouse=a
