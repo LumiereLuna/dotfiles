@@ -18,6 +18,6 @@ echo "$(date -Ins) Changing directory to \$HOME"
 cd "${HOME}"
 
 echo "$(date -Ins) Making a backup of \$HOME"
-restic --verbose=2 backup . --exclude-file="${HOME}/.config/restic_ignore.txt"
+restic --verbose backup . --exclude-file="${HOME}/.config/restic_ignore.txt"
 
 echo "$(date -Ins) Done running run_restic.sh"
