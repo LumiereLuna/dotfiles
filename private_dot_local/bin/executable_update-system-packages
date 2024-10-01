@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+. /etc/os-release
+
+case $NAME in
+'openSUSE Tumbleweed')
+	sudo zypper dup
+	;;
+'Debian GNU/Linux')
+	if [ $(command -v nala) ]; then
+		sudo nala upgrade
+	else
+		echo 'nala is not installed, apt-get will be used instead.'
+		sudo apt-get update && sudo apt-get upgrade
+	fi
+	;;
+'Fedora Linux')
+    sudo dnf upgrade
+    ;;
+esac

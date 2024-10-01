@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+if [ $(command -v flatpak) ]; then
+	echo '------ Updating Flatpak apps ------'
+	flatpak --user upgrade --assumeyes
+fi
+
+if [ $(command -v pipx) ]; then
+	echo '------ Updating pipx packages ------'
+	pipx upgrade-all
+fi
+
+if [ $(command -v cargo) ]; then
+	echo '------ Updating global Rust packages ------'
+	if [ -n "$(cargo install --list | grep '^cargo-update')" ]; then
+		cargo install-update -a
+	else
+		echo 'cargo-update is not installed, Rust packages will not be updated.'
+		echo 'To install cargo update run `cargo install cargo-update`'
+	fi
+fi
