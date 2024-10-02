@@ -10,6 +10,6 @@ echo "$(date -Ins) Sourcing environment variables"
 . "${HOME}/.local/bin/restic_env.sh"
 
 echo "$(date -Ins) Pruning repository"
-restic --verbose forget --keep-within=6m --prune
+restic --verbose forget --keep-within=2m --prune
 
 echo "$(date -Ins) Done running restic_maintenance.sh"
