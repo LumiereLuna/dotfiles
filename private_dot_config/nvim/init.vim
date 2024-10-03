@@ -1,5 +1,8 @@
 filetype plugin on
 
+syntax off
+colorscheme vim
+
 set fileformats=unix,dos
 set clipboard=unnamedplus
 " Needed to enable smartcase search.
