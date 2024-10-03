@@ -332,4 +332,4 @@
 ;; https://github.com/protesilaos/ef-themes
 (use-package ef-themes
   :config
-  (load-theme 'ef-tritanopia-dark))
+  (load-theme 'ef-dark))
