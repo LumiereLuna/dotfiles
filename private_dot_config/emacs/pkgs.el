@@ -322,14 +322,7 @@
   (visual-fill-column-extra-text-width '(5 . 5))
   (visual-fill-column-enable-sensible-window-split t))
 
-;; https://git.sr.ht/~protesilaos/modus-themes
-(use-package modus-themes
-  :disabled
-  :if (or (display-graphic-p) (daemonp))
-  :config
-  (load-theme 'modus-vivendi))
-
 ;; https://github.com/protesilaos/ef-themes
 (use-package ef-themes
   :config
-  (load-theme 'ef-dark))
+  (load-theme 'ef-winter))
