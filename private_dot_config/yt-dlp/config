@@ -1,4 +1,3 @@
 --merge-output-format mkv
---prefer-free-formats
 --format 'bv*+ba/b'
 --format-sort 'res,vcodec:av01'
