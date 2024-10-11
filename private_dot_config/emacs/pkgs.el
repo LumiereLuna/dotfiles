@@ -325,4 +325,4 @@
 ;; https://github.com/protesilaos/ef-themes
 (use-package ef-themes
   :config
-  (load-theme 'ef-winter))
+  (load-theme 'ef-tritanopia-light))
