@@ -36,8 +36,8 @@
 
 ;; ########## Ledger ##########
 
-(use-package ledger-mode
-  :mode "\\.dat\\'")
+(use-package hledger-mode
+  :defer t)
 
 ;; ########## Lua ##########
 
