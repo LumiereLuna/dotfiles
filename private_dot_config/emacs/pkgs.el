@@ -274,7 +274,7 @@
   (setq howm-directory (expand-file-name "Documents/notes/howm" my/home-directory))
   (setq howm-keyword-file (expand-file-name ".howm-keys" howm-directory))
   (setq howm-history-file (expand-file-name ".howm-history" howm-directory))
-  (setq howm-file-name-format "%Y/%Y-%m-%d-%H%M%S.md")
+  (setq howm-file-name-format "%Y/%m/%Y-%m-%d-%H%M%S.md")
   (setq howm-view-title-header "#")
   :config
   ;; By default, howm binds C-h to the same binding as backspace
