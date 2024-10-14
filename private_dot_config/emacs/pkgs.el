@@ -49,40 +49,6 @@
   (org-appear-autoentities t)
   (org-appear-autosubmarkers t))
 
-;; "Org-roam is a plain-text knowledge management system. It brings
-;; some of Roam's more powerful features into the Org-mode ecosystem."
-;; https://github.com/org-roam/org-roam
-(use-package org-roam
-  :disabled
-  :custom
-  (org-roam-directory `,(expand-file-name "Documents/org-roam" my/home-directory))
-  (org-roam-node-display-template "${title} ${tags}")
-  :config
-  (defun my/org-roam-open-current-file ()
-    (interactive)
-    (find-file
-     (concat org-roam-directory "/notes/" (format-time-string "%Y") ".org")))
-  (defvar-keymap my/org-roam-mode-keymap
-    :doc "My prefix map for roam's commands."
-    "f" #'org-roam-node-find
-    "i" #'org-roam-node-insert
-    "b" #'org-roam-buffer-toggle
-    "a" #'org-roam-alias-add
-    "t" #'org-roam-tag-add
-    "c" #'my/org-roam-open-current-file)
-  (keymap-set global-map "<leader> r" my/org-roam-mode-keymap)
-  (custom-set-variables '(org-cite-global-bibliography `(,(expand-file-name "library.bib" org-roam-directory))))
-  ;; Customise the appearance of org-roam-buffer.
-  (add-to-list 'display-buffer-alist
-               '("\\*org-roam\\*"
-                 (display-buffer-in-side-window)
-                 (side . right)
-                 (slot . 0)
-                 (window-width . 0.20)
-                 (preserve-size '(t . t))
-                 (window-parameters . ((no-delete-other-windows . t)))))
-  (org-roam-db-autosync-mode))
-
 ;; ########## UX improvements ##########
 
 ;; "Consult provides search and navigation commands based on the Emacs
