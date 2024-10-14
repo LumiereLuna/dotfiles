@@ -37,18 +37,6 @@
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
 
-;; ########## Org-mode ##########
-
-;; "Enables automatic visibility toggling depending on cursor
-;; position. Hidden element parts appear when the cursor enters an
-;; element and disappear when it leaves."
-;; https://github.com/awth13/org-appear
-(use-package org-appear
-  :hook (org-mode . org-appear-mode)
-  :custom
-  (org-appear-autoentities t)
-  (org-appear-autosubmarkers t))
-
 ;; ########## UX improvements ##########
 
 ;; "Consult provides search and navigation commands based on the Emacs
@@ -318,6 +306,16 @@
   (visual-fill-column-center-text t)
   (visual-fill-column-extra-text-width '(5 . 5))
   (visual-fill-column-enable-sensible-window-split t))
+
+;; "Enables automatic visibility toggling depending on cursor
+;; position. Hidden element parts appear when the cursor enters an
+;; element and disappear when it leaves."
+;; https://github.com/awth13/org-appear
+(use-package org-appear
+  :hook (org-mode . org-appear-mode)
+  :custom
+  (org-appear-autoentities t)
+  (org-appear-autosubmarkers t))
 
 ;; https://github.com/protesilaos/ef-themes
 (use-package ef-themes
