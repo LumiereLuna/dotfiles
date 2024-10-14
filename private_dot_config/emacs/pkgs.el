@@ -53,6 +53,7 @@
 ;; some of Roam's more powerful features into the Org-mode ecosystem."
 ;; https://github.com/org-roam/org-roam
 (use-package org-roam
+  :disabled
   :custom
   (org-roam-directory `,(expand-file-name "Documents/org-roam" my/home-directory))
   (org-roam-node-display-template "${title} ${tags}")
@@ -295,6 +296,36 @@
       :sasl-password ,libera-password
       :channels ("#emacs" "#fedora" "#kde" "##rust" "#linux" "#networking" "#security" "#debian" "#cybersecurity" "#audio" "##audio" "##programming" "#bash" "#javascript" "#python"))))
   (circe-reduce-lurker-spam t))
+
+;; "[A] note-taking tool on Emacs. It is similar to emacs-wiki.el; you
+;; can enjoy hyperlinks and full-text search easily. It is not similar
+;; to emacs-wiki.el; it can be combined with any format."
+;; https://github.com/kaorahi/howm
+(use-package howm
+  :hook
+  ((howm-mode . howm-mode-set-buffer-name)
+   (after-save . howm-mode-set-buffer-name)
+   (howm-menu . evil-emacs-state))
+  :custom
+  ;; Use ripgrep as grep
+  (howm-view-use-grep t)
+  (howm-view-grep-command "rg")
+  (howm-view-grep-option "-nH --no-heading --color never")
+  (howm-view-grep-extended-option nil)
+  (howm-view-grep-fixed-option "-F")
+  (howm-view-grep-expr-option nil)
+  (howm-view-grep-file-stdin-option nil)
+  :init
+  ;; Directory configuration
+  (setq howm-directory (expand-file-name "Documents/notes/howm" my/home-directory))
+  (setq howm-keyword-file (expand-file-name ".howm-keys" howm-directory))
+  (setq howm-history-file (expand-file-name ".howm-history" howm-directory))
+  (setq howm-file-name-format "%Y-%m-%d-%H%M%S.md")
+  :config
+  ;; By default, howm binds C-h to the same binding as backspace
+  (define-key howm-menu-mode-map "\C-h" nil)
+  (define-key riffle-summary-mode-map "\C-h" nil)
+  (define-key howm-view-contents-mode-map "\C-h" nil))
 
 ;; ########## UI ##########
 
