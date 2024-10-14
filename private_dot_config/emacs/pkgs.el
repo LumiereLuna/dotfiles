@@ -257,8 +257,7 @@
 ;; https://github.com/kaorahi/howm
 (use-package howm
   :hook
-  ((howm-mode . howm-mode-set-buffer-name)
-   (after-save . howm-mode-set-buffer-name)
+  (((howm-mode after-save) . howm-mode-set-buffer-name)
    (howm-menu . evil-emacs-state))
   :custom
   ;; Use ripgrep as grep
