@@ -19,3 +19,8 @@ if [ $(command -v cargo) ]; then
 		echo 'To install cargo update run `cargo install cargo-update`'
 	fi
 fi
+
+if [ $(command -v npm) ]; then
+	echo '------ Updating npm packages ------'
+	npm update -g
+fi
