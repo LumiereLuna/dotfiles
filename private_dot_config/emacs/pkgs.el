@@ -258,7 +258,7 @@
 (use-package howm
   :hook
   (((howm-mode after-save) . howm-mode-set-buffer-name)
-   (howm-menu . evil-emacs-state))
+   ((howm-menu howm-view-summary-mode) . evil-emacs-state))
   :custom
   ;; Use ripgrep as grep
   (howm-view-use-grep t)
@@ -301,7 +301,7 @@
 ;; at fill-column (or visual-fill-column-width, if set)."
 ;; https://codeberg.org/joostkremers/visual-fill-column
 (use-package visual-fill-column
-  :hook (text-mode)
+  :hook (text-mode howm-view-contents-mode)
   :custom
   (visual-fill-column-center-text t)
   (visual-fill-column-extra-text-width '(5 . 5))
