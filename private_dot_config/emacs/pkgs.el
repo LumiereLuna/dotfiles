@@ -259,6 +259,41 @@
   :hook
   (((howm-mode after-save) . howm-mode-set-buffer-name)
    ((howm-menu howm-view-summary-mode) . evil-emacs-state))
+  :bind
+  ;; Remove default global bindings. They conflict with org-mode.
+  (("C-c , ," . nil)
+   ("C-c , SPC" . nil)
+   ("C-c , ." . nil)
+   ("C-c , :" . nil)
+   ("C-c , C" . nil)
+   ("C-c , I" . nil)
+   ("C-c , K" . nil)
+   ("C-c , M" . nil)
+   ("C-c , Q" . nil)
+   ("C-c , T" . nil)
+   ("C-c , a" . nil)
+   ("C-c , b" . nil)
+   ("C-c , c" . nil)
+   ("C-c , d" . nil)
+   ("C-c , e" . nil)
+   ("C-c , g" . nil)
+   ("C-c , h" . nil)
+   ("C-c , i" . nil)
+   ("C-c , l" . nil)
+   ("C-c , m" . nil)
+   ("C-c , o" . nil)
+   ("C-c , s" . nil)
+   ("C-c , t" . nil)
+   ("C-c , w" . nil)
+   ("C-c , x" . nil)
+   ("C-c , y" . nil)
+   ;; By default, howm binds C-h to the same binding as backspace
+   :map howm-menu-mode-map
+   ("C-h" . nil)
+   :map riffle-summary-mode-map
+   ("C-h" . nil)
+   :map howm-view-contents-mode-map
+   ("C-h" . nil))
   :custom
   ;; Use ripgrep as grep
   (howm-view-use-grep t)
@@ -275,11 +310,35 @@
   (setq howm-history-file (expand-file-name ".howm-history" howm-directory))
   (setq howm-file-name-format "%Y/%Y-%m-%d-%H%M%S.md")
   (setq howm-view-title-header "#")
-  :config
-  ;; By default, howm binds C-h to the same binding as backspace
-  (define-key howm-menu-mode-map "\C-h" nil)
-  (define-key riffle-summary-mode-map "\C-h" nil)
-  (define-key howm-view-contents-mode-map "\C-h" nil))
+  (defvar-keymap my/howm-keymap
+    :doc "My prefix map for howm."
+    "," #'howm-menu
+    "SPC" #'howm-toggle-buffer
+    "." #'howm-find-today
+    ":" #'howm-find-yesterday
+    "C" #'howm-create-here
+    "I" #'howm-create-interactively
+    "K" #'howm-keyword-to-kill-ring
+    "M" #'howm-open-named-file
+    "Q" #'howm-kill-all
+    "T" #'howm-insert-dtime
+    "a" #'howm-list-all
+    "b" #'howm-list-buffers
+    "c" #'howm-create
+    "d" #'howm-insert-date
+    "e" #'howm-remember
+    "g" #'howm-list-grep
+    "h" #'howm-history
+    "i" #'howm-insert-keyword
+    "l" #'howm-list-recent
+    "m" #'howm-list-migemo
+    "o" #'howm-occur
+    "s" #'howm-list-grep-fixed
+    "t" #'howm-list-todo
+    "w" #'howm-random-walk
+    "x" #'howm-list-mark-ring
+    "y" #'howm-list-schedule)
+  (keymap-global-set "<leader> h" my/howm-keymap))
 
 ;; ########## UI ##########
 
