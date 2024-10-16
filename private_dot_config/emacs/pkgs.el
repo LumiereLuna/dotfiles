@@ -260,8 +260,9 @@
   (((howm-mode after-save) . howm-mode-set-buffer-name)
    ((howm-menu howm-view-summary-mode) . evil-emacs-state))
   :bind
-  ;; Remove default global bindings. They conflict with org-mode.
-  (("C-c , ," . nil)
+  (("<leader> h" . howm-menu)
+   ;; Remove default global bindings. They conflict with org-mode.
+   ("C-c , ," . nil)
    ("C-c , SPC" . nil)
    ("C-c , ." . nil)
    ("C-c , :" . nil)
@@ -309,36 +310,7 @@
   (setq howm-keyword-file (expand-file-name ".howm-keys" howm-directory))
   (setq howm-history-file (expand-file-name ".howm-history" howm-directory))
   (setq howm-file-name-format "%Y/%Y-%m-%d-%H%M%S.md")
-  (setq howm-view-title-header "#")
-  (defvar-keymap my/howm-keymap
-    :doc "My prefix map for howm."
-    "," #'howm-menu
-    "SPC" #'howm-toggle-buffer
-    "." #'howm-find-today
-    ":" #'howm-find-yesterday
-    "C" #'howm-create-here
-    "I" #'howm-create-interactively
-    "K" #'howm-keyword-to-kill-ring
-    "M" #'howm-open-named-file
-    "Q" #'howm-kill-all
-    "T" #'howm-insert-dtime
-    "a" #'howm-list-all
-    "b" #'howm-list-buffers
-    "c" #'howm-create
-    "d" #'howm-insert-date
-    "e" #'howm-remember
-    "g" #'howm-list-grep
-    "h" #'howm-history
-    "i" #'howm-insert-keyword
-    "l" #'howm-list-recent
-    "m" #'howm-list-migemo
-    "o" #'howm-occur
-    "s" #'howm-list-grep-fixed
-    "t" #'howm-list-todo
-    "w" #'howm-random-walk
-    "x" #'howm-list-mark-ring
-    "y" #'howm-list-schedule)
-  (keymap-global-set "<leader> h" my/howm-keymap))
+  (setq howm-view-title-header "#"))
 
 ;; ########## UI ##########
 
