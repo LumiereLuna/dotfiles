@@ -256,7 +256,9 @@
 ;; to emacs-wiki.el; it can be combined with any format."
 ;; https://github.com/kaorahi/howm
 (use-package howm
-  :hook ((howm-mode after-save) . howm-mode-set-buffer-name)
+  :hook
+  (((howm-mode after-save) . howm-mode-set-buffer-name)
+   (howm-view-summary-mode . (lambda () (jinx-mode -1) (display-line-numbers-mode -1) (visual-fill-column-mode -1))))
   :bind
   (("<leader> h" . howm-menu)
    ;; Remove default global bindings. They conflict with org-mode.
