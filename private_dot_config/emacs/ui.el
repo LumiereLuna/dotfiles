@@ -62,7 +62,3 @@
   :custom
   (display-line-numbers-type 'visual)
   (display-line-numbers-grow-only t))
-
-(use-package hl-line
-  :ensure nil
-  :hook (prog-mode text-mode))
