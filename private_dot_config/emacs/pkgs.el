@@ -256,9 +256,7 @@
 ;; to emacs-wiki.el; it can be combined with any format."
 ;; https://github.com/kaorahi/howm
 (use-package howm
-  :hook
-  (((howm-mode after-save) . howm-mode-set-buffer-name)
-   ((howm-menu howm-view-summary-mode) . evil-emacs-state))
+  :hook ((howm-mode after-save) . howm-mode-set-buffer-name)
   :bind
   (("<leader> h" . howm-menu)
    ;; Remove default global bindings. They conflict with org-mode.
@@ -305,6 +303,7 @@
   (howm-view-grep-expr-option nil)
   (howm-view-grep-file-stdin-option nil)
   :init
+  (add-to-list 'evil-buffer-regexps '("^\\*howm" . emacs))
   ;; Directory configuration
   (setq howm-directory (expand-file-name "Documents/notes/howm" my/home-directory))
   (setq howm-keyword-file (expand-file-name ".howm-keys" howm-directory))
@@ -332,7 +331,7 @@
 ;; at fill-column (or visual-fill-column-width, if set)."
 ;; https://codeberg.org/joostkremers/visual-fill-column
 (use-package visual-fill-column
-  :hook (text-mode howm-view-contents-mode)
+  :hook (text-mode)
   :custom
   (visual-fill-column-center-text t)
   (visual-fill-column-extra-text-width '(5 . 5))
