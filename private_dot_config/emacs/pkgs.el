@@ -166,8 +166,7 @@
 ;; "Unobtrusively trim extraneous white-space *ONLY* in lines edited."
 ;; https://github.com/lewang/ws-butler
 (use-package ws-butler
-  :config
-  (ws-butler-global-mode 1))
+  :hook (prog-mode text-mode))
 
 ;; "Auto-format source code in many languages with one command"
 ;; https://github.com/lassik/emacs-format-all-the-code
@@ -344,7 +343,7 @@
 ;; element and disappear when it leaves."
 ;; https://github.com/awth13/org-appear
 (use-package org-appear
-  :hook (org-mode . org-appear-mode)
+  :hook (org-mode)
   :custom
   (org-appear-autoentities t)
   (org-appear-autosubmarkers t))
