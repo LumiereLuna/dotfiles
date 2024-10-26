@@ -66,5 +66,3 @@ fi
 if [ $(command -v zoxide) ]; then
 	eval "$(zoxide init bash)"
 fi
-
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
