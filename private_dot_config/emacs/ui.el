@@ -18,7 +18,6 @@
 
 (show-paren-mode 1)
 (column-number-mode 1)
-(line-number-mode -1)
 (context-menu-mode 1)
 (blink-cursor-mode 1)
 (global-visual-line-mode 1)
