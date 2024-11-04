@@ -37,34 +37,6 @@
     "f" #'flymake-mode)
   (keymap-global-set "<leader> f" my/flymake-keymap))
 
-;; "A client for Language Server Protocol servers."
-;; https://joaotavora.github.io/eglot/
-;; https://github.com/joaotavora/eglot
-(use-package eglot
-  :ensure nil
-  :custom
-  (eglot-autoshutdown t)
-  (eglot-send-changes-idle-time 0.1)
-  (eglot-ignored-server-capabilities '(:documentHighlightProvider
-                                       :colorProvider
-                                       :foldingRangeProvider
-                                       :documentFormattingProvider
-                                       :documentRangeFormattingProvider
-                                       :documentOnTypeFormattingProvider))
-  :config
-  (defvar-keymap my/eglot-keymap
-    :doc "My prefix map for eglot-mode."
-    "r n" #'eglot-rename
-    "r c" #'eglot-reconnect
-    "u" #'eglot-update
-    "h" #'eglot-inlay-hints-mode
-    "a" #'eglot-code-actions
-    "s" #'eglot-shutdown
-    "e" #'eglot)
-  (keymap-global-set "<leader> e" my/eglot-keymap)
-  ;; massive perf boost---don't log every event
-  (fset #'jsonrpc--log-event #'ignore))
-
 ;; https://orgmode.org/
 ;; https://git.savannah.gnu.org/cgit/emacs/org-mode.git
 (use-package org

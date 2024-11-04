@@ -169,6 +169,32 @@
 (use-package ws-butler
   :hook (prog-mode text-mode))
 
+;; "Client for Language Server Protocol (v3.14). lsp-mode aims to
+;; provide IDE-like experience by providing optional integration with
+;; the most popular Emacs packages like company, flycheck and
+;; projectile."
+;; https://github.com/emacs-lsp/lsp-mode
+(use-package lsp-mode
+  :commands (lsp lsp-deferred)
+  :hook
+  ((js-mode js-ts-mode python-mode python-ts-mode) . lsp-deferred)
+  :custom
+  (lsp-keymap-prefix "C-c l")
+  (lsp-idle-delay 0.500))
+
+;; "UI integrations for lsp-mode"
+;; https://github.com/emacs-lsp/lsp-ui/
+(use-package lsp-ui
+  :commands lsp-ui-mode)
+
+;; "Helm and Ivy users have extra commands that leverage lsp-mode
+;; extra information, let’s try to mimic a few features of helm-lsp
+;; and lsp-ivy in consult workflow (tested with selectrum and dogfed
+;; with vertico)"
+;; https://github.com/gagbo/consult-lsp
+(use-package consult-lsp
+  :defer t)
+
 ;; "Auto-format source code in many languages with one command"
 ;; https://github.com/lassik/emacs-format-all-the-code
 (use-package format-all

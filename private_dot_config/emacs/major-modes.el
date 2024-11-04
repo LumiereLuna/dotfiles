@@ -34,11 +34,6 @@
   (markdown-pre-face ((t (:inherit fixed-pitch))))
   (markdown-code-face ((t (:inherit fixed-pitch)))))
 
-;; ########## Python ##########
-
-(when (executable-find "pylsp")
-  (add-hook 'python-ts-mode-hook 'eglot-ensure))
-
 ;; ########## Web development ##########
 
 (custom-set-variables '(css-indent-offset 2)
@@ -51,6 +46,3 @@
   :ensure nil
   :load-path "forks/emmet-mode/"
   :hook (sgml-mode css-mode))
-
-(when (executable-find "typescript-language-server")
-  (add-hook 'js-ts-mode-hook 'eglot-ensure))
