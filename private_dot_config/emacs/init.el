@@ -7,7 +7,8 @@
                                   ((eq system-type 'windows-nt)
                                    (convert-standard-filename (getenv "HOMEPATH")))))
 
-(dolist (elfile '("defaults.el"
+(dolist (elfile '("secrets.el"
+                  "defaults.el"
                   "pkg-init.el"
                   "ui.el"
                   "builtins.el"

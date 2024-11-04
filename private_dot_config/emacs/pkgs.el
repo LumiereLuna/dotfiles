@@ -263,17 +263,13 @@
 ;; https://github.com/emacs-circe/circe
 (use-package circe
   :defer t
-  :init
-  (let ((irc-passwords-file (expand-file-name "irc-passwords.el" user-emacs-directory)))
-    (when (file-readable-p irc-passwords-file)
-      (load-file irc-passwords-file)))
   :custom
   (circe-network-options
    `(("Libera Chat"
       :tls t
       :nick "tg0xff"
       :sasl-username "tg0xff"
-      :sasl-password ,libera-password
+      :sasl-password ,my/secret-libera
       :channels ("#emacs" "#fedora" "#kde" "##rust" "#linux" "#networking" "#security" "#debian" "#cybersecurity" "#audio" "##audio" "##programming" "#bash" "#javascript" "#python"))))
   (circe-reduce-lurker-spam t))
 
