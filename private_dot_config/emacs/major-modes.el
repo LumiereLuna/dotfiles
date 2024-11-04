@@ -38,11 +38,3 @@
 
 (custom-set-variables '(css-indent-offset 2)
                       '(js-indent-level 2))
-
-;; "Emmet is a plugin for many popular text editors which greatly improves HTML
-;; & CSS workflow:"
-;; https://github.com/smihica/emmet-mode
-(use-package emmet-mode
-  :ensure nil
-  :load-path "forks/emmet-mode/"
-  :hook (sgml-mode css-mode))
