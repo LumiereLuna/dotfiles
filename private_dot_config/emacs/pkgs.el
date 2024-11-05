@@ -28,6 +28,7 @@
   :config
   (delete 'vterm evil-collection-mode-list)
   (delete 'info evil-collection-mode-list)
+  (delete 'dired evil-collection-mode-list)
   (evil-collection-init))
 
 ;; "Supplemental evil-mode key-bindings to Emacs org-mode."
