@@ -374,4 +374,4 @@
 ;; https://github.com/protesilaos/ef-themes
 (use-package ef-themes
   :config
-  (load-theme 'ef-kassio))
+  (load-theme 'ef-duo-dark))
