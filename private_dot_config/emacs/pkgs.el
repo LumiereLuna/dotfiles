@@ -189,14 +189,6 @@
 (use-package lsp-ui
   :commands lsp-ui-mode)
 
-;; "Helm and Ivy users have extra commands that leverage lsp-mode
-;; extra information, let’s try to mimic a few features of helm-lsp
-;; and lsp-ivy in consult workflow (tested with selectrum and dogfed
-;; with vertico)"
-;; https://github.com/gagbo/consult-lsp
-(use-package consult-lsp
-  :defer t)
-
 ;; "Dape is a debug adapter client for Emacs. The debug adapter
 ;; protocol, much like its more well-known counterpart, the language
 ;; server protocol, aims to establish a common API for programming
