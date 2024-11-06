@@ -171,6 +171,12 @@
 (use-package ws-butler
   :hook (prog-mode text-mode))
 
+;; "Magit is an interface to the version control system Git,
+;; implemented as an Emacs package."
+;; https://github.com/magit/magit
+(use-package magit
+  :defer t)
+
 ;; "Client for Language Server Protocol (v3.14). lsp-mode aims to
 ;; provide IDE-like experience by providing optional integration with
 ;; the most popular Emacs packages like company, flycheck and
@@ -232,59 +238,7 @@
 (use-package yasnippet-snippets
   :defer t)
 
-;; "Magit is an interface to the version control system Git,
-;; implemented as an Emacs package."
-;; https://github.com/magit/magit
-(use-package magit
-  :defer t)
-
 ;; ########## Misc ##########
-
-;; "Emacs-libvterm (vterm) is fully-fledged terminal emulator inside GNU Emacs
-;; based on libvterm, a C library. As a result of using compiled code (instead
-;; of elisp), emacs-libvterm is fully capable, fast, and it can seamlessly
-;; handle large outputs."
-;; https://github.com/akermu/emacs-libvterm
-(use-package vterm
-  :hook
-  (vterm-mode . (lambda () (setq-local evil-move-cursor-back nil)))
-  :bind
-  (("<leader> <return>" . vterm)
-   (:map vterm-mode-map ("C-q" . vterm-send-next-key)))
-  :custom
-  (vterm-shell "/bin/zsh")
-  :init
-  ;; Moving cursor backwards is the default vim behavior but it is not
-  ;; appropriate in some cases like terminals.
-  (evil-set-initial-state 'vterm-mode 'emacs))
-
-;; "Jinx is a fast just-in-time spell-checker for Emacs. Jinx
-;; highlights misspelled words in the text of the visible portion of
-;; the buffer."
-(use-package jinx
-  :hook (text-mode prog-mode conf-mode)
-  :bind (("M-$" . jinx-correct)
-         ("C-M-$" . jinx-languages))
-  :custom
-  (jinx-languages "en_GB es_MX"))
-
-;; "Circe is a Client for IRC in Emacs. It tries to have sane
-;; defaults, and integrates well with the rest of the editor, using
-;; standard Emacs key bindings and indicating activity in channels in
-;; the status bar so it stays out of your way unless you want to use
-;; it."
-;; https://github.com/emacs-circe/circe
-(use-package circe
-  :defer t
-  :custom
-  (circe-network-options
-   `(("Libera Chat"
-      :tls t
-      :nick "tg0xff"
-      :sasl-username "tg0xff"
-      :sasl-password ,my/secret-libera
-      :channels ("#emacs" "#fedora" "#kde" "##rust" "#linux" "#networking" "#security" "#debian" "#cybersecurity" "#audio" "##audio" "##programming" "#bash" "#javascript" "#python"))))
-  (circe-reduce-lurker-spam t))
 
 ;; "[A] note-taking tool on Emacs. It is similar to emacs-wiki.el; you
 ;; can enjoy hyperlinks and full-text search easily. It is not similar
@@ -347,6 +301,52 @@
   (setq howm-history-file (expand-file-name ".howm-history" howm-directory))
   (setq howm-file-name-format "%Y/%Y-%m-%d-%H%M%S.md")
   (setq howm-view-title-header "#"))
+
+;; "Jinx is a fast just-in-time spell-checker for Emacs. Jinx
+;; highlights misspelled words in the text of the visible portion of
+;; the buffer."
+(use-package jinx
+  :hook (text-mode prog-mode conf-mode)
+  :bind (("M-$" . jinx-correct)
+         ("C-M-$" . jinx-languages))
+  :custom
+  (jinx-languages "en_GB es_MX"))
+
+;; "Emacs-libvterm (vterm) is fully-fledged terminal emulator inside GNU Emacs
+;; based on libvterm, a C library. As a result of using compiled code (instead
+;; of elisp), emacs-libvterm is fully capable, fast, and it can seamlessly
+;; handle large outputs."
+;; https://github.com/akermu/emacs-libvterm
+(use-package vterm
+  :hook
+  (vterm-mode . (lambda () (setq-local evil-move-cursor-back nil)))
+  :bind
+  (("<leader> <return>" . vterm)
+   (:map vterm-mode-map ("C-q" . vterm-send-next-key)))
+  :custom
+  (vterm-shell "/bin/zsh")
+  :init
+  ;; Moving cursor backwards is the default vim behavior but it is not
+  ;; appropriate in some cases like terminals.
+  (evil-set-initial-state 'vterm-mode 'emacs))
+
+;; "Circe is a Client for IRC in Emacs. It tries to have sane
+;; defaults, and integrates well with the rest of the editor, using
+;; standard Emacs key bindings and indicating activity in channels in
+;; the status bar so it stays out of your way unless you want to use
+;; it."
+;; https://github.com/emacs-circe/circe
+(use-package circe
+  :defer t
+  :custom
+  (circe-network-options
+   `(("Libera Chat"
+      :tls t
+      :nick "tg0xff"
+      :sasl-username "tg0xff"
+      :sasl-password ,my/secret-libera
+      :channels ("#emacs" "#fedora" "#kde" "##rust" "#linux" "#networking" "#security" "#debian" "#cybersecurity" "#audio" "##audio" "##programming" "#bash" "#javascript" "#python"))))
+  (circe-reduce-lurker-spam t))
 
 ;; ########## UI ##########
 
