@@ -356,12 +356,6 @@
   :config
   (which-key-mode 1))
 
-;; "[A] "rainbow parentheses"-like mode which highlights delimiters such
-;; as parentheses, brackets or braces according to their depth."
-;; https://github.com/Fanael/rainbow-delimiters
-(use-package rainbow-delimiters
-  :hook (lisp-mode emacs-lisp-mode))
-
 ;; "[A] small Emacs minor mode that mimics the effect of fill-column
 ;; in visual-line-mode. Instead of wrapping lines at the window edge,
 ;; which is the standard behaviour of visual-line-mode, it wraps lines
