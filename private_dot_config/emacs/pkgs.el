@@ -197,6 +197,25 @@
 (use-package consult-lsp
   :defer t)
 
+;; "Dape is a debug adapter client for Emacs. The debug adapter
+;; protocol, much like its more well-known counterpart, the language
+;; server protocol, aims to establish a common API for programming
+;; tools. However, instead of functionalities such as code
+;; completions, it provides a standardized interface for debuggers."
+;; https://github.com/svaante/dape
+(use-package dape
+  :hook
+  ((kill-emacs . dape-breakpoint-save)
+   (after-init . dape-breakpoint-load)
+   (dape-display-source . pulse-momentary-highlight-one-line)
+   (dape-start . (lambda () (save-some-buffers t t)))
+   (dape-compile . kill-buffer))
+  :custom
+  (dape-buffer-window-arrangement 'right)
+  (dape-inlay-hints t)
+  :config
+  (dape-breakpoint-global-mode))
+
 ;; "Auto-format source code in many languages with one command"
 ;; https://github.com/lassik/emacs-format-all-the-code
 (use-package format-all
