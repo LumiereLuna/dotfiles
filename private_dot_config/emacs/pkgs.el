@@ -124,7 +124,7 @@
 ;; package which provides integration between the two."
 (use-package embark-consult)
 
-;; ########## Completion popup ##########
+;; ########## Programming ##########
 
 ;; "Enhances in-buffer completion with a small completion popup."
 ;; https://github.com/minad/corfu
@@ -163,8 +163,6 @@
   ;; sufficiently many candidates in the first place.
   (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster)
   (add-to-list 'completion-at-point-functions #'cape-file))
-
-;; ########## Programming ##########
 
 ;; "Unobtrusively trim extraneous white-space *ONLY* in lines edited."
 ;; https://github.com/lewang/ws-butler
