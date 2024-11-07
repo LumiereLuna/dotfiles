@@ -15,10 +15,6 @@
                       '(delete-by-moving-to-trash t)
                       '(fill-column 70)
                       '(create-lockfiles nil)
-                      ;; Save backup files in /tmp.
-                      '(backup-directory-alist `((".*" . ,temporary-file-directory)))
-                      '(auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
-                      '(tab-always-indent 'complete)
                       '(tab-width 8)
                       '(indent-tabs-mode nil))
 
