@@ -181,6 +181,10 @@
 (use-package yasnippet
   :hook
   (prog-mode . yas-minor-mode)
+  :bind
+  (:map yas-minor-mode-map
+        ("<tab>" . nil)
+        ("TAB" . nil))
   :config
   (yas-reload-all))
 
