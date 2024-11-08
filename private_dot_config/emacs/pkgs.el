@@ -131,20 +131,13 @@
 ;; https://github.com/minad/corfu
 (use-package corfu
   :bind
-  ;; Use TAB for cycling, default is `corfu-complete'.
-  (:map corfu-map
-        ("TAB" . corfu-next)
-        ([tab] . corfu-next)
-        ("S-TAB" . corfu-previous)
-        ([backtab] . corfu-previous)
-        ("M-o" . corfu-insert-separator))
+  (:map corfu-map ("C-SPC" . corfu-insert-separator))
   :custom
   (corfu-auto t)
+  (corfu-auto-prefix 2)
   (corfu-preselect 'prompt)
-  :config
-  (global-corfu-mode)
-  (corfu-history-mode 1)
-  (corfu-popupinfo-mode 1))
+  :init
+  (global-corfu-mode))
 
 ;; "Corfu uses child frames to display candidates. This makes Corfu
 ;; unusable on terminal. This package replaces that with popup/popon,
@@ -155,15 +148,26 @@
   :config
   (corfu-terminal-mode 1))
 
+;; "A simple capf (Completion-At-Point Function) for completing
+;; yasnippet snippets."
+;; https://github.com/elken/yasnippet-capf
+(use-package yasnippet-capf
+  :custom
+  (yasnippet-capf-lookup-by 'name))
+
 ;; "Cape provides Completion At Point Extensions which can be used in
 ;; combination with Corfu, Company or the default completion UI."
 ;; https://github.com/minad/cape
 (use-package cape
+  :preface
+  (defun my/completion-lsp-setup ()
+    (setq-local
+     completion-at-point-functions
+     (list (cape-capf-super #'lsp-completion-at-point #'yasnippet-capf) t)))
+  :hook
+  (lsp-after-open . my/completion-lsp-setup)
   :init
-  ;; Enable cache busting, depending on if your server returns
-  ;; sufficiently many candidates in the first place.
-  (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster)
-  (add-to-list 'completion-at-point-functions #'cape-file))
+  (add-hook 'completion-at-point-functions #'cape-file))
 
 ;; "Unobtrusively trim extraneous white-space *ONLY* in lines edited."
 ;; https://github.com/lewang/ws-butler
@@ -195,7 +199,7 @@
   :commands lsp-ui-mode
   :config
   (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
-(define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references))
+  (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references))
 
 ;; "Dape is a debug adapter client for Emacs. The debug adapter
 ;; protocol, much like its more well-known counterpart, the language
@@ -231,7 +235,8 @@
 ;; abbreviation and automatically expand it into function templates."
 ;; https://github.com/joaotavora/yasnippet
 (use-package yasnippet
-  :hook (prog-mode . yas-minor-mode)
+  :hook
+  (prog-mode . yas-minor-mode)
   :config
   (yas-reload-all))
 
