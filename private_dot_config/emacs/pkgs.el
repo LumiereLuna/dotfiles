@@ -125,8 +125,6 @@
 ;; package which provides integration between the two."
 (use-package embark-consult)
 
-;; ########## Programming ##########
-
 ;; "Enhances in-buffer completion with a small completion popup."
 ;; https://github.com/minad/corfu
 (use-package corfu
@@ -148,31 +146,7 @@
   :config
   (corfu-terminal-mode 1))
 
-;; "A simple capf (Completion-At-Point Function) for completing
-;; yasnippet snippets."
-;; https://github.com/elken/yasnippet-capf
-(use-package yasnippet-capf
-  :custom
-  (yasnippet-capf-lookup-by 'name))
-
-;; "Cape provides Completion At Point Extensions which can be used in
-;; combination with Corfu, Company or the default completion UI."
-;; https://github.com/minad/cape
-(use-package cape
-  :preface
-  (defun my/completion-lsp-setup ()
-    (setq-local
-     completion-at-point-functions
-     (list (cape-capf-super #'lsp-completion-at-point #'yasnippet-capf) t)))
-  :hook
-  (lsp-after-open . my/completion-lsp-setup)
-  :init
-  (add-hook 'completion-at-point-functions #'cape-file))
-
-;; "Unobtrusively trim extraneous white-space *ONLY* in lines edited."
-;; https://github.com/lewang/ws-butler
-(use-package ws-butler
-  :hook (prog-mode text-mode))
+;; ########## Programming ##########
 
 ;; "Magit is an interface to the version control system Git,
 ;; implemented as an Emacs package."
@@ -200,6 +174,41 @@
   :config
   (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
   (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references))
+
+;; "YASnippet is a template system for Emacs. It allows you to type an
+;; abbreviation and automatically expand it into function templates."
+;; https://github.com/joaotavora/yasnippet
+(use-package yasnippet
+  :hook
+  (prog-mode . yas-minor-mode)
+  :config
+  (yas-reload-all))
+
+;; "a collection of yasnippet snippets for many languages"
+;; https://github.com/AndreaCrotti/yasnippet-snippets
+(use-package yasnippet-snippets
+  :defer t)
+
+;; "A simple capf (Completion-At-Point Function) for completing
+;; yasnippet snippets."
+;; https://github.com/elken/yasnippet-capf
+(use-package yasnippet-capf
+  :custom
+  (yasnippet-capf-lookup-by 'name))
+
+;; "Cape provides Completion At Point Extensions which can be used in
+;; combination with Corfu, Company or the default completion UI."
+;; https://github.com/minad/cape
+(use-package cape
+  :preface
+  (defun my/completion-lsp-setup ()
+    (setq-local
+     completion-at-point-functions
+     (list (cape-capf-super #'lsp-completion-at-point #'yasnippet-capf) t)))
+  :hook
+  (lsp-after-open . my/completion-lsp-setup)
+  :init
+  (add-hook 'completion-at-point-functions #'cape-file))
 
 ;; "Dape is a debug adapter client for Emacs. The debug adapter
 ;; protocol, much like its more well-known counterpart, the language
@@ -231,21 +240,12 @@
                                         ("CSS" (prettier))
                                         ("Shell" (shfmt)))))
 
-;; "YASnippet is a template system for Emacs. It allows you to type an
-;; abbreviation and automatically expand it into function templates."
-;; https://github.com/joaotavora/yasnippet
-(use-package yasnippet
-  :hook
-  (prog-mode . yas-minor-mode)
-  :config
-  (yas-reload-all))
-
-;; "a collection of yasnippet snippets for many languages"
-;; https://github.com/AndreaCrotti/yasnippet-snippets
-(use-package yasnippet-snippets
-  :defer t)
-
 ;; ########## Misc ##########
+
+;; "Unobtrusively trim extraneous white-space *ONLY* in lines edited."
+;; https://github.com/lewang/ws-butler
+(use-package ws-butler
+  :hook (prog-mode text-mode))
 
 ;; "[A] note-taking tool on Emacs. It is similar to emacs-wiki.el; you
 ;; can enjoy hyperlinks and full-text search easily. It is not similar
