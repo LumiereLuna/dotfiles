@@ -20,7 +20,7 @@
   (evil-set-leader '(normal visual) (kbd "SPC"))
   (evil-mode 1)
   (evil-set-initial-state 'dired-mode 'emacs)
-  (evil-set-initial-state 'info-mode 'emacs))
+  (evil-set-initial-state 'Info-mode 'emacs))
 
 ;; "This is a collection of Evil bindings for the parts of Emacs that Evil does
 ;; not cover properly by default, such as help-mode, M-x calendar, Eshell and
