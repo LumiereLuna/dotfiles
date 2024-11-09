@@ -48,8 +48,7 @@
    ("<leader> o l" . org-store-link)
    :map org-mode-map
    ("<leader> . m" . my/org-sort-media)
-   ("<leader> . t" . my/org-sort-todo)
-   ("<leader> . i" . org-id-get-create))
+   ("<leader> . t" . my/org-sort-todo))
   :custom-face
   (org-checkbox ((t (:inherit fixed-pitch))))
   (org-table ((t (:inherit fixed-pitch))))
@@ -60,22 +59,20 @@
   (org-agenda-files `(,org-directory))
   (org-capture-templates '(("d" "default"
                             entry (file+headline "todo.org" "Inbox")
-                            "* TODO %?" :prepend t)))
+                            "* TODO %?")))
   (org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "WAIT(w)" "|" "DONE(d)")))
-  (org-agenda-window-setup 'other-tab)
   (org-agenda-tags-column 0)
-  (org-agenda-current-time-string "◀── now ─────────────────────────────────────────────────")
   (org-M-RET-may-split-line nil)
   (org-ellipsis "   […]")
   (org-tags-column 0)
   (org-log-done 'time)
   (org-preview-latex-image-directory `,(expand-file-name "org-latex-preview" temporary-file-directory))
-  (org-hide-emphasis-markers t)
-  (org-pretty-entities t)
   (org-image-actual-width '(400))
   (org-agenda-custom-commands '(("n" todo "NEXT"
                                  ((org-agenda-sorting-strategy '(priority-down category-up))))))
-  :config
+  (org-tag-alist '(("@casa" . ?c)
+                   ("@trabajo" . ?t)))
+  :init
   (defun my/org-sort-media ()
     (interactive)
     (org-sort-entries nil ?a)
