@@ -51,7 +51,11 @@
   (("C-x b" . consult-buffer)
    ("C-x 4 b" . consult-buffer-other-window)
    ("C-x 5 b" . consult-buffer-other-frame)
-   ("C-s" . consult-line))
+   ("C-s" . consult-line)
+   ("<leader> c f" . consult-fd)
+   ("<leader> c r" . consult-ripgrep)
+   ("<leader> c l" . consult-flymake)
+   ("<leader> c o" . consult-outline))
   :custom
   (consult-narrow-key "<")
   (consult-fd-args '((if (executable-find "fdfind" 'remote)
@@ -59,15 +63,7 @@
                        "fd")
                      "--full-path --color=never --hidden"))
   (consult-ripgrep-args "rg --null --line-buffered --color=never --max-columns=1000 --path-separator / --smart-case --no-heading --with-filename --line-number --search-zip --hidden --glob !.git/")
-  (consult-preview-key `,(list :debounce 0.5 'any))
-  :config
-  (defvar-keymap my/consult-keymap
-    :doc "My prefix map for consult."
-    "f" #'consult-fd
-    "r" #'consult-ripgrep
-    "l" #'consult-flymake
-    "o" #'consult-outline)
-  (keymap-global-set "<leader> c" my/consult-keymap))
+  (consult-preview-key `,(list :debounce 0.5 'any)))
 
 ;; "Vertico provides a performant and minimalistic vertical completion
 ;; UI based on the default completion system. The focus of Vertico is

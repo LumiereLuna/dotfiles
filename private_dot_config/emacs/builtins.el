@@ -29,13 +29,10 @@
 (use-package flymake
   :ensure nil
   :hook (prog-mode . flymake-mode)
-  :config
-  (defvar-keymap my/flymake-keymap
-    :doc "My prefix map for flymake-mode."
-    "n" #'flymake-goto-next-error
-    "p" #'flymake-goto-prev-error
-    "f" #'flymake-mode)
-  (keymap-global-set "<leader> f" my/flymake-keymap))
+  :bind
+  (("<leader> f f" . flymake-mode)
+   ("<leader> f p" . flymake-goto-prev-error)
+   ("<leader> f n" . flymake-goto-next-error)))
 
 ;; https://orgmode.org/
 ;; https://git.savannah.gnu.org/cgit/emacs/org-mode.git
@@ -45,6 +42,14 @@
   (org-mode . variable-pitch-mode)
   (org-todo-repeat . org-reset-checkbox-state-subtree)
   (after-init . (lambda () (find-file (concat org-directory "/*.org") t)))
+  :bind
+  (("<leader> o a" . org-agenda)
+   ("<leader> o c" . org-capture)
+   ("<leader> o l" . org-store-link)
+   (:map org-mode-map
+         ("<leader> . m" . my/org-sort-media)
+         ("<leader> . t" . my/org-sort-todo)
+         ("<leader> . i" . org-id-get-create)))
   :custom-face
   (org-checkbox ((t (:inherit fixed-pitch))))
   (org-table ((t (:inherit fixed-pitch))))
@@ -71,18 +76,6 @@
   (org-agenda-custom-commands '(("n" todo "NEXT"
                                  ((org-agenda-sorting-strategy '(priority-down category-up))))))
   :config
-  (defvar-keymap my/org-major-mode-keymap
-    :doc "My prefix map for org's major mode."
-    "m" #'my/org-sort-media
-    "t" #'my/org-sort-todo
-    "i" #'org-id-get-create)
-  (defvar-keymap my/org-mode-keymap
-    :doc "My prefix map for org's global commands."
-    "a" #'org-agenda
-    "c" #'org-capture
-    "l" #'org-store-link)
-  (keymap-set global-map "<leader> o" my/org-mode-keymap)
-  (keymap-set org-mode-map "<leader> ." my/org-major-mode-keymap)
   (defun my/org-sort-media ()
     (interactive)
     (org-sort-entries nil ?a)

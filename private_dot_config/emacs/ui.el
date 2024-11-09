@@ -43,14 +43,12 @@
 
 (use-package tab-bar
   :ensure nil
+  :bind
+  (("<leader> t n" . tab-bar-new-tab)
+   ("<leader> t k" . tab-bar-close-tab)
+   ("<leader> t l" . tab-bar-move-tab)
+   ("<leader> t h" . tab-bar-move-tab-backward))
   :config
-  (defvar-keymap my/tab-bar-keymap
-    :doc "My prefix map for Emacs' tab-bar."
-    "n" #'tab-bar-new-tab
-    "k" #'tab-bar-close-tab
-    "l" #'tab-bar-move-tab
-    "h" #'tab-bar-move-tab-backward)
-  (keymap-global-set "<leader> t" my/tab-bar-keymap)
   (tab-bar-mode 1))
 
 (use-package display-line-numbers
