@@ -62,6 +62,7 @@
                             "* TODO %?")))
   (org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "WAIT(w)" "|" "DONE(d)")))
   (org-agenda-tags-column 0)
+  (org-agenda-span 'day)
   (org-M-RET-may-split-line nil)
   (org-ellipsis "   […]")
   (org-tags-column 0)
