@@ -19,27 +19,7 @@
   :config
   (evil-set-leader '(normal visual) (kbd "SPC"))
   (evil-mode 1)
-  (evil-set-initial-state 'dired-mode 'emacs)
   (evil-set-initial-state 'Info-mode 'emacs))
-
-;; "This is a collection of Evil bindings for the parts of Emacs that Evil does
-;; not cover properly by default, such as help-mode, M-x calendar, Eshell and
-;; more."
-;; https://github.com/emacs-evil/evil-collection
-(use-package evil-collection
-  :config
-  (delete 'vterm evil-collection-mode-list)
-  (delete 'info evil-collection-mode-list)
-  (delete 'dired evil-collection-mode-list)
-  (evil-collection-init))
-
-;; "Supplemental evil-mode key-bindings to Emacs org-mode."
-;; https://github.com/Somelauw/evil-org-mode
-(use-package evil-org
-  :hook (org-mode . evil-org-mode)
-  :config
-  (require 'evil-org-agenda)
-  (evil-org-agenda-set-keys))
 
 ;; ########## UX improvements ##########
 
