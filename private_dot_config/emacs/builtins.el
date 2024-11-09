@@ -46,10 +46,10 @@
   (("<leader> o a" . org-agenda)
    ("<leader> o c" . org-capture)
    ("<leader> o l" . org-store-link)
-   (:map org-mode-map
-         ("<leader> . m" . my/org-sort-media)
-         ("<leader> . t" . my/org-sort-todo)
-         ("<leader> . i" . org-id-get-create)))
+   :map org-mode-map
+   ("<leader> . m" . my/org-sort-media)
+   ("<leader> . t" . my/org-sort-todo)
+   ("<leader> . i" . org-id-get-create))
   :custom-face
   (org-checkbox ((t (:inherit fixed-pitch))))
   (org-table ((t (:inherit fixed-pitch))))

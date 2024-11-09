@@ -330,7 +330,8 @@
   (vterm-mode . (lambda () (setq-local evil-move-cursor-back nil)))
   :bind
   (("<leader> <return>" . vterm)
-   (:map vterm-mode-map ("C-q" . vterm-send-next-key)))
+   :map vterm-mode-map
+   ("C-q" . vterm-send-next-key))
   :custom
   (vterm-shell "/bin/zsh")
   :init
