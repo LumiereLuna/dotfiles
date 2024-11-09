@@ -377,16 +377,6 @@
   (visual-fill-column-extra-text-width '(5 . 5))
   (visual-fill-column-enable-sensible-window-split t))
 
-;; "Enables automatic visibility toggling depending on cursor
-;; position. Hidden element parts appear when the cursor enters an
-;; element and disappear when it leaves."
-;; https://github.com/awth13/org-appear
-(use-package org-appear
-  :hook (org-mode)
-  :custom
-  (org-appear-autoentities t)
-  (org-appear-autosubmarkers t))
-
 ;; https://github.com/protesilaos/ef-themes
 (use-package ef-themes
   :config
