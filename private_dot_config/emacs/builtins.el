@@ -26,14 +26,6 @@
   (ediff-split-window-function 'split-window-horizontally)
   (ediff-window-setup-function 'ediff-setup-windows-plain))
 
-(use-package flymake
-  :ensure nil
-  :hook (prog-mode . flymake-mode)
-  :bind
-  (("<leader> f f" . flymake-mode)
-   ("<leader> f p" . flymake-goto-prev-error)
-   ("<leader> f n" . flymake-goto-next-error)))
-
 ;; https://orgmode.org/
 ;; https://git.savannah.gnu.org/cgit/emacs/org-mode.git
 (use-package org

@@ -131,6 +131,14 @@
 (use-package magit
   :defer t)
 
+;; "Flycheck is a modern on-the-fly syntax checking extension for GNU
+;; Emacs, intended as replacement for the older Flymake extension
+;; which is part of GNU Emacs."
+;; https://github.com/flycheck/flycheck
+(use-package flycheck
+  :ensure t
+  :hook (after-init . global-flycheck-mode))
+
 ;; "Client for Language Server Protocol (v3.14). lsp-mode aims to
 ;; provide IDE-like experience by providing optional integration with
 ;; the most popular Emacs packages like company, flycheck and
