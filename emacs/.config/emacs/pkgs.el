@@ -368,5 +368,7 @@
 
 ;; https://github.com/protesilaos/ef-themes
 (use-package ef-themes
+  :custom
+  (ef-themes-mixed-fonts t)
   :config
-  (load-theme 'ef-duo-dark))
+  (ef-themes-select 'ef-dark))

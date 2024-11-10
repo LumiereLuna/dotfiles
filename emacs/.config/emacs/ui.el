@@ -53,10 +53,10 @@
 
 (use-package display-line-numbers
   :ensure nil
-  :custom-face
-  (line-number ((t (:inherit fixed-pitch))))
   :custom
   (display-line-numbers-type 'visual)
   (display-line-numbers-grow-only t)
+  :init
+  (add-hook 'Info-mode-hook (lambda () (display-line-numbers-mode -1)))
   :config
   (global-display-line-numbers-mode 1))

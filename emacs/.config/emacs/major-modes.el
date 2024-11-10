@@ -29,10 +29,7 @@
 ;; https://github.com/jrblevin/markdown-mode
 (use-package markdown-mode
   :defer t
-  :hook (markdown-mode . variable-pitch-mode)
-  :custom-face
-  (markdown-pre-face ((t (:inherit fixed-pitch))))
-  (markdown-code-face ((t (:inherit fixed-pitch)))))
+  :hook (markdown-mode . variable-pitch-mode))
 
 ;; ########## Web development ##########
 

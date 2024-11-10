@@ -41,11 +41,6 @@
    :map org-mode-map
    ("<leader> . m" . my/org-sort-media)
    ("<leader> . t" . my/org-sort-todo))
-  :custom-face
-  (org-checkbox ((t (:inherit fixed-pitch))))
-  (org-table ((t (:inherit fixed-pitch))))
-  (org-block ((t (:inherit fixed-pitch))))
-  (org-code ((t (:inherit fixed-pitch))))
   :custom
   (org-directory `,(expand-file-name "Documents/org" my/home-directory))
   (org-agenda-files `(,org-directory))
