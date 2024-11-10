@@ -4,7 +4,7 @@
 (setq default-directory (expand-file-name "./" my/home-directory))
 
 (custom-set-variables '(vc-follow-symlinks t)
-                      '(custom-file (make-temp-file "emacs-custom-"))
+                      '(custom-file (expand-file-name "custom.el" user-emacs-directory))
                       '(confirm-kill-emacs 'y-or-n-p)
                       '(use-short-answers t)
                       '(require-final-newline t)
@@ -15,6 +15,8 @@
                       '(delete-by-moving-to-trash t)
                       '(fill-column 70)
                       '(create-lockfiles nil)
+                      '(make-backup-files nil)
+                      '(kill-buffer-delete-auto-save-files t)
                       '(tab-width 8)
                       '(indent-tabs-mode nil))
 
