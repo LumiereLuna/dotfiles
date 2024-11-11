@@ -7,7 +7,7 @@ exec 1>>~/.local/state/restic_maintenance.log 2>&1
 echo "$(date -Ins) Running restic_maintenance.sh"
 
 echo "$(date -Ins) Sourcing environment variables"
-. "${HOME}/.local/bin/restic_env.sh"
+. "${HOME}/.local/bin/my-restic_env.sh"
 
 echo "$(date -Ins) Pruning repository"
 restic --verbose forget --keep-within=2m --prune
