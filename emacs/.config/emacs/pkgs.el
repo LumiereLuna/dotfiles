@@ -244,7 +244,7 @@
 (use-package howm
   :hook
   (((howm-mode after-save) . howm-mode-set-buffer-name)
-   (howm-view-summary-mode . (lambda () (jinx-mode -1) (display-line-numbers-mode -1) (visual-fill-column-mode -1))))
+   (howm-view-summary-mode . my/howm-view-summary-setup))
   :bind
   (("<leader> h" . howm-menu)
    ;; Remove default global bindings. They conflict with org-mode.
@@ -280,7 +280,9 @@
    :map riffle-summary-mode-map
    ("C-h" . nil)
    :map howm-view-contents-mode-map
-   ("C-h" . nil))
+   ("C-h" . nil)
+   :map howm-mode-map
+   ("C-c , TAB" . my/insert-section-char))
   :custom
   ;; Use ripgrep as grep
   (howm-view-use-grep t)
@@ -291,6 +293,13 @@
   (howm-view-grep-expr-option nil)
   (howm-view-grep-file-stdin-option nil)
   :init
+  (defun my/howm-view-summary-setup ()
+    (jinx-mode -1)
+    (display-line-numbers-mode -1)
+    (visual-fill-column-mode -1))
+  (defun my/insert-section-char ()
+    (interactive)
+    (self-insert-command 1 ?§))
   (add-to-list 'evil-buffer-regexps '("^\\*howm" . emacs))
   ;; Directory configuration
   (setq howm-directory (expand-file-name "Documents/notes/howm" my/home-directory))
