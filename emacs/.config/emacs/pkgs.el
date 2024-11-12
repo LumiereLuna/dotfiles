@@ -192,14 +192,13 @@
 ;; combination with Corfu, Company or the default completion UI."
 ;; https://github.com/minad/cape
 (use-package cape
-  :preface
+  :hook
+  (lsp-after-open . my/completion-lsp-setup)
+  :init
   (defun my/completion-lsp-setup ()
     (setq-local
      completion-at-point-functions
      (list (cape-capf-super #'lsp-completion-at-point #'yasnippet-capf) t)))
-  :hook
-  (lsp-after-open . my/completion-lsp-setup)
-  :init
   (add-hook 'completion-at-point-functions #'cape-file))
 
 ;; "Dape is a debug adapter client for Emacs. The debug adapter
