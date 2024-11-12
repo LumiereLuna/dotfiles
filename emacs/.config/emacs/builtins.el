@@ -33,7 +33,7 @@
   :hook
   (org-mode . variable-pitch-mode)
   (org-todo-repeat . org-reset-checkbox-state-subtree)
-  (after-init . (lambda () (find-file (concat org-directory "/*.org") t)))
+  (after-init . my/open-all-org-files)
   :bind
   (("<leader> o a" . org-agenda)
    ("<leader> o c" . org-capture)
@@ -61,6 +61,9 @@
   (org-tag-alist '(("@casa" . ?c)
                    ("@trabajo" . ?t)))
   :init
+  (defun my/open-all-org-files ()
+    (interactive)
+    (find-file (concat org-directory "/*.org") t))
   (defun my/org-sort-media ()
     (interactive)
     (org-sort-entries nil ?a)
