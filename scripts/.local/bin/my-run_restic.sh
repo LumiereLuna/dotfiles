@@ -7,8 +7,8 @@ exec 1>>~/.local/state/restic.log 2>&1
 echo "$(date -Ins) Running run_restic.sh"
 
 if [ "$(pgrep -l "^restic")" ]; then
-	echo "$(date -Ins) restic is already running, stopping"
-	exit 1
+    echo "$(date -Ins) restic is already running, stopping"
+    exit 1
 fi
 
 echo "$(date -Ins) Sourcing environment variables"
