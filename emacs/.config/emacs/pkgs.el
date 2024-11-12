@@ -225,12 +225,7 @@
 (use-package format-all
   :bind
   (("<leader> f f" . format-all-mode)
-   ("<leader> f b" . format-all-region-or-buffer))
-  :config
-  (setq-default format-all-formatters '(("JavaScript" (prettier))
-                                        ("HTML" (prettier))
-                                        ("CSS" (prettier))
-                                        ("Shell" (shfmt "--case-indent" "--indent" "4")))))
+   ("<leader> f b" . format-all-region-or-buffer)))
 
 ;; ########## Misc ##########
 
