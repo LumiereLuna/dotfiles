@@ -151,7 +151,8 @@
   ((js-mode js-ts-mode python-mode python-ts-mode) . lsp-deferred)
   :custom
   (lsp-keymap-prefix "C-c l")
-  (lsp-idle-delay 0.500))
+  (lsp-idle-delay 0.500)
+  (lsp-enable-on-type-formatting nil))
 
 ;; "UI integrations for lsp-mode"
 ;; https://github.com/emacs-lsp/lsp-ui/
