@@ -27,14 +27,9 @@ def process_args(parser):
     if len(sys.argv) == 1:
         parser.print_help()
         sys.exit()
-
-    # Parse args after processing exit instructions.
     args = parser.parse_args()
-
-    # Validate range numbers.
     if args.r is not None:
         validate_range(args)
-
     for file in args.files:
         process_file(file, args)
 
@@ -44,15 +39,12 @@ def validate_range(args):
     if len(args.files) > 1:
         print("You can't specify a range when inputting multiple files.")
         sys.exit(128)
-
     elif (args.r[0] < 1) or (args.r[1] < 1):
         print("Range numbers must be equal or greater than one.")
         sys.exit(128)
-
     elif args.r[0] > args.r[1]:
         print("The end of the range must not be bigger than the start.")
         sys.exit(128)
-
     elif args.r[0] == args.r[1]:
         print("The two range numbers must not be the same number.")
         sys.exit(128)
@@ -63,9 +55,6 @@ def process_file(file_arg, args):
     file_path = path.abspath(file_arg)
     file_contents = read_contents(file_path)
     new_file = delete_lines(file_contents, args.r)
-
-    # Check whether the file remained the same. And don't save anything if no
-    # changes were made.
     if new_file != file_contents:
         write_to_file(file_path, new_file, args.o)
     else:
@@ -101,14 +90,12 @@ def delete_lines(file_contents, range_nums):
     """Check for several instances of identical lines of text and remove
     them.
     """
-    # Store new file contents.
     new_file = []
     # Store a boolean value for each of the file's lines in a dictionary. This
     # reduces the number of operations significantly: from O(n^2) to O(n),
     # or something like that.
     line_hashmap = {}
 
-    # Create a slice of the file's contents if a range is specified.
     if range_nums:
         line_number = range_nums[0]
         # Range numbers start from one, indexing doesn't.
@@ -120,8 +107,6 @@ def delete_lines(file_contents, range_nums):
 
     print("Deleting repeated lines...")
     for line in lines:
-        # If the line is not in the boolean dictionary, store it in the new
-        # file, and keep newlines. Otherwise, don't store it, just print it.
         if (not line_hashmap.get(line, False)) or (line == "\n"):
             line_hashmap[line] = True
             new_file.append(line)
@@ -129,19 +114,15 @@ def delete_lines(file_contents, range_nums):
             print(f"-> Deleted line #{line_number}:\n{line}", end="")
         line_number += 1
 
-    # If a range was specified, merge the unaffected parts of the file
-    # with the sliced range.
     if range_nums:
         new_file = (
-            file_contents[: range_nums[0]] + new_file + file_contents[range_nums[1] :]
+            file_contents[:range_nums[0]] + new_file + file_contents[range_nums[1]:]
         )
-
     return new_file
 
 
 def write_to_file(file_path, new_file, overwrite):
     """Write changes to a file."""
-    # Create a backup if the -o flag wasn't specified.
     if not overwrite:
         print("Making a backup of the old file...")
         rename(file_path, file_path + ".bk")
@@ -156,8 +137,8 @@ def write_to_file(file_path, new_file, overwrite):
 
 def main():
     """Main function."""
-    parser = get_args()
-    process_args(parser)
+    args = get_args()
+    process_args(args)
 
 
 if __name__ == "__main__":
