@@ -59,7 +59,8 @@
   (org-agenda-custom-commands '(("n" todo "NEXT"
                                  ((org-agenda-sorting-strategy '(priority-down category-up))))))
   (org-tag-alist '(("@casa" . ?c)
-                   ("@trabajo" . ?t)))
+                   ("@trabajo" . ?t)
+                   ("@calle" . ?a)))
   :init
   (defun my/open-all-org-files ()
     (interactive)
