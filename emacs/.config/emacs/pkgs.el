@@ -224,12 +224,13 @@
 ;; https://github.com/lassik/emacs-format-all-the-code
 (use-package format-all
   :bind
-  (("<leader> m" . format-all-region-or-buffer))
+  (("<leader> f f" . format-all-mode)
+   ("<leader> f b" . format-all-region-or-buffer))
   :config
   (setq-default format-all-formatters '(("JavaScript" (prettier))
                                         ("HTML" (prettier))
                                         ("CSS" (prettier))
-                                        ("Shell" (shfmt)))))
+                                        ("Shell" (shfmt "--case-indent" "--indent" "4")))))
 
 ;; ########## Misc ##########
 
