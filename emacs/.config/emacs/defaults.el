@@ -4,8 +4,8 @@
 (setq default-directory (expand-file-name "./" my/home-directory))
 
 (custom-set-variables '(vc-follow-symlinks t)
-                      '(custom-file (expand-file-name "custom.el" user-emacs-directory))
                       '(confirm-kill-emacs 'y-or-n-p)
+                      '(custom-file (make-temp-file "emacs-custom-"))
                       '(use-short-answers t)
                       '(require-final-newline t)
                       '(sentence-end-double-space nil)
