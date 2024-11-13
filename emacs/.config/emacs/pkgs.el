@@ -241,7 +241,8 @@
 (use-package howm
   :hook
   (((howm-mode after-save) . howm-mode-set-buffer-name)
-   (howm-view-summary-mode . my/howm-view-summary-setup))
+   (howm-view-summary-mode . my/howm-view-summary-setup)
+   (howm-view-contents-mode . variable-pitch-mode))
   :bind
   (("<leader> h" . howm-menu)
    ;; Remove default global bindings. They conflict with org-mode.
