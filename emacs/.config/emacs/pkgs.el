@@ -280,7 +280,8 @@
    :map howm-view-contents-mode-map
    ("C-h" . nil)
    :map howm-mode-map
-   ("C-c , TAB" . my/insert-section-char))
+   ("C-c , TAB" . my/insert-section-char)
+   ("C-c , K" . my/howm-copy-filename))
   :custom
   ;; Use ripgrep as grep
   (howm-view-use-grep t)
@@ -298,6 +299,10 @@
   (defun my/insert-section-char ()
     (interactive)
     (self-insert-command 1 ?§))
+  (defun my/howm-copy-filename ()
+    (interactive)
+    (let ((current-prefix-arg 4))
+      (call-interactively 'howm-keyword-to-kill-ring)))
   (add-to-list 'evil-buffer-regexps '("^\\*howm" . emacs))
   ;; Directory configuration
   (setq howm-directory (expand-file-name "Documents/notes/howm" my/home-directory))
