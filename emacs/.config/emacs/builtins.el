@@ -45,7 +45,7 @@
   (org-directory `,(expand-file-name "Documents/org" my/home-directory))
   (org-agenda-files `(,org-directory))
   (org-capture-templates '(("d" "default"
-                            entry (file+headline "todo.org" "Inbox")
+                            entry (file "inbox.org")
                             "* TODO %?")))
   (org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "WAIT(w)" "|" "DONE(d)")))
   (org-agenda-tags-column 0)
