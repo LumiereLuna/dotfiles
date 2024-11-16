@@ -124,81 +124,90 @@
   :config
   (corfu-terminal-mode 1))
 
+;; "Cape provides Completion At Point Extensions which can be used in
+;; combination with Corfu, Company or the default completion UI."
+;; https://github.com/minad/cape
+(use-package cape
+  :init
+  (add-hook 'completion-at-point-functions #'cape-file))
+
+
 ;; ########## Programming ##########
 
 ;; "Magit is an interface to the version control system Git,
 ;; implemented as an Emacs package."
 ;; https://github.com/magit/magit
-(use-package magit
-  :defer t)
+(when (not my/android-system-p)
+  (use-package magit
+    :defer t))
 
 ;; "Flycheck is a modern on-the-fly syntax checking extension for GNU
 ;; Emacs, intended as replacement for the older Flymake extension
 ;; which is part of GNU Emacs."
 ;; https://github.com/flycheck/flycheck
-(use-package flycheck
-  :hook (after-init . global-flycheck-mode))
+(when (not my/android-system-p)
+  (use-package flycheck
+    :hook (after-init . global-flycheck-mode)))
 
 ;; "Client for Language Server Protocol (v3.14). lsp-mode aims to
 ;; provide IDE-like experience by providing optional integration with
 ;; the most popular Emacs packages like company, flycheck and
 ;; projectile."
 ;; https://github.com/emacs-lsp/lsp-mode
-(use-package lsp-mode
-  :commands (lsp lsp-deferred)
-  :hook
-  ((js-mode js-ts-mode python-mode python-ts-mode) . lsp-deferred)
-  :custom
-  (lsp-keymap-prefix "C-c l")
-  (lsp-idle-delay 0.500)
-  (lsp-enable-on-type-formatting nil))
+(when (not my/android-system-p)
+  (use-package lsp-mode
+    :commands (lsp lsp-deferred)
+    :hook
+    ((js-mode js-ts-mode python-mode python-ts-mode) . lsp-deferred)
+    :custom
+    (lsp-keymap-prefix "C-c l")
+    (lsp-idle-delay 0.500)
+    (lsp-enable-on-type-formatting nil)))
 
 ;; "UI integrations for lsp-mode"
 ;; https://github.com/emacs-lsp/lsp-ui/
-(use-package lsp-ui
-  :commands lsp-ui-mode
-  :bind
-  (:map lsp-ui-mode-map
-        ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
-        ([remap xref-find-references] . lsp-ui-peek-find-references)))
+(when (not my/android-system-p)
+  (use-package lsp-ui
+    :commands lsp-ui-mode
+    :bind
+    (:map lsp-ui-mode-map
+          ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
+          ([remap xref-find-references] . lsp-ui-peek-find-references))))
 
 ;; "YASnippet is a template system for Emacs. It allows you to type an
 ;; abbreviation and automatically expand it into function templates."
 ;; https://github.com/joaotavora/yasnippet
-(use-package yasnippet
-  :hook
-  (prog-mode . yas-minor-mode)
-  :bind
-  (:map yas-minor-mode-map
-        ("<tab>" . nil)
-        ("TAB" . nil))
-  :config
-  (yas-reload-all))
+(when (not my/android-system-p)
+  (use-package yasnippet
+    :hook
+    (prog-mode . yas-minor-mode)
+    :bind
+    (:map yas-minor-mode-map
+          ("<tab>" . nil)
+          ("TAB" . nil))
+    :config
+    (yas-reload-all)))
 
 ;; "a collection of yasnippet snippets for many languages"
 ;; https://github.com/AndreaCrotti/yasnippet-snippets
-(use-package yasnippet-snippets
-  :defer t)
+(when (not my/android-system-p)
+  (use-package yasnippet-snippets
+    :defer t))
 
 ;; "A simple capf (Completion-At-Point Function) for completing
 ;; yasnippet snippets."
 ;; https://github.com/elken/yasnippet-capf
-(use-package yasnippet-capf
-  :custom
-  (yasnippet-capf-lookup-by 'name))
-
-;; "Cape provides Completion At Point Extensions which can be used in
-;; combination with Corfu, Company or the default completion UI."
-;; https://github.com/minad/cape
-(use-package cape
-  :hook
-  (lsp-after-open . my/completion-lsp-setup)
-  :init
-  (defun my/completion-lsp-setup ()
-    (setq-local
-     completion-at-point-functions
-     (list (cape-capf-super #'lsp-completion-at-point #'yasnippet-capf) t)))
-  (add-hook 'completion-at-point-functions #'cape-file))
+(when (not my/android-system-p)
+  (use-package yasnippet-capf
+    :hook
+    (lsp-after-open . my/completion-lsp-setup)
+    :custom
+    (yasnippet-capf-lookup-by 'name)
+    :init
+    (defun my/completion-lsp-setup ()
+      (setq-local
+       completion-at-point-functions
+       (list (cape-capf-super #'lsp-completion-at-point #'yasnippet-capf) t)))))
 
 ;; "Dape is a debug adapter client for Emacs. The debug adapter
 ;; protocol, much like its more well-known counterpart, the language
@@ -206,25 +215,27 @@
 ;; tools. However, instead of functionalities such as code
 ;; completions, it provides a standardized interface for debuggers."
 ;; https://github.com/svaante/dape
-(use-package dape
-  :hook
-  ((kill-emacs . dape-breakpoint-save)
-   (after-init . dape-breakpoint-load)
-   (dape-display-source . pulse-momentary-highlight-one-line)
-   (dape-start . (lambda () (save-some-buffers t t)))
-   (dape-compile . kill-buffer))
-  :custom
-  (dape-buffer-window-arrangement 'right)
-  (dape-inlay-hints t)
-  :config
-  (dape-breakpoint-global-mode))
+(when (not my/android-system-p)
+  (use-package dape
+    :hook
+    ((kill-emacs . dape-breakpoint-save)
+     (after-init . dape-breakpoint-load)
+     (dape-display-source . pulse-momentary-highlight-one-line)
+     (dape-start . (lambda () (save-some-buffers t t)))
+     (dape-compile . kill-buffer))
+    :custom
+    (dape-buffer-window-arrangement 'right)
+    (dape-inlay-hints t)
+    :config
+    (dape-breakpoint-global-mode)))
 
 ;; "Auto-format source code in many languages with one command"
 ;; https://github.com/lassik/emacs-format-all-the-code
-(use-package format-all
-  :bind
-  (("<leader> f f" . format-all-mode)
-   ("<leader> f b" . format-all-region-or-buffer)))
+(when (not my/android-system-p)
+  (use-package format-all
+    :bind
+    (("<leader> f f" . format-all-mode)
+     ("<leader> f b" . format-all-region-or-buffer))))
 
 ;; ########## Misc ##########
 
@@ -314,12 +325,13 @@
 ;; highlights misspelled words in the text of the visible portion of
 ;; the buffer."
 ;; https://github.com/minad/jinx
-(use-package jinx
-  :hook (text-mode prog-mode conf-mode)
-  :bind (("M-$" . jinx-correct)
-         ("C-M-$" . jinx-languages))
-  :custom
-  (jinx-languages "en_GB es_MX"))
+(when (not my/android-system-p)
+  (use-package jinx
+    :hook (text-mode prog-mode conf-mode)
+    :bind (("M-$" . jinx-correct)
+           ("C-M-$" . jinx-languages))
+    :custom
+    (jinx-languages "en_GB es_MX")))
 
 ;; "Circe is a Client for IRC in Emacs. It tries to have sane
 ;; defaults, and integrates well with the rest of the editor, using
@@ -327,17 +339,18 @@
 ;; the status bar so it stays out of your way unless you want to use
 ;; it."
 ;; https://github.com/emacs-circe/circe
-(use-package circe
-  :defer t
-  :custom
-  (circe-network-options
-   `(("Libera Chat"
-      :tls t
-      :nick "tg0xff"
-      :sasl-username "tg0xff"
-      :sasl-password ,my/secret-libera
-      :channels ("#emacs" "#fedora" "#kde" "##rust" "#linux" "#networking" "#security" "#debian" "#cybersecurity" "#audio" "##audio" "##programming" "#bash" "#javascript" "#python"))))
-  (circe-reduce-lurker-spam t))
+(when (not my/android-system-p)
+  (use-package circe
+    :defer t
+    :custom
+    (circe-network-options
+     `(("Libera Chat"
+        :tls t
+        :nick "tg0xff"
+        :sasl-username "tg0xff"
+        :sasl-password ,my/secret-libera
+        :channels ("#emacs" "#fedora" "#kde" "##rust" "#linux" "#networking" "#security" "#debian" "#cybersecurity" "#audio" "##audio" "##programming" "#bash" "#javascript" "#python"))))
+    (circe-reduce-lurker-spam t)))
 
 ;; ########## UI ##########
 
