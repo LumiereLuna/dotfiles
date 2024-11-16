@@ -249,6 +249,9 @@
 ;; to emacs-wiki.el; it can be combined with any format."
 ;; https://github.com/kaorahi/howm
 (use-package howm
+  :preface
+  (setq howm-directory (expand-file-name "Documents/notes/howm" my/home-directory))
+  :if (file-readable-p howm-directory)
   :hook
   (((howm-mode after-save) . howm-mode-set-buffer-name)
    (howm-view-summary-mode . my/howm-view-summary-setup)
@@ -301,6 +304,9 @@
   (howm-view-grep-fixed-option "-F")
   (howm-view-grep-expr-option nil)
   (howm-view-grep-file-stdin-option nil)
+  (howm-keyword-file `,(expand-file-name ".howm-keys" howm-directory))
+  (howm-history-file `,(expand-file-name ".howm-history" howm-directory))
+  (howm-file-name-format "%Y/%Y-%m-%d-%H%M%S.md")
   :init
   (defun my/howm-view-summary-setup ()
     (jinx-mode -1)
@@ -314,11 +320,6 @@
     (let ((current-prefix-arg 4))
       (call-interactively 'howm-keyword-to-kill-ring)))
   (add-to-list 'evil-buffer-regexps '("^\\*howm" . emacs))
-  ;; Directory configuration
-  (setq howm-directory (expand-file-name "Documents/notes/howm" my/home-directory))
-  (setq howm-keyword-file (expand-file-name ".howm-keys" howm-directory))
-  (setq howm-history-file (expand-file-name ".howm-history" howm-directory))
-  (setq howm-file-name-format "%Y/%Y-%m-%d-%H%M%S.md")
   (setq howm-view-title-header "#"))
 
 ;; "Jinx is a fast just-in-time spell-checker for Emacs. Jinx
