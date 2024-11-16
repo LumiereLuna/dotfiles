@@ -3,5 +3,6 @@ alias ll='ls -l'
 alias lla='ls -l --almost-all'
 alias open='xdg-open'
 if [ $(command -v gio) ]; then
-	alias rm='gio trash'
+    alias rm='gio trash'
+fi
 alias g='git'
