@@ -2,8 +2,8 @@
 
 # If the instance is non-interactive don't do anything.
 case $- in
-*i*) ;;
-*) return ;;
+    *i*) ;;
+    *) return ;;
 esac
 # Enable vi mode.
 set -o vi
@@ -44,25 +44,25 @@ export PROMPT_DIRTRIM=3
 export PS1="${BGFLIP}\u@\H \w \$${RESET} "
 
 unset FRED FGREEN FYELLOW FBLUE FMAGENTA FCYAN FWHITE BRED BGREEN BYELLOW \
-	BBLUE BCYAN BWHITE BGFLIP UNDERLINE BOLD RESET
+    BBLUE BCYAN BWHITE BGFLIP UNDERLINE BOLD RESET
 
 # ########## Conditional sourcing ##########
 
 if [ -f "$HOME/.aliases" ]; then
-	source "$HOME/.aliases"
+    . "$HOME/.aliases"
 fi
 
 if [[ "$INSIDE_EMACS" = 'vterm' ]] &&
-	[[ -n ${EMACS_VTERM_PATH} ]] &&
-	[[ -f ${EMACS_VTERM_PATH}/etc/emacs-vterm-bash.sh ]]; then
-	source ${EMACS_VTERM_PATH}/etc/emacs-vterm-bash.sh
+    [[ -n ${EMACS_VTERM_PATH} ]] &&
+    [[ -f ${EMACS_VTERM_PATH}/etc/emacs-vterm-bash.sh ]]; then
+    . ${EMACS_VTERM_PATH}/etc/emacs-vterm-bash.sh
 fi
 
 if [ $(command -v fzf) ]; then
-	# Set up fzf key bindings and fuzzy completion
-	eval "$(fzf --bash)"
+    # Set up fzf key bindings and fuzzy completion
+    eval "$(fzf --bash)"
 fi
 
 if [ $(command -v zoxide) ]; then
-	eval "$(zoxide init bash)"
+    eval "$(zoxide init bash)"
 fi

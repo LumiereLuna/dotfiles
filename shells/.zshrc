@@ -31,43 +31,43 @@ setopt PROMPT_SUBST
 setopt COMPLETE_ALIASES
 
 prompt_exit_code() {
-	local EXIT_CODE=$?
+    local EXIT_CODE=$?
 
-	# Catch-all for any unspecified error.
-	if [ $EXIT_CODE -eq 1 ]; then
-		echo -n "%F{red}!%f "
+    # Catch-all for any unspecified error.
+    if [ $EXIT_CODE -eq 1 ]; then
+        echo -n "%F{red}!%f "
 
-	# Misuse of built-ins.
-	elif [ $EXIT_CODE -eq 2 ]; then
-		echo -n "%F{yellow}sh?%f "
+    # Misuse of built-ins.
+    elif [ $EXIT_CODE -eq 2 ]; then
+        echo -n "%F{yellow}sh?%f "
 
-	# The command can not be executed.
-	elif [ $EXIT_CODE -eq 126 ]; then
-		echo -n "%F{yellow}-x%f "
+    # The command can not be executed.
+    elif [ $EXIT_CODE -eq 126 ]; then
+        echo -n "%F{yellow}-x%f "
 
-	# The command couldn't be found.
-	elif [ $EXIT_CODE -eq 127 ]; then
-		echo -n "%F{yellow}cmd?%f "
+    # The command couldn't be found.
+    elif [ $EXIT_CODE -eq 127 ]; then
+        echo -n "%F{yellow}cmd?%f "
 
-	# Invalid argument
-	elif [ $EXIT_CODE -eq 128 ]; then
-		echo -n "%F{yellow}arg?%f "
+    # Invalid argument
+    elif [ $EXIT_CODE -eq 128 ]; then
+        echo -n "%F{yellow}arg?%f "
 
-	# Fatal error signal #1.
-	elif [ $EXIT_CODE -eq 129 ]; then
-		echo -n "%F{red}err%f "
+    # Fatal error signal #1.
+    elif [ $EXIT_CODE -eq 129 ]; then
+        echo -n "%F{red}err%f "
 
-	# Terminated by SIGINT (Ctrl+C).
-	elif [ $EXIT_CODE -eq 130 ]; then
-		echo -n "%F{yellow}^C%f "
-	fi
+    # Terminated by SIGINT (Ctrl+C).
+    elif [ $EXIT_CODE -eq 130 ]; then
+        echo -n "%F{yellow}^C%f "
+    fi
 }
 
 vcs_info_wrapper() {
-	vcs_info
-	if [ -n "$vcs_info_msg_0_" ]; then
-		echo -n "${vcs_info_msg_0_} "
-	fi
+    vcs_info
+    if [ -n "$vcs_info_msg_0_" ]; then
+        echo -n "${vcs_info_msg_0_} "
+    fi
 }
 
 # The path expression truncates long paths similar to bash's 'PROMPT_DIRTRIM=3'.
@@ -78,20 +78,20 @@ PROMPT='%S%n@%M $(prompt_exit_code)%(5~|%-1~/.../%3~|%4~) $(vcs_info_wrapper)%%%
 # ########## Conditional sourcing ##########
 
 if [ -f "$HOME/.aliases" ]; then
-	source "$HOME/.aliases"
+    . "$HOME/.aliases"
 fi
 
 if [[ "$INSIDE_EMACS" = 'vterm' ]] &&
-	[[ -n ${EMACS_VTERM_PATH} ]] &&
-	[[ -f ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh ]]; then
-	source ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh
+    [[ -n ${EMACS_VTERM_PATH} ]] &&
+    [[ -f ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh ]]; then
+    . ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh
 fi
 
 if [ $(command -v fzf) ]; then
-	# Set up fzf key bindings and fuzzy completion
-	eval "$(fzf --zsh)"
+    # Set up fzf key bindings and fuzzy completion
+    eval "$(fzf --zsh)"
 fi
 
 if [ $(command -v zoxide) ]; then
-	eval "$(zoxide init zsh)"
+    eval "$(zoxide init zsh)"
 fi
