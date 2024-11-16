@@ -131,7 +131,6 @@
   :init
   (add-hook 'completion-at-point-functions #'cape-file))
 
-
 ;; ########## Programming ##########
 
 ;; "Magit is an interface to the version control system Git,
