@@ -81,12 +81,6 @@ if [ -f "$HOME/.aliases" ]; then
     . "$HOME/.aliases"
 fi
 
-if [[ "$INSIDE_EMACS" = 'vterm' ]] &&
-    [[ -n ${EMACS_VTERM_PATH} ]] &&
-    [[ -f ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh ]]; then
-    . ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh
-fi
-
 if [ $(command -v fzf) ]; then
     # Set up fzf key bindings and fuzzy completion
     eval "$(fzf --zsh)"

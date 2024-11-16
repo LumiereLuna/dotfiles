@@ -321,25 +321,6 @@
   :custom
   (jinx-languages "en_GB es_MX"))
 
-;; "Emacs-libvterm (vterm) is fully-fledged terminal emulator inside GNU Emacs
-;; based on libvterm, a C library. As a result of using compiled code (instead
-;; of elisp), emacs-libvterm is fully capable, fast, and it can seamlessly
-;; handle large outputs."
-;; https://github.com/akermu/emacs-libvterm
-(use-package vterm
-  :hook
-  (vterm-mode . (lambda () (setq-local evil-move-cursor-back nil)))
-  :bind
-  (("<leader> <return>" . vterm)
-   :map vterm-mode-map
-   ("C-q" . vterm-send-next-key))
-  :custom
-  (vterm-shell "/bin/zsh")
-  :init
-  ;; Moving cursor backwards is the default vim behavior but it is not
-  ;; appropriate in some cases like terminals.
-  (evil-set-initial-state 'vterm-mode 'emacs))
-
 ;; "Circe is a Client for IRC in Emacs. It tries to have sane
 ;; defaults, and integrates well with the rest of the editor, using
 ;; standard Emacs key bindings and indicating activity in channels in
