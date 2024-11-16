@@ -60,7 +60,7 @@
                                  ((org-agenda-sorting-strategy '(category-up priority-down))))))
   (org-tag-alist '(("@casa" . ?c)
                    ("@trabajo" . ?t)
-                   ("@calle" . ?a)))
+                   ("@tienda" . ?d)))
   :init
   (defun my/open-all-org-files ()
     (interactive)
