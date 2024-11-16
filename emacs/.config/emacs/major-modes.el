@@ -5,13 +5,13 @@
 ;; Automatic installation, usage, and fallback for tree-sitter major
 ;; modes in Emacs 29
 ;; https://github.com/renzmann/treesit-auto
-(use-package treesit-auto
-  :if (not my/android-system-p)
-  :custom
-  (treesit-auto-install 'prompt)
-  :config
-  (treesit-auto-add-to-auto-mode-alist 'all)
-  (global-treesit-auto-mode))
+(when (not my/android-system-p)
+  (use-package treesit-auto
+    :custom
+    (treesit-auto-install 'prompt)
+    :config
+    (treesit-auto-add-to-auto-mode-alist 'all)
+    (global-treesit-auto-mode)))
 
 ;; ########## Ledger ##########
 
