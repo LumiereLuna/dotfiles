@@ -137,7 +137,6 @@
 ;; which is part of GNU Emacs."
 ;; https://github.com/flycheck/flycheck
 (use-package flycheck
-  :ensure t
   :hook (after-init . global-flycheck-mode))
 
 ;; "Client for Language Server Protocol (v3.14). lsp-mode aims to
