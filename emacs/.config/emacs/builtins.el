@@ -36,7 +36,7 @@
   (after-init . my/open-all-org-files)
   :bind
   (("<leader> o a" . org-agenda)
-   ("<leader> o c" . org-capture)
+   ("<leader> o c" . my/org-capture-default)
    ("<leader> o l" . org-store-link)
    :map org-mode-map
    ("<leader> . m" . my/org-sort-media)
@@ -62,6 +62,9 @@
                    ("@trabajo" . ?t)
                    ("@tienda" . ?d)))
   :init
+  (defun my/org-capture-default ()
+    (interactive)
+    (org-capture nil "d"))
   (defun my/open-all-org-files ()
     (interactive)
     (find-file (concat org-directory "/*.org") t))
