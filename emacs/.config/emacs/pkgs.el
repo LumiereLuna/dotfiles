@@ -313,6 +313,7 @@
 ;; "Jinx is a fast just-in-time spell-checker for Emacs. Jinx
 ;; highlights misspelled words in the text of the visible portion of
 ;; the buffer."
+;; https://github.com/minad/jinx
 (use-package jinx
   :hook (text-mode prog-mode conf-mode)
   :bind (("M-$" . jinx-correct)
