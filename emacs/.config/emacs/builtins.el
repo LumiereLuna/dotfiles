@@ -57,7 +57,10 @@
   (org-preview-latex-image-directory `,(expand-file-name "org-latex-preview" temporary-file-directory))
   (org-image-actual-width '(400))
   (org-agenda-custom-commands '(("n" todo "NEXT"
-                                 ((org-agenda-sorting-strategy '(category-up priority-down))))))
+                                 ((org-agenda-sorting-strategy '(category-up priority-down))))
+                                ("c" tags "+@casa")
+                                ("j" tags "+@trabajo")
+                                ("d" tags "+@tienda")))
   (org-tag-alist '(("@casa" . ?c)
                    ("@trabajo" . ?t)
                    ("@tienda" . ?d)))
