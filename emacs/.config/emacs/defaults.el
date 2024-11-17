@@ -14,6 +14,7 @@
                       '(describe-bindings-outline t)
                       '(delete-by-moving-to-trash t)
                       '(fill-column 70)
+                      '(auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
                       '(create-lockfiles nil)
                       '(make-backup-files nil)
                       '(kill-buffer-delete-auto-save-files t)
