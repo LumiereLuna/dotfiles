@@ -20,7 +20,7 @@
   (evil-set-leader '(normal visual) (kbd "SPC"))
   (evil-mode 1)
   (evil-set-initial-state 'Info-mode 'emacs)
-  (evil-set-initial-state 'org-agenda-mode 'motion)
+  (evil-set-initial-state 'org-agenda-mode 'emacs)
   (evil-set-initial-state 'dired-mode 'emacs))
 
 ;; ########## UX improvements ##########
