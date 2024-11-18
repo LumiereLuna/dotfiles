@@ -171,7 +171,9 @@
     :bind
     (:map lsp-ui-mode-map
           ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
-          ([remap xref-find-references] . lsp-ui-peek-find-references))))
+          ([remap xref-find-references] . lsp-ui-peek-find-references))
+    :config
+    (evil-define-key 'normal 'lsp-ui-mode-map (kbd "g d") 'lsp-ui-peek-find-definitions)))
 
 ;; "YASnippet is a template system for Emacs. It allows you to type an
 ;; abbreviation and automatically expand it into function templates."
