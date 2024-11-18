@@ -22,7 +22,7 @@
 (blink-cursor-mode 1)
 (global-visual-line-mode 1)
 
-(let ((mymonofont "IBM Plex Mono")
+(let ((mymonofont "Iosevka Fixed Extended")
       (mysansfont "Roboto"))
   (when (and (member mymonofont (font-family-list))
              (member mysansfont (font-family-list)))
