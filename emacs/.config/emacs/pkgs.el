@@ -376,5 +376,11 @@
 (use-package ef-themes
   :custom
   (ef-themes-mixed-fonts t)
+  :init
+  (defun my/ef-themes-custom-faces ()
+    (ef-themes-with-colors
+      (custom-set-faces
+       `(font-lock-comment-face ((,c :inherit nil :foreground ,comment))))))
+  (add-hook 'ef-themes-post-load-hook #'my/ef-themes-custom-faces)
   :config
   (ef-themes-select 'ef-dark))
