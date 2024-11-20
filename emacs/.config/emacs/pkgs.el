@@ -387,4 +387,4 @@
        `(font-lock-comment-face ((,c :inherit nil :foreground ,comment))))))
   (add-hook 'ef-themes-post-load-hook #'my/ef-themes-custom-faces)
   :config
-  (ef-themes-select 'ef-tritanopia-dark))
+  (ef-themes-select 'ef-cherie))
