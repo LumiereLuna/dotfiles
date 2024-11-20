@@ -38,6 +38,7 @@
   (("<leader> o a" . org-agenda)
    ("<leader> o c" . my/org-capture-default)
    ("<leader> o l" . org-store-link)
+   ("<leader> o r" . org-revert-all-org-buffers)
    :map org-mode-map
    ("<leader> . m" . my/org-sort-media)
    ("<leader> . t" . my/org-sort-todo))
