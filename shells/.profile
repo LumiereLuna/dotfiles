@@ -27,7 +27,6 @@ else
 fi
 
 if [ $(command -v ssh-agent) ]; then
-    export SSH_ASKPASS=/usr/bin/ksshaskpass
     eval $(ssh-agent -t 15m)
 fi
 
