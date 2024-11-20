@@ -112,6 +112,7 @@
   (corfu-auto t)
   (corfu-auto-prefix 2)
   (corfu-preselect 'prompt)
+  (corfu-on-exact-match nil)
   :init
   (global-corfu-mode))
 
