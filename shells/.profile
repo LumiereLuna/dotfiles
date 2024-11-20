@@ -26,6 +26,12 @@ else
     export EDITOR=/usr/bin/vi
 fi
 
+if [ $(command -v ibus) ]; then
+    export GTK_IM_MODULE=ibus
+    export QT_IM_MODULE=ibus
+    export XMODIFIERS=@im=ibus
+fi
+
 if [ $(command -v ssh-agent) ]; then
     eval $(ssh-agent -t 15m)
 fi
