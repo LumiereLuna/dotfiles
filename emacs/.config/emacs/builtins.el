@@ -64,6 +64,10 @@
   (org-tag-alist '(("@casa" . ?c)
                    ("@trabajo" . ?t)
                    ("@tienda" . ?d)))
+  (org-refile-targets '((nil :maxlevel . 8)
+                        (org-agenda-files :level . 1)))
+  (org-refile-use-outline-path 'file)
+  (org-outline-path-complete-in-steps nil)
   :init
   (defun my/org-capture-default ()
     (interactive)
