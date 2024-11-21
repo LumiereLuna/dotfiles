@@ -373,7 +373,8 @@
   :custom
   (visual-fill-column-center-text t)
   (visual-fill-column-extra-text-width '(5 . 5))
-  (visual-fill-column-enable-sensible-window-split t))
+  (visual-fill-column-enable-sensible-window-split t)
+  (visual-fill-column-fringes-outside-margins nil))
 
 ;; https://github.com/protesilaos/ef-themes
 (use-package ef-themes
