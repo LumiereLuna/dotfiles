@@ -1,6 +1,6 @@
 ;; -*- lexical-binding: t -*-
 
-(keymap-global-set "<leader> w" 'whitespace-mode)
+(keymap-global-set "<f4>" 'whitespace-mode)
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
 (add-hook 'prog-mode-hook 'electric-pair-local-mode)
 
