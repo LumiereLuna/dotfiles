@@ -1,7 +1,12 @@
 ;; -*- lexical-binding: t -*-
 
-(custom-set-variables '(gc-cons-threshold (* 80 1024 1024)))
-(setq read-process-output-max (* 1024 1024))
+(defconst my/android-system-p (string-match "android" (version)))
+
+(custom-set-variables '(gc-cons-threshold (if my/android-system-p
+                                              (* 30 1024 1024)
+                                            (* 80 1024 1024))))
+(when (not my/android-system-p)
+  (setq read-process-output-max (* 1024 1024)))
 (setq inhibit-compacting-font-caches t)
 
 (prefer-coding-system 'utf-8-unix)
