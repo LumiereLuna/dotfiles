@@ -58,6 +58,7 @@
   (org-preview-latex-image-directory `,(expand-file-name "org-latex-preview" temporary-file-directory))
   (org-image-actual-width '(400))
   (org-agenda-custom-commands '(("n" todo "NEXT")
+                                ("w" todo "WAIT")
                                 ("c" tags "+@casa")
                                 ("j" tags "+@trabajo")
                                 ("d" tags "+@tienda")))
