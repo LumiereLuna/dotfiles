@@ -66,6 +66,7 @@
                         (org-agenda-files :level . 1)))
   (org-refile-use-outline-path 'file)
   (org-outline-path-complete-in-steps nil)
+  (org-fast-tag-selection-single-key t)
   :init
   (defun my/org-capture-default ()
     (interactive)
