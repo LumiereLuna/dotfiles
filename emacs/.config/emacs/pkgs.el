@@ -36,7 +36,6 @@
    ("C-s" . consult-line)
    ("<leader> c f" . consult-fd)
    ("<leader> c r" . consult-ripgrep)
-   ("<leader> c l" . consult-flymake)
    ("<leader> c o" . consult-outline))
   :custom
   (consult-narrow-key "<")
