@@ -234,6 +234,7 @@
 ;; https://github.com/radian-software/apheleia
 (when (not my/android-system-p)
   (use-package apheleia
+    :defer t
     :bind
     (("<leader> f" . apheleia-format-buffer))))
 
