@@ -116,7 +116,7 @@ def delete_lines(file_contents, range_nums):
 
     if range_nums:
         new_file = (
-            file_contents[:range_nums[0]] + new_file + file_contents[range_nums[1]:]
+            file_contents[: range_nums[0]] + new_file + file_contents[range_nums[1] :]
         )
     return new_file
 
