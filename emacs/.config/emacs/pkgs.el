@@ -229,13 +229,13 @@
     :config
     (dape-breakpoint-global-mode)))
 
-;; "Auto-format source code in many languages with one command"
-;; https://github.com/lassik/emacs-format-all-the-code
+;; "🌷 Run code formatter on buffer contents without moving point,
+;; using RCS patches and dynamic programming."
+;; https://github.com/radian-software/apheleia
 (when (not my/android-system-p)
-  (use-package format-all
+  (use-package apheleia
     :bind
-    (("<leader> f f" . format-all-mode)
-     ("<leader> f b" . format-all-region-or-buffer))))
+    (("<leader> f" . apheleia-format-buffer))))
 
 ;; ########## Misc ##########
 
