@@ -154,7 +154,7 @@
 ;; https://github.com/emacs-lsp/lsp-mode
 (when (not my/android-system-p)
   (use-package lsp-mode
-    :commands (lsp lsp-deferred)
+    :defer t
     :hook
     ((js-mode js-ts-mode python-mode python-ts-mode) . lsp-deferred)
     :custom
@@ -166,7 +166,7 @@
 ;; https://github.com/emacs-lsp/lsp-ui/
 (when (not my/android-system-p)
   (use-package lsp-ui
-    :commands lsp-ui-mode
+    :defer t
     :bind
     (:map lsp-ui-mode-map
           ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
