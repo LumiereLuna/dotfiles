@@ -12,7 +12,7 @@ if [ "$(pgrep -l "^restic")" ]; then
 fi
 
 echo "$(date -Ins) Sourcing environment variables"
-. "${HOME}/.dotfiles/nopath-scripts/my-restic_env.sh"
+. "${HOME}/.dotfiles/nopath-scripts/restic_env.sh"
 
 echo "$(date -Ins) Changing directory to \$HOME"
 cd "${HOME}"

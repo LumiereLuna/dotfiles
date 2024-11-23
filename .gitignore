@@ -1,5 +1,5 @@
 key.txt
-nopath-scripts/my-restic_env.sh
-nopath-scripts/my-run_anki_sync.sh
+nopath-scripts/restic_env.sh
+nopath-scripts/run_anki_sync.sh
 emacs/.config/emacs/secrets.el
 
