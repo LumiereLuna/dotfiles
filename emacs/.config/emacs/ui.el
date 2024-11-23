@@ -12,7 +12,8 @@
                       '(window-resize-pixelwise t)
                       '(frame-resize-pixelwise t)
                       '(mouse-wheel-tilt-scroll t)
-                      '(mouse-wheel-flip-direction t))
+                      '(mouse-wheel-flip-direction t)
+                      '(line-move-visual nil))
 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
