@@ -54,7 +54,7 @@
 (use-package display-line-numbers
   :ensure nil
   :custom
-  (display-line-numbers-type 'visual)
+  (display-line-numbers-type 'relative)
   (display-line-numbers-grow-only t)
   :init
   (add-hook 'Info-mode-hook (lambda () (display-line-numbers-mode -1)))

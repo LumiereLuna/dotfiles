@@ -15,7 +15,6 @@
   ;; because of Unix legacy reasons, and evil-mode shadows org's Tab
   ;; key command.
   (evil-want-C-i-jump nil)
-  (evil-respect-visual-line-mode t)
   :config
   (evil-set-leader '(normal visual) (kbd "SPC"))
   (evil-mode 1)
