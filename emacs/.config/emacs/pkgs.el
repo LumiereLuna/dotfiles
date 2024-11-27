@@ -43,7 +43,7 @@
                        "fd")
                      "--full-path --color=never --hidden"))
   (consult-ripgrep-args "rg --null --line-buffered --color=never --max-columns=1000 --path-separator / --smart-case --no-heading --with-filename --line-number --search-zip --hidden --glob !.git/")
-  (consult-preview-key `,(list :debounce 0.5 'any)))
+  (consult-preview-key (list :debounce 0.5 'any)))
 
 ;; "Vertico provides a performant and minimalistic vertical completion
 ;; UI based on the default completion system. The focus of Vertico is
@@ -304,8 +304,8 @@
   (howm-view-grep-fixed-option "-F")
   (howm-view-grep-expr-option nil)
   (howm-view-grep-file-stdin-option nil)
-  (howm-keyword-file `,(expand-file-name ".howm-keys" howm-directory))
-  (howm-history-file `,(expand-file-name ".howm-history" howm-directory))
+  (howm-keyword-file (expand-file-name ".howm-keys" howm-directory))
+  (howm-history-file (expand-file-name ".howm-history" howm-directory))
   (howm-file-name-format "%Y/%Y-%m-%d-%H%M%S.md")
   :init
   (defun my/howm-view-summary-setup ()

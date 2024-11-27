@@ -40,7 +40,7 @@
    ("<leader> o l" . org-store-link)
    ("<leader> o r" . org-revert-all-org-buffers))
   :custom
-  (org-directory `,(expand-file-name "Documents/org" my/home-directory))
+  (org-directory (expand-file-name "Documents/org" my/home-directory))
   (org-agenda-files (expand-file-name "agenda.txt" org-directory))
   (org-capture-templates '(("d" "default"
                             entry (file "inbox.org")
@@ -52,7 +52,7 @@
   (org-ellipsis "   […]")
   (org-tags-column 0)
   (org-log-done 'time)
-  (org-preview-latex-image-directory `,(expand-file-name "org-latex-preview" temporary-file-directory))
+  (org-preview-latex-image-directory (expand-file-name "org-latex-preview" temporary-file-directory))
   (org-image-actual-width '(400))
   (org-agenda-custom-commands my/secret-org-agenda-custom-commands)
   (org-tag-persistent-alist my/secret-org-tag-persistent-alist)
