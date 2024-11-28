@@ -380,15 +380,6 @@
 (use-package ef-themes
   :custom
   (ef-themes-mixed-fonts t)
-  (ef-themes-common-palette-overrides '((rainbow-0 fg-main)
-                                        (rainbow-1 fg-main)
-                                        (rainbow-2 fg-main)
-                                        (rainbow-3 fg-main)
-                                        (rainbow-4 fg-main)
-                                        (rainbow-5 fg-main)
-                                        (rainbow-6 fg-main)
-                                        (rainbow-7 fg-main)
-                                        (rainbow-8 fg-main)))
   :init
   (defun my/ef-themes-custom-faces ()
     (ef-themes-with-colors
