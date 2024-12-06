@@ -309,9 +309,11 @@
   (howm-file-name-format "%Y/%Y-%m-%d-%H%M%S.md")
   :init
   (defun my/howm-view-summary-setup ()
-    (jinx-mode -1)
     (display-line-numbers-mode -1)
-    (visual-fill-column-mode -1))
+    (when (bound-and-true-p jinx-mode)
+      (jinx-mode -1))
+    (when (bound-and-true-p visual-fill-column-mode)
+      (visual-fill-column-mode -1)))
   (defun my/insert-section-char ()
     (interactive)
     (self-insert-command 1 ?§))
