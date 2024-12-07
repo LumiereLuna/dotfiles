@@ -6,10 +6,10 @@ if [ -f $HOME/.distro_profile ]; then
     . $HOME/.distro_profile
 fi
 
-PATH="$PATH:$HOME/.local/bin"
-PATH="$PATH:$HOME/.cargo/bin"
-PATH="$PATH:/usr/local/go/bin"
-PATH="$PATH:$HOME/.luarocks/bin"
+PATH="${PATH}:${HOME}/.local/bin"
+PATH="${PATH}:${HOME}/.cargo/bin"
+PATH="${PATH}:/usr/local/go/bin"
+PATH="${PATH}:${HOME}/.luarocks/bin"
 export PATH
 
 export PAGER=less
