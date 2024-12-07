@@ -3,7 +3,7 @@
 # If a distro has a default .profile with actual important commands in
 # it rename it to this:
 if [ -f $HOME/.distro_profile ]; then
-    source $HOME/.distro_profile
+    . $HOME/.distro_profile
 fi
 
 PATH="$PATH:$HOME/.local/bin"
@@ -12,19 +12,10 @@ PATH="$PATH:/usr/local/go/bin"
 PATH="$PATH:$HOME/.luarocks/bin"
 export PATH
 
-export PAGER=/usr/bin/less
+export PAGER=less
 export LESS=-R
-
-if [ $(command -v nvim) ]; then
-    export VISUAL=/usr/bin/nvim
-    export EDITOR=/usr/bin/nvim
-elif [ $(command -v vim) ]; then
-    export VISUAL=/usr/bin/vim
-    export EDITOR=/usr/bin/vim
-else
-    export VISUAL=/usr/bin/vi
-    export EDITOR=/usr/bin/vi
-fi
+export VISUAL=nvim
+export EDITOR=nvim
 
 if [ $(command -v ssh-agent) ]; then
     eval $(ssh-agent -t 15m)
