@@ -1,0 +1,5 @@
+[Unit]
+Description=Anki Sync Server
+
+[Service]
+ExecStart=%h/.dotfiles/nopath-scripts/run_anki_sync.sh
