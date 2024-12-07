@@ -338,25 +338,6 @@
     :custom
     (jinx-languages "en_GB es_MX")))
 
-;; "Circe is a Client for IRC in Emacs. It tries to have sane
-;; defaults, and integrates well with the rest of the editor, using
-;; standard Emacs key bindings and indicating activity in channels in
-;; the status bar so it stays out of your way unless you want to use
-;; it."
-;; https://github.com/emacs-circe/circe
-(when (not my/android-system-p)
-  (use-package circe
-    :defer t
-    :custom
-    (circe-network-options
-     `(("Libera Chat"
-        :tls t
-        :nick "tg0xff"
-        :sasl-username "tg0xff"
-        :sasl-password ,my/secret-libera
-        :channels ("#emacs" "#fedora" "#kde" "##rust" "#linux" "#networking" "#security" "#debian" "#cybersecurity" "#audio" "##audio" "##programming" "#bash" "#javascript" "#python"))))
-    (circe-reduce-lurker-spam t)))
-
 ;; ########## UI ##########
 
 ;; "Emacs package that displays available keybindings in popup"
