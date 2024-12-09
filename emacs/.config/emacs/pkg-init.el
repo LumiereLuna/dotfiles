@@ -15,3 +15,12 @@
 ;; no-littering-var-directory […]"
 ;; https://github.com/emacscollective/no-littering
 (use-package no-littering)
+
+;; "A GNU Emacs library to ensure environment variables inside Emacs
+;; look the same as in the user's shell."
+;; https://github.com/purcell/exec-path-from-shell
+(use-package exec-path-from-shell
+  :custom
+  (exec-path-from-shell-arguments '("-i"))
+  :config
+  (exec-path-from-shell-initialize))
