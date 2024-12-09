@@ -3,4 +3,4 @@ nopath-scripts/restic_env.sh
 nopath-scripts/run_anki_sync.sh
 emacs/.config/emacs/secrets.el
 irssi/.irssi/config
-
+systemd/.config/systemd/anki-sync-env

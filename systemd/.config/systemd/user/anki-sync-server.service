@@ -2,4 +2,8 @@
 Description=Anki Sync Server
 
 [Service]
-ExecStart=%h/.dotfiles/nopath-scripts/run_anki_sync.sh
+ExecStart=anki --syncserver
+EnvironmentFile=%h/.config/systemd/anki-sync-env
+
+[Install]
+WantedBy=default.target
