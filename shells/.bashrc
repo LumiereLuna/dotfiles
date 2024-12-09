@@ -1,10 +1,5 @@
 # ~/.bashrc
 
-# If the instance is non-interactive don't do anything.
-case $- in
-*i*) ;;
-*) return ;;
-esac
 # Enable vi mode.
 set -o vi
 # Update the values of LINES and COLUMNS each time a command is
