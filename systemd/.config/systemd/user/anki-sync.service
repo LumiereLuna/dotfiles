@@ -1,9 +1,0 @@
-[Unit]
-Description=Anki Sync Server
-
-[Service]
-ExecStart=anki --syncserver
-EnvironmentFile=%h/.config/systemd/anki-sync-env
-
-[Install]
-WantedBy=default.target

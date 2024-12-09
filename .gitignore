@@ -2,4 +2,4 @@ key.txt
 nopath-scripts/restic_env.sh
 emacs/.config/emacs/secrets.el
 irssi/.irssi/config
-systemd/.config/systemd/anki-sync-env
+systemd/.config/systemd/user/anki-sync.service
