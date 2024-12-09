@@ -2,8 +2,8 @@
 
 # If the instance is non-interactive don't do anything.
 case $- in
-    *i*) ;;
-    *) return ;;
+*i*) ;;
+*) return ;;
 esac
 # Enable vi mode.
 set -o vi
@@ -16,8 +16,6 @@ shopt -s checkwinsize
 # over the course of your shell session will stick around in the
 # shpool daemon's process tree and eat up memory."
 shopt -s huponexit
-
-# ########## Prompt ##########
 
 # https://wiki.archlinux.org/index.php/Bash/Prompt_customization
 FRED="\[$(tput setaf 1)\]"
@@ -46,10 +44,8 @@ export PS1="${BGFLIP}\u@\H \w \$${RESET} "
 unset FRED FGREEN FYELLOW FBLUE FMAGENTA FCYAN FWHITE BRED BGREEN BYELLOW \
     BBLUE BCYAN BWHITE BGFLIP UNDERLINE BOLD RESET
 
-# ########## Conditional sourcing ##########
-
-if [ -f "$HOME/.aliases" ]; then
-    . "$HOME/.aliases"
+if [ -f "${HOME}/.shared.sh" ]; then
+    . "${HOME}/.shared.sh"
 fi
 
 if [ $(command -v fzf) ]; then

@@ -16,8 +16,6 @@ autoload -Uz compinit promptinit vcs_info
 compinit
 promptinit
 
-# ########## Prompt ##########
-
 # vcs_info supports many VCSs, you may not want all of these because
 # there is no point in running the code to detect systems you do not
 # use. So you may also pick a few from that list and enable only
@@ -75,10 +73,8 @@ vcs_info_wrapper() {
 # https://unix.stackexchange.com/questions/273529/shorten-path-in-zsh-prompt
 PROMPT='%S%n@%M $(prompt_exit_code)%(5~|%-1~/.../%3~|%4~) $(vcs_info_wrapper)%%%s '
 
-# ########## Conditional sourcing ##########
-
-if [ -f "$HOME/.aliases" ]; then
-    . "$HOME/.aliases"
+if [ -f "${HOME}/.shared.sh" ]; then
+    . "${HOME}/.shared.sh"
 fi
 
 if [ $(command -v fzf) ]; then
