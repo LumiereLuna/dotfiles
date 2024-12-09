@@ -4,6 +4,7 @@ export LESS=-R
 export VISUAL=vi
 export EDITOR=vi
 
+alias ls='ls --color=auto --group-directories-first --human-readable --file-type'
 alias la='ls --almost-all'
 alias ll='ls -l'
 alias lla='ls -l --almost-all'
