@@ -1,8 +1,8 @@
 export PATH="${PATH}:${HOME}/.local/bin:${HOME}/.cargo/bin:/usr/local/go/bin:${HOME}/.luarocks/bin"
 export PAGER=less
 export LESS=-R
-export VISUAL=nvim
-export EDITOR=nvim
+export VISUAL=vi
+export EDITOR=vi
 
 alias la='ls --almost-all'
 alias ll='ls -l'
