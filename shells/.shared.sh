@@ -13,7 +13,7 @@ if [ $(command -v gio) ]; then
     alias rm='gio trash'
 fi
 alias g='git'
-alias e='emacsclient --tty'
+alias e='emacsclient --alternate-editor emacs --tty %F'
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
