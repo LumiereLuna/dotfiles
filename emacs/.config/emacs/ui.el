@@ -22,6 +22,7 @@
 (context-menu-mode 1)
 (blink-cursor-mode 1)
 (global-visual-line-mode 1)
+(xterm-mouse-mode 1)
 
 (let ((mymonofont "Iosevka Fixed")
       (mysansfont "Roboto"))
