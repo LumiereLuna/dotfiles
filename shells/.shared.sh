@@ -8,11 +8,12 @@ alias ls='ls --color=auto --group-directories-first --human-readable --file-type
 alias la='ls --almost-all'
 alias ll='ls -l'
 alias lla='ls -l --almost-all'
-alias open='xdg-open'
 if [ $(command -v gio) ]; then
+    alias open='gio open'
     alias rm='gio trash'
 fi
 alias g='git'
+alias e='emacsclient --tty'
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
