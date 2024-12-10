@@ -119,9 +119,13 @@
 ;; which works everywhere."
 ;; https://codeberg.org/akib/emacs-corfu-terminal
 (use-package corfu-terminal
-  :if (not (display-graphic-p))
-  :config
-  (corfu-terminal-mode 1))
+  :init
+  (add-hook
+   'server-after-make-frame-hook
+   (lambda ()
+     (if (display-graphic-p)
+         (corfu-terminal-mode -1)
+       (corfu-terminal-mode 1)))))
 
 ;; "Cape provides Completion At Point Extensions which can be used in
 ;; combination with Corfu, Company or the default completion UI."
