@@ -9,8 +9,10 @@ alias la='ls --almost-all'
 alias ll='ls -l'
 alias lla='ls -l --almost-all'
 if [ $(command -v gio) ]; then
-    alias open='gio open'
     alias rm='gio trash'
+    open() {
+        (gio open $@ &)
+    }
 fi
 alias g='git'
 alias e='emacsclient --alternate-editor emacs --tty'
