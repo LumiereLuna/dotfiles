@@ -326,10 +326,10 @@
     (let ((current-prefix-arg 4))
       (call-interactively 'howm-keyword-to-kill-ring)))
   (add-to-list 'evil-buffer-regexps '("^\\*howm" . emacs))
-  (add-to-list 'howm-excluded-dirs "assets")
   (setq howm-view-title-header "#")
   :config
-  (evil-define-key 'normal 'howm-mode-map (kbd "RET") 'action-lock-magic-return))
+  (evil-define-key 'normal 'howm-mode-map (kbd "RET") 'action-lock-magic-return)
+  (add-to-list 'howm-excluded-dirs "assets"))
 
 ;; "Jinx is a fast just-in-time spell-checker for Emacs. Jinx
 ;; highlights misspelled words in the text of the visible portion of
