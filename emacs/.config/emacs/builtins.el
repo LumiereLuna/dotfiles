@@ -40,7 +40,7 @@
    ("<leader> o l" . org-store-link)
    ("<leader> o r" . org-revert-all-org-buffers))
   :custom
-  (org-directory (expand-file-name "Documents/org" my/home-directory))
+  (org-directory (expand-file-name "org" my/home-directory))
   (org-agenda-files (expand-file-name "agenda.txt" org-directory))
   (org-capture-templates '(("d" "default"
                             entry (file "inbox.org")
