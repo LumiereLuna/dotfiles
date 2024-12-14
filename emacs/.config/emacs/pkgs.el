@@ -254,7 +254,7 @@
 ;; https://github.com/kaorahi/howm
 (use-package howm
   :preface
-  (setq howm-directory (expand-file-name "Documents/notes/howm" my/home-directory))
+  (setq howm-directory (expand-file-name "howm" my/home-directory))
   :if (file-readable-p howm-directory)
   :hook
   (((howm-mode after-save) . howm-mode-set-buffer-name)
@@ -326,6 +326,7 @@
     (let ((current-prefix-arg 4))
       (call-interactively 'howm-keyword-to-kill-ring)))
   (add-to-list 'evil-buffer-regexps '("^\\*howm" . emacs))
+  (add-to-list 'howm-excluded-dirs "assets")
   (setq howm-view-title-header "#")
   :config
   (evil-define-key 'normal 'howm-mode-map (kbd "RET") 'action-lock-magic-return))
