@@ -310,7 +310,7 @@
   (howm-view-grep-file-stdin-option nil)
   (howm-keyword-file (expand-file-name ".howm-keys" howm-directory))
   (howm-history-file (expand-file-name ".howm-history" howm-directory))
-  (howm-file-name-format "%Y/%Y-%m-%d-%H%M%S.md")
+  (howm-file-name-format "%Y/%m/%Y-%m-%d-%H%M%S.md")
   :init
   (defun my/howm-view-summary-setup ()
     (display-line-numbers-mode -1)
