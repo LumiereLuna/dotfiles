@@ -28,9 +28,9 @@
       (mysansfont "Roboto"))
   (when (and (member mymonofont (font-family-list))
              (member mysansfont (font-family-list)))
-    (set-face-attribute 'default nil :family mymonofont :height 100 :width 'expanded)
-    (set-face-attribute 'fixed-pitch nil :family mymonofont :height 100 :width 'expanded)
-    (set-face-attribute 'variable-pitch nil :family mysansfont :height 110)))
+    (set-face-attribute 'default nil :family mymonofont :height 110 :width 'expanded)
+    (set-face-attribute 'fixed-pitch nil :family mymonofont :height 110 :width 'expanded)
+    (set-face-attribute 'variable-pitch nil :family mysansfont :height 120)))
 
 ;; Syntax highlighting.
 (use-package font-lock
