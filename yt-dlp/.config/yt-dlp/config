@@ -1,3 +1,9 @@
 --merge-output-format mkv
 --format 'bv*+ba/b'
 --format-sort 'res,vcodec:av01'
+--no-overwrites
+--embed-metadata
+--embed-thumbnail
+--embed-subs
+--sub-langs 'all'
+--output '%(uploader)s %(channel_id)s %(upload_date>%Y-%m-%d)s %(title)s %(id)s.%(ext)s'
