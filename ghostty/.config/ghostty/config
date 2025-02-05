@@ -48,3 +48,4 @@ shell-integration-features=no-cursor
 cursor-style=block
 theme="Monokai Remastered"
 command=/usr/bin/zsh
+theme = dark:catppuccin-frappe,light:catppuccin-latte

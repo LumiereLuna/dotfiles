@@ -375,4 +375,4 @@
        `(font-lock-comment-face ((,c :slant normal))))))
   (add-hook 'ef-themes-post-load-hook #'my/ef-themes-custom-faces)
   :config
-  (ef-themes-select 'ef-dark))
+  (ef-themes-select 'ef-light))
