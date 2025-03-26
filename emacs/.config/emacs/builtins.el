@@ -45,7 +45,7 @@
   (org-capture-templates '(("d" "default"
                             entry (file "inbox.org")
                             "* TODO %?")))
-  (org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "WAIT(w)" "|" "DONE(d)")))
+  (org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "WAIT(w)" "|" "DONE(d)" "DROP(p)")))
   (org-agenda-tags-column 0)
   (org-agenda-span 'day)
   (org-M-RET-may-split-line nil)
