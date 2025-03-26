@@ -212,26 +212,6 @@
        completion-at-point-functions
        (list (cape-capf-super #'lsp-completion-at-point #'yasnippet-capf) t)))))
 
-;; "Dape is a debug adapter client for Emacs. The debug adapter
-;; protocol, much like its more well-known counterpart, the language
-;; server protocol, aims to establish a common API for programming
-;; tools. However, instead of functionalities such as code
-;; completions, it provides a standardized interface for debuggers."
-;; https://github.com/svaante/dape
-(when (not my/android-system-p)
-  (use-package dape
-    :hook
-    ((kill-emacs . dape-breakpoint-save)
-     (after-init . dape-breakpoint-load)
-     (dape-display-source . pulse-momentary-highlight-one-line)
-     (dape-start . (lambda () (save-some-buffers t t)))
-     (dape-compile . kill-buffer))
-    :custom
-    (dape-buffer-window-arrangement 'right)
-    (dape-inlay-hints t)
-    :config
-    (dape-breakpoint-global-mode)))
-
 ;; "🌷 Run code formatter on buffer contents without moving point,
 ;; using RCS patches and dynamic programming."
 ;; https://github.com/radian-software/apheleia
