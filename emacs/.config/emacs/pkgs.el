@@ -325,12 +325,6 @@
 
 ;; ########## UI ##########
 
-;; "Emacs package that displays available keybindings in popup"
-;; https://github.com/justbur/emacs-which-key (archived)
-(use-package which-key
-  :config
-  (which-key-mode 1))
-
 ;; "[A] small Emacs minor mode that mimics the effect of fill-column
 ;; in visual-line-mode. Instead of wrapping lines at the window edge,
 ;; which is the standard behaviour of visual-line-mode, it wraps lines
