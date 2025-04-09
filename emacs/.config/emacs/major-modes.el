@@ -13,11 +13,6 @@
     (treesit-auto-add-to-auto-mode-alist 'all)
     (global-treesit-auto-mode)))
 
-;; ########## Ledger ##########
-
-(use-package hledger-mode
-  :defer t)
-
 ;; ########## Lua ##########
 
 ;; https://github.com/immerrr/lua-mode
