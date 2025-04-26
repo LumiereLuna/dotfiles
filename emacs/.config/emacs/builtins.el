@@ -30,6 +30,20 @@
 ;; https://git.savannah.gnu.org/cgit/emacs/org-mode.git
 (use-package org
   :ensure nil
+  :preface
+  (defun my/org-make-place-views (key-values)
+    (let (final-list)
+      (dolist (key-value key-values final-list)
+        (let ((tag (car (cdr key-value)))
+              (tecla (car key-value)))
+          (push
+           `(,tecla
+             ,tag
+             ((tags-todo ,(concat "+" tag) ((org-agenda-overriding-header "Aquí")))
+              (tags-todo "-{@.*}" ((org-agenda-overriding-header "Doquier")))
+              (todo "NEXT" ((org-agenda-files '("media.org")) (org-agenda-overriding-header "Media"))))
+             ((org-agenda-files '("inbox.org")) (org-agenda-sorting-strategy '(priority-down todo-state-down)) (org-agenda-skip-function '(org-agenda-skip-entry-if 'timestamp))))
+           final-list)))))
   :hook
   (org-mode . variable-pitch-mode)
   (org-todo-repeat . org-reset-checkbox-state-subtree)
@@ -54,8 +68,13 @@
   (org-log-done 'time)
   (org-preview-latex-image-directory (expand-file-name "org-latex-preview" temporary-file-directory))
   (org-image-actual-width '(400))
-  (org-agenda-custom-commands my/secret-org-agenda-custom-commands)
-  (org-tag-persistent-alist my/secret-org-tag-persistent-alist)
+  (org-agenda-custom-commands (my/org-make-place-views '(("c" "@casa") ("j" "@trabajo") ("p" "@super") ("f" "@afuera"))))
+  (org-tag-persistent-alist '((:startgroup . nil)
+                              ("@casa" . ?c)
+                              ("@trabajo" . ?j)
+                              ("@super" . ?p)
+                              ("@afuera" . ?f)
+                              (:endgroup . nil)))
   (org-refile-targets '((nil :maxlevel . 8)
                         (org-agenda-files :level . 1)))
   (org-refile-use-outline-path 'file)
