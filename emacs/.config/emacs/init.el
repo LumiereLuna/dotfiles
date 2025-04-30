@@ -11,7 +11,8 @@
                   "ui.el"
                   "builtins.el"
                   "pkgs.el"
-                  "major-modes.el"))
+                  "major-modes.el"
+                  "functions.el"))
   (let ((filepath (expand-file-name elfile user-emacs-directory)))
     (when (file-readable-p filepath)
       (load-file filepath))))
