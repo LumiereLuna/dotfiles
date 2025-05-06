@@ -59,7 +59,7 @@
   (org-todo-repeat . org-reset-checkbox-state-subtree)
   (after-init . my/open-all-org-files)
   :bind
-  (("<leader> o a" . org-agenda)
+  (("<leader> o a" . my/org-agenda)
    ("<leader> o c" . my/org-capture-default)
    ("<leader> o l" . org-store-link)
    ("<leader> o r" . org-revert-all-org-buffers))
