@@ -31,6 +31,9 @@
 (use-package org
   :ensure nil
   :preface
+  (defun my/open-all-org-files ()
+    (interactive)
+    (find-file (concat org-directory "/*.org") t))
   (defun my/org-make-place-views (key-values)
     (let (final-list)
       (dolist (key-value key-values final-list)
@@ -44,6 +47,13 @@
               (todo "NEXT" ((org-agenda-files '("media.org")) (org-agenda-overriding-header "Media"))))
              ((org-agenda-files '("inbox.org")) (org-agenda-sorting-strategy '(priority-down todo-state-down)) (org-agenda-skip-function '(org-agenda-skip-entry-if 'timestamp))))
            final-list)))))
+  (defun my/org-capture-default ()
+    (interactive)
+    (org-capture nil "d"))
+  (defun my/org-agenda ()
+    (interactive)
+    (org-revert-all-org-buffers)
+    (org-agenda))
   :hook
   (org-mode . variable-pitch-mode)
   (org-todo-repeat . org-reset-checkbox-state-subtree)
@@ -79,11 +89,4 @@
                         (org-agenda-files :level . 1)))
   (org-refile-use-outline-path 'file)
   (org-outline-path-complete-in-steps nil)
-  (org-fast-tag-selection-single-key t)
-  :init
-  (defun my/org-capture-default ()
-    (interactive)
-    (org-capture nil "d"))
-  (defun my/open-all-org-files ()
-    (interactive)
-    (find-file (concat org-directory "/*.org") t)))
+  (org-fast-tag-selection-single-key t))
