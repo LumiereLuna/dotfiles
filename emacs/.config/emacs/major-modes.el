@@ -7,10 +7,7 @@
 ;; https://github.com/renzmann/treesit-auto
 (when (not my/android-system-p)
   (use-package treesit-auto
-    :custom
-    (treesit-auto-install 'prompt)
     :config
-    (treesit-auto-add-to-auto-mode-alist 'all)
     (global-treesit-auto-mode)))
 
 ;; ########## Lua ##########
