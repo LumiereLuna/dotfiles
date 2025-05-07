@@ -90,3 +90,8 @@
   (org-refile-use-outline-path 'file)
   (org-outline-path-complete-in-steps nil)
   (org-fast-tag-selection-single-key t))
+
+(use-package which-key
+  :ensure nil
+  :init
+  (which-key-mode))
