@@ -136,12 +136,6 @@
 
 ;; ########## Programming ##########
 
-;; "Magit is an interface to the version control system Git,
-;; implemented as an Emacs package."
-;; https://github.com/magit/magit
-(use-package magit
-  :defer t)
-
 ;; "Flycheck is a modern on-the-fly syntax checking extension for GNU
 ;; Emacs, intended as replacement for the older Flymake extension
 ;; which is part of GNU Emacs."
