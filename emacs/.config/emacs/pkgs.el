@@ -6,21 +6,36 @@
 (use-package evil
   :custom
   (evil-undo-system 'undo-redo)
+  ;; It's best to make the next three lines explicit for the sake of
+  ;; evil-collection.
   (evil-want-keybinding nil)
+  (evil-want-integration t)
+  (evil-overriding-maps nil)
   (evil-complete-all-buffers nil)
   (evil-want-C-u-scroll t)
   (evil-want-C-u-delete t)
   ;; Makes the Tab key work properly while in org-mode. This is so
   ;; because Tab and Ctrl+I are considered the same thing in terminals
-  ;; because of Unix legacy reasons, and evil-mode shadows org's Tab
-  ;; key command.
+  ;; because of Unix legacy reasons, and evil-org-mode shadows org's
+  ;; Tab key command.
   (evil-want-C-i-jump nil)
   :config
   (evil-set-leader '(normal visual) (kbd "SPC"))
-  (evil-mode 1)
-  (evil-set-initial-state 'Info-mode 'emacs)
-  (evil-set-initial-state 'org-agenda-mode 'emacs)
-  (evil-set-initial-state 'dired-mode 'emacs))
+  (evil-mode 1))
+
+;; "This is a collection of Evil bindings for the parts of Emacs that
+;; Evil does not cover properly by default, such as help-mode, M-x
+;; calendar, Eshell and more."
+;; https://github.com/emacs-evil/evil-collection
+(use-package evil-collection
+  :config
+  (evil-collection-init))
+
+(use-package evil-org
+  :hook (org-mode . evil-org-mode)
+  :config
+  (require 'evil-org-agenda)
+  (evil-org-agenda-set-keys))
 
 ;; ########## UX improvements ##########
 
