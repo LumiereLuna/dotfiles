@@ -14,7 +14,6 @@ if [ $(command -v gio) ]; then
         (gio open $@ &)
     }
 fi
-alias g='git'
 alias e='emacsclient --alternate-editor emacs --tty'
 if [ $(command -v nvim) ]; then
     alias v='nvim'
@@ -23,6 +22,8 @@ elif [ $(command -v vim) ]; then
 else
     alias v='vi'
 fi
+alias g='git'
+alias lg='lazygit'
 
 git-gh-deploy() {
     if [ -z "$1" ]; then
