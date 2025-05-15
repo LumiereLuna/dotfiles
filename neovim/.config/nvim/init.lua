@@ -194,11 +194,10 @@ require('lazy').setup({
         end,
     },
     {
-        "anAcc22/sakura.nvim",
-        dependencies = "rktjmp/lush.nvim",
+        "rose-pine/neovim",
+        name = "rose-pine",
         config = function()
-            vim.opt.background = "dark" -- or "light"
-            vim.cmd('colorscheme sakura') -- sets the colorscheme
+            vim.cmd("colorscheme rose-pine")
         end
     },
 })
