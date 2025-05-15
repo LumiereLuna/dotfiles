@@ -46,6 +46,5 @@ font-family="Roboto Mono"
 font-size=11
 shell-integration-features=no-cursor
 cursor-style=block
-theme="Monokai Remastered"
+theme="rose-pine"
 command=/usr/bin/zsh
-theme = dark:catppuccin-frappe,light:catppuccin-latte
