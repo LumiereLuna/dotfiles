@@ -89,25 +89,25 @@ require('lazy').setup({
     'NMAC427/guess-indent.nvim',
     -- Useful plugin to show you pending keybinds.
     require 'custom.plugins.which-key',
-    -- Fuzzy Finder (files, lsp, etc)
-    require 'custom.plugins.telescope',
-    -- Configures Lua LSP for your Neovim config, runtime and plugins
-    -- used for completion, annotations and signatures of Neovim apis
-    require 'custom.plugins.lazydev',
-    -- Main LSP Configuration
-    require 'custom.plugins.nvim-lspconfig',
-    -- Autoformat
-    require 'custom.plugins.conform',
-    -- Autocompletion
-    require 'custom.plugins.blink',
+        -- Fuzzy Finder (files, lsp, etc)
+    not on_android_device and require 'custom.plugins.telescope' or {},
+        -- Configures Lua LSP for your Neovim config, runtime and plugins
+        -- used for completion, annotations and signatures of Neovim apis
+    not on_android_device and require 'custom.plugins.lazydev' or {},
+        -- Main LSP Configuration
+    not on_android_device and require 'custom.plugins.nvim-lspconfig' or {},
+        -- Autoformat
+    not on_android_device and require 'custom.plugins.conform' or {},
+        -- Autocompletion
+    not on_android_device and require 'custom.plugins.blink' or {},
     -- Collection of various small independent plugins/modules
     require 'custom.plugins.mini',
-    -- Highlight, edit, and navigate code
-    require 'custom.plugins.nvim-treesitter',
+        -- Highlight, edit, and navigate code
+    not on_android_device and require 'custom.plugins.nvim-treesitter' or {},
     -- Add indentation guides even on blank lines
     require 'custom.plugins.indent-blankline',
-    -- Linting
-    require 'custom.plugins.indent-blankline',
+        -- Linting
+    not on_android_device and require 'custom.plugins.nvim-lint' or {},
     require 'custom.plugins.nvim-autopairs',
     require 'custom.plugins.rose-pine',
 }, {
