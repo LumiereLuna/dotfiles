@@ -25,6 +25,10 @@ fi
 alias g='git'
 alias lg='lazygit'
 
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
+
 git-gh-deploy() {
     if [ -z "$1" ]; then
         echo "Which folder do you want to deploy to GitHub Pages?"
@@ -37,6 +41,18 @@ mirror-website() {
     wget --mirror --convert-links --adjust-extension --page-requisites --no-parent --timestamping $@
 }
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
+giftoavif() {
+    local f
+    local total_frames
+    local duration
+    local fps
+    for f in "$@"; do
+        total_frames="$(exiftool "$f" -b -FrameCount)"
+        duration="$(exiftool "$f" -b -Duration)"
+        fps="$(echo "$total_frames/$duration" | bc)"
+        mkdir /tmp/giftoavif
+        magick "$f" -compress none /tmp/giftoavif/%d.png
+        ffmpeg -y -i /tmp/giftoavif/%d.png -strict -1 -pix_fmt yuva444p -f yuv4mpegpipe - | avifenc --stdin --fps $fps "$(basename "$f" .gif).avif"
+        command rm -rf /tmp/giftoavif
+    done
+}
