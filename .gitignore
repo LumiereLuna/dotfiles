@@ -4,3 +4,4 @@ emacs/.config/emacs/secrets.el
 irssi/.irssi/config
 systemd/.config/systemd/user/anki-sync.service
 halloy/.var/app/org.squidowl.halloy/config/halloy/config.toml
+neovim/.config/nvim/spell/en.utf-8.add.spl
