@@ -20,6 +20,14 @@ return {
                     require('telescope.themes').get_dropdown(),
                 },
             },
+            pickers = {
+                find_files = {
+                    cwd = '$HOME',
+                },
+                live_grep = {
+                    cwd = '$HOME',
+                },
+            },
         }
 
         pcall(require('telescope').load_extension, 'fzf')
