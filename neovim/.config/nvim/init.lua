@@ -45,6 +45,9 @@ vim.o.inccommand = 'split'
 vim.o.scrolloff = 3
 vim.o.confirm = true
 
+vim.opt.spell = true
+vim.opt.spelllang = { 'en_gb', 'es_mx' }
+
 -- ######## Keymaps ########
 
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
