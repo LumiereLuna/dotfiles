@@ -12,5 +12,8 @@ return {
 
         require('mini.diff').setup { view = { style = 'sign', signs = { add = '+', change = '~', delete = '-' } } }
         require('mini.notify').setup()
+
+        require('mini.files').setup { options = { permanent_delete = false }, windows = { max_number = 3 } }
+        vim.keymap.set('n', '<leader>o', MiniFiles.open, { desc = '[O]pen files' })
     end,
 }
