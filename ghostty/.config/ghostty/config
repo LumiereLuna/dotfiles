@@ -7,5 +7,7 @@ command=/usr/bin/zsh
 keybind=ctrl+[=text:\x1b
 font-family="Roboto Mono"
 font-size=12
+# Disable ligatures.
+font-feature = -calt, -liga, -dlig
 adjust-cell-height=30%
 theme="rose-pine"
