@@ -113,10 +113,7 @@ require('lazy').setup({
     not on_android_device and require 'custom.plugins.nvim-lint' or {},
     require 'custom.plugins.nvim-autopairs',
     require 'custom.plugins.rose-pine',
-    {
-        'shortcuts/no-neck-pain.nvim',
-        opts = { width = 80 },
-    },
+    not on_android_device and require 'custom.plugins.no-neck-pain',
 }, {
     ui = {
         -- If you are using a Nerd Font: set icons to an empty table which will use the
