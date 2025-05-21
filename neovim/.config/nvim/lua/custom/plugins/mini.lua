@@ -15,5 +15,8 @@ return {
 
         require('mini.files').setup { options = { permanent_delete = false }, windows = { max_number = 3 } }
         vim.keymap.set('n', '<leader>o', MiniFiles.open, { desc = '[O]pen files' })
+
+        require('mini.misc').setup()
+        MiniMisc.setup_auto_root()
     end,
 }
