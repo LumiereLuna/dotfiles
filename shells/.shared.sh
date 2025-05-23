@@ -56,3 +56,16 @@ giftoavif() {
         command rm -rf /tmp/giftoavif
     done
 }
+
+vidtoavif() {
+    local input="$1"
+    local start="$2"
+    local end="$3"
+    local output="$4"
+    local fps="$(exiftool "$input" -b -VideoFrameRate)"
+    local optargs=()
+    if [[ "$(exiftool "$input" -b -ImageHeight)" -gt 720 ]]; then
+        optargs+=("-vf" "scale=-1:720")
+    fi
+    ffmpeg -y -i "${input}" -ss "${start}" -t "${end}" -strict -1 -pix_fmt yuva444p -f yuv4mpegpipe "${optargs[@]}" - | avifenc --stdin --fps "${fps}" "${output}"
+}
