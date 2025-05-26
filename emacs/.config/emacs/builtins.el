@@ -50,16 +50,12 @@
   (defun my/org-capture-default ()
     (interactive)
     (org-capture nil "d"))
-  (defun my/org-agenda ()
-    (interactive)
-    (org-revert-all-org-buffers)
-    (org-agenda))
   :hook
   (org-mode . variable-pitch-mode)
   (org-todo-repeat . org-reset-checkbox-state-subtree)
   (after-init . my/open-all-org-files)
   :bind
-  (("<leader> o a" . my/org-agenda)
+  (("<leader> o a" . org-agenda)
    ("<leader> o c" . my/org-capture-default)
    ("<leader> o l" . org-store-link)
    ("<leader> o r" . org-revert-all-org-buffers))
