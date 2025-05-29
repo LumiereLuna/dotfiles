@@ -112,7 +112,7 @@ require('lazy').setup({
         -- Linting
     not on_android_device and require 'custom.plugins.nvim-lint' or {},
     require 'custom.plugins.nvim-autopairs',
-    require 'custom.plugins.rose-pine',
+    require 'custom.plugins.catppuccin',
     not on_android_device and require 'custom.plugins.no-neck-pain' or {},
     require 'custom.plugins.trim',
 }, {
