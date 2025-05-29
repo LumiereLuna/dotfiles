@@ -41,16 +41,6 @@
   :config
   (tool-bar-mode -1))
 
-(use-package tab-bar
-  :ensure nil
-  :bind
-  (("<leader> t n" . tab-bar-new-tab)
-   ("<leader> t k" . tab-bar-close-tab)
-   ("<leader> t l" . tab-bar-move-tab)
-   ("<leader> t h" . tab-bar-move-tab-backward))
-  :config
-  (tab-bar-mode 1))
-
 (use-package display-line-numbers
   :ensure nil
   :custom
