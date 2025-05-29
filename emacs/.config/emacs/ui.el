@@ -24,7 +24,7 @@
 (global-visual-line-mode 1)
 (xterm-mouse-mode 1)
 
-(let ((mymonofont "Roboto Mono")
+(let ((mymonofont "Fira Code")
       (mysansfont "Roboto"))
   (set-face-attribute 'default nil :family mymonofont :height 110 :width 'expanded)
   (set-face-attribute 'fixed-pitch nil :family mymonofont :height 110 :width 'expanded)
