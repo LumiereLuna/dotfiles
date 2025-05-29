@@ -105,8 +105,8 @@ require('lazy').setup({
     not on_android_device and require 'custom.plugins.blink' or {},
     -- Collection of various small independent plugins/modules
     require 'custom.plugins.mini',
-        -- Highlight, edit, and navigate code
-    not on_android_device and require 'custom.plugins.nvim-treesitter' or {},
+    -- Highlight, edit, and navigate code
+    require 'custom.plugins.nvim-treesitter',
     -- Add indentation guides even on blank lines
     require 'custom.plugins.indent-blankline',
         -- Linting
