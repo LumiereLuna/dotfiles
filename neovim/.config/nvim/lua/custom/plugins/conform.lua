@@ -31,6 +31,7 @@ return {
         formatters_by_ft = {
             lua = { 'stylua' },
             json = { 'jq' },
+            html = { 'prettier' },
         },
     },
 }
