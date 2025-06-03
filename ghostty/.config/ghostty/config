@@ -5,7 +5,7 @@ command=/usr/bin/zsh
 # Fix vi mode's Ctrl+[. By default it clears the line.
 # See: https://github.com/ghostty-org/ghostty/discussions/7373
 keybind=ctrl+[=text:\x1b
-font-family="Fira Code"
+font-family="Atkinson Hyperlegible Mono"
 font-size=11
 # Disable ligatures.
 font-feature = -calt, -liga, -dlig
