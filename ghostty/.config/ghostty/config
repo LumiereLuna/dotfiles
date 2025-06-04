@@ -11,5 +11,5 @@ font-size = 12
 font-feature = -calt, -liga, -dlig
 adjust-cell-height = 45%
 window-padding-balance = true
-theme = "HaX0R_BLUE"
+theme = "catppuccin-latte"
 window-padding-color = extend
