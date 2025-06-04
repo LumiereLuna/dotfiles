@@ -1,4 +1,4 @@
-export PATH="${PATH}:${HOME}/.local/bin:${HOME}/.cargo/bin:/usr/local/go/bin:${HOME}/.luarocks/bin"
+export PATH="${PATH}:${HOME}/.local/bin:${HOME}/.cargo/bin:/usr/local/go/bin:${HOME}/.luarocks/bin:${HOME}/.manual-install/lua-language-server/bin"
 export PAGER=less
 export LESS=-R
 export VISUAL=vi
