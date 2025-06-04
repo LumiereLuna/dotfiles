@@ -84,35 +84,42 @@ rtp:prepend(lazypath)
 
 -- ######## Configure and install plugins ########
 
-require('lazy').setup({
+local plugins = {
     -- Detect tabstop and shiftwidth automatically
     'NMAC427/guess-indent.nvim',
     -- Useful plugin to show you pending keybinds.
     require 'custom.plugins.which-key',
-        -- Fuzzy Finder (files, lsp, etc)
-    not on_android_device and require 'custom.plugins.telescope' or {},
-        -- Configures Lua LSP for your Neovim config, runtime and plugins
-        -- used for completion, annotations and signatures of Neovim apis
-    not on_android_device and require 'custom.plugins.lazydev' or {},
-        -- Main LSP Configuration
-    not on_android_device and require 'custom.plugins.nvim-lspconfig' or {},
-        -- Autoformat
-    not on_android_device and require 'custom.plugins.conform' or {},
-        -- Autocompletion
-    not on_android_device and require 'custom.plugins.blink' or {},
     -- Collection of various small independent plugins/modules
     require 'custom.plugins.mini',
     -- Highlight, edit, and navigate code
     require 'custom.plugins.nvim-treesitter',
     -- Add indentation guides even on blank lines
     require 'custom.plugins.indent-blankline',
-        -- Linting
-    not on_android_device and require 'custom.plugins.nvim-lint' or {},
     require 'custom.plugins.nvim-autopairs',
     require 'custom.plugins.catppuccin',
-    not on_android_device and require 'custom.plugins.no-neck-pain' or {},
     require 'custom.plugins.trim',
-}, {
+}
+
+if not on_android_device then
+    vim.list_extend(plugins, {
+        -- Fuzzy Finder (files, lsp, etc)
+        require 'custom.plugins.telescope' or {},
+        -- Configures Lua LSP for your Neovim config, runtime and plugins
+        -- used for completion, annotations and signatures of Neovim apis
+        require 'custom.plugins.lazydev' or {},
+        -- Main LSP Configuration
+        require 'custom.plugins.nvim-lspconfig' or {},
+        -- Autoformat
+        require 'custom.plugins.conform' or {},
+        -- Autocompletion
+        require 'custom.plugins.blink' or {},
+        -- Linting
+        require 'custom.plugins.nvim-lint' or {},
+        require 'custom.plugins.no-neck-pain' or {},
+    })
+end
+
+require('lazy').setup(plugins, {
     ui = {
         -- If you are using a Nerd Font: set icons to an empty table which will use the
         -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
