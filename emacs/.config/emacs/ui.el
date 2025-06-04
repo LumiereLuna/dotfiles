@@ -24,10 +24,10 @@
 (global-visual-line-mode 1)
 (xterm-mouse-mode 1)
 
-(let ((mymonofont "Fira Code")
+(let ((mymonofont "mononoki")
       (mysansfont "Roboto"))
-  (set-face-attribute 'default nil :family mymonofont :height 110 :width 'expanded)
-  (set-face-attribute 'fixed-pitch nil :family mymonofont :height 110 :width 'expanded)
+  (set-face-attribute 'default nil :family mymonofont :height 120 :width 'expanded)
+  (set-face-attribute 'fixed-pitch nil :family mymonofont :height 120 :width 'expanded)
   (set-face-attribute 'variable-pitch nil :family mysansfont :height 120))
 
 ;; Syntax highlighting.
