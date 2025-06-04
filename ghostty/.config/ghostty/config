@@ -1,13 +1,15 @@
 # Run `ghostty +show-config --default --docs` to view a list of
 # all available config options and their default values.
 
-command=/usr/bin/zsh
+command = /usr/bin/zsh
 # Fix vi mode's Ctrl+[. By default it clears the line.
 # See: https://github.com/ghostty-org/ghostty/discussions/7373
-keybind=ctrl+[=text:\x1b
-font-family="mononoki"
-font-size=12
+keybind = ctrl+[=text:\x1b
+font-family = "mononoki"
+font-size = 12
 # Disable ligatures.
 font-feature = -calt, -liga, -dlig
-adjust-cell-height=45%
-theme="catppuccin-latte"
+adjust-cell-height = 45%
+window-padding-balance = true
+theme = "HaX0R_BLUE"
+window-padding-color = extend
