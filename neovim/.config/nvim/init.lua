@@ -91,6 +91,8 @@ local plugins = {
     require('custom.plugins.which-key'),
     -- Collection of various small independent plugins/modules
     require('custom.plugins.mini'),
+    -- Fuzzy Finder (files, lsp, etc)
+    require('custom.plugins.telescope'),
     -- Highlight, edit, and navigate code
     require('custom.plugins.nvim-treesitter'),
     -- Add indentation guides even on blank lines
@@ -102,8 +104,6 @@ local plugins = {
 
 if not on_android_device then
     vim.list_extend(plugins, {
-        -- Fuzzy Finder (files, lsp, etc)
-        require('custom.plugins.telescope'),
         -- Configures Lua LSP for your Neovim config, runtime and plugins
         -- used for completion, annotations and signatures of Neovim apis
         require('custom.plugins.lazydev'),
