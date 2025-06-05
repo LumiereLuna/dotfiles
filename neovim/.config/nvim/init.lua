@@ -1,9 +1,8 @@
 local on_android_device = string.find(vim.uv.os_uname().release, 'android') and true or false
+vim.g.have_nerd_font = not on_android_device and true or false
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-
-vim.g.have_nerd_font = not on_android_device and true or false
 
 vim.o.number = true
 vim.o.relativenumber = true
