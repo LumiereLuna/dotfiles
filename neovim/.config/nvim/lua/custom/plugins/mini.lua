@@ -13,7 +13,14 @@ return {
         require('mini.diff').setup { view = { style = 'sign', signs = { add = '+', change = '~', delete = '-' } } }
         require('mini.notify').setup()
 
-        require('mini.files').setup { options = { permanent_delete = false }, windows = { max_number = 3 } }
+        local minifiles_opts = {
+            options = { permanent_delete = false },
+            windows = { max_number = 3 },
+        }
+        if not vim.g.have_nerd_font then
+            vim.list_extend(minifiles_opts, { content = { prefix = function() end } })
+        end
+        require('mini.files').setup { minifiles_opts }
         vim.keymap.set('n', '<leader>o', MiniFiles.open, { desc = '[O]pen files' })
 
         require('mini.misc').setup()
