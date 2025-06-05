@@ -50,12 +50,26 @@ return {
             })
         end, { desc = '[/] Fuzzily search in current buffer' })
 
+        -- Returns project root dir or CWD if there isn't one.
+        -- It returns $HOME if there's no CWD either.
+        local find_project_root = function()
+            return require('mini.misc').find_root() or vim.uv.cwd() or '$HOME'
+        end
+
         vim.keymap.set('n', '<leader>s/', function()
             builtin.live_grep {
-                cwd = require('mini.misc').find_root() or vim.uv.cwd() or '$HOME',
+                cwd = find_project_root(),
                 additional_args = { '--hidden' },
                 prompt_title = 'Live Grep in CWD',
             }
-        end, { desc = 'Fuzzily [S]earch [/] in current working dir.' })
+        end, { desc = '[S]earch [/] by grep in Project Dir.' })
+
+        vim.keymap.set('n', '<leader>s.', function()
+            builtin.find_files {
+                cwd = find_project_root(),
+                hidden = true,
+                prompt_title = 'Find Project Files',
+            }
+        end, { desc = '[S]earch [.] Project Files' })
     end,
 }
