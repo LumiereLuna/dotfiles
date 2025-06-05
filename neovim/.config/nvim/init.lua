@@ -103,19 +103,19 @@ local plugins = {
 if not on_android_device then
     vim.list_extend(plugins, {
         -- Fuzzy Finder (files, lsp, etc)
-        require('custom.plugins.telescope') or {},
+        require('custom.plugins.telescope'),
         -- Configures Lua LSP for your Neovim config, runtime and plugins
         -- used for completion, annotations and signatures of Neovim apis
-        require('custom.plugins.lazydev') or {},
+        require('custom.plugins.lazydev'),
         -- Main LSP Configuration
-        require('custom.plugins.nvim-lspconfig') or {},
+        require('custom.plugins.nvim-lspconfig'),
         -- Autoformat
-        require('custom.plugins.conform') or {},
+        require('custom.plugins.conform'),
         -- Autocompletion
-        require('custom.plugins.blink') or {},
+        require('custom.plugins.blink'),
         -- Linting
-        require('custom.plugins.nvim-lint') or {},
-        require('custom.plugins.no-neck-pain') or {},
+        require('custom.plugins.nvim-lint'),
+        require('custom.plugins.no-neck-pain'),
     })
 end
 
