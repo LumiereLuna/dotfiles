@@ -98,8 +98,8 @@ local plugins = {
     -- Add indentation guides even on blank lines
     require('custom.plugins.indent-blankline'),
     require('custom.plugins.nvim-autopairs'),
-    require('custom.plugins.catppuccin'),
     require('custom.plugins.trim'),
+    require('custom.plugins.catppuccin'),
 }
 
 if not on_android_device then
