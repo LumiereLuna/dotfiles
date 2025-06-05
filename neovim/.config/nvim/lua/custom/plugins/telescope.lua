@@ -61,7 +61,7 @@ return {
                 additional_args = { '--hidden' },
                 prompt_title = 'Live Grep in CWD',
             })
-        end, { desc = '[S]earch [/] by grep in Project Dir.' })
+        end, { desc = '[S]earch [/] by grep in project dir.' })
 
         vim.keymap.set('n', '<leader>s.', function()
             builtin.find_files({
@@ -69,6 +69,6 @@ return {
                 hidden = true,
                 prompt_title = 'Find Project Files',
             })
-        end, { desc = '[S]earch [.] Project Files' })
+        end, { desc = '[S]earch [.] project files' })
     end,
 }
