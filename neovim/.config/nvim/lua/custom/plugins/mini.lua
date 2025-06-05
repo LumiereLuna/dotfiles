@@ -21,7 +21,10 @@ return {
             minifiles_opts.content = { prefix = function() end }
         end
         require('mini.files').setup(minifiles_opts)
-        vim.keymap.set('n', '<leader>o', MiniFiles.open, { desc = '[O]pen files' })
+        vim.keymap.set('n', '<leader>o', function()
+            -- Start always at parent dir of current file.
+            MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
+        end, { desc = '[O]pen files' })
 
         require('mini.misc').setup()
         MiniMisc.setup_auto_root()
