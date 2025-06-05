@@ -27,6 +27,5 @@ return {
         end, { desc = '[O]pen files' })
 
         require('mini.misc').setup()
-        MiniMisc.setup_auto_root()
     end,
 }
