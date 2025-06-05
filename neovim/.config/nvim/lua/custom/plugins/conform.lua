@@ -31,6 +31,7 @@ return {
             lua = { 'stylua' },
             json = { 'jq' },
             html = { 'prettier' },
+            javascript = { 'prettier' },
         },
     },
 }
