@@ -69,10 +69,10 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 -- ######## Install `lazy.nvim` plugin manager ########
 
-local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
     local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
-    local out = vim.fn.system { 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath }
+    local out = vim.fn.system({ 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath })
     if vim.v.shell_error ~= 0 then
         error('Error cloning lazy.nvim:\n' .. out)
     end
@@ -88,34 +88,34 @@ local plugins = {
     -- Detect tabstop and shiftwidth automatically
     'NMAC427/guess-indent.nvim',
     -- Useful plugin to show you pending keybinds.
-    require 'custom.plugins.which-key',
+    require('custom.plugins.which-key'),
     -- Collection of various small independent plugins/modules
-    require 'custom.plugins.mini',
+    require('custom.plugins.mini'),
     -- Highlight, edit, and navigate code
-    require 'custom.plugins.nvim-treesitter',
+    require('custom.plugins.nvim-treesitter'),
     -- Add indentation guides even on blank lines
-    require 'custom.plugins.indent-blankline',
-    require 'custom.plugins.nvim-autopairs',
-    require 'custom.plugins.catppuccin',
-    require 'custom.plugins.trim',
+    require('custom.plugins.indent-blankline'),
+    require('custom.plugins.nvim-autopairs'),
+    require('custom.plugins.catppuccin'),
+    require('custom.plugins.trim'),
 }
 
 if not on_android_device then
     vim.list_extend(plugins, {
         -- Fuzzy Finder (files, lsp, etc)
-        require 'custom.plugins.telescope' or {},
+        require('custom.plugins.telescope') or {},
         -- Configures Lua LSP for your Neovim config, runtime and plugins
         -- used for completion, annotations and signatures of Neovim apis
-        require 'custom.plugins.lazydev' or {},
+        require('custom.plugins.lazydev') or {},
         -- Main LSP Configuration
-        require 'custom.plugins.nvim-lspconfig' or {},
+        require('custom.plugins.nvim-lspconfig') or {},
         -- Autoformat
-        require 'custom.plugins.conform' or {},
+        require('custom.plugins.conform') or {},
         -- Autocompletion
-        require 'custom.plugins.blink' or {},
+        require('custom.plugins.blink') or {},
         -- Linting
-        require 'custom.plugins.nvim-lint' or {},
-        require 'custom.plugins.no-neck-pain' or {},
+        require('custom.plugins.nvim-lint') or {},
+        require('custom.plugins.no-neck-pain') or {},
     })
 end
 

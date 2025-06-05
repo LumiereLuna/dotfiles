@@ -7,14 +7,14 @@ return {
             'nvim-telescope/telescope-fzf-native.nvim',
             build = 'make',
             cond = function()
-                return vim.fn.executable 'make' == 1
+                return vim.fn.executable('make') == 1
             end,
         },
         { 'nvim-telescope/telescope-ui-select.nvim' },
         { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
     config = function()
-        require('telescope').setup {
+        require('telescope').setup({
             extensions = {
                 ['ui-select'] = {
                     require('telescope.themes').get_dropdown(),
@@ -28,12 +28,12 @@ return {
                     cwd = '$HOME',
                 },
             },
-        }
+        })
 
         pcall(require('telescope').load_extension, 'fzf')
         pcall(require('telescope').load_extension, 'ui-select')
 
-        local builtin = require 'telescope.builtin'
+        local builtin = require('telescope.builtin')
         vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
         vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
         vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
@@ -43,10 +43,10 @@ return {
         vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
         vim.keymap.set('n', '<leader>/', function()
-            builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+            builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown({
                 winblend = 10,
                 previewer = false,
-            })
+            }))
         end, { desc = '[/] Fuzzily search in current buffer' })
 
         -- Returns project root dir or CWD if there isn't one.
@@ -56,19 +56,19 @@ return {
         end
 
         vim.keymap.set('n', '<leader>s/', function()
-            builtin.live_grep {
+            builtin.live_grep({
                 cwd = find_project_root(),
                 additional_args = { '--hidden' },
                 prompt_title = 'Live Grep in CWD',
-            }
+            })
         end, { desc = '[S]earch [/] by grep in Project Dir.' })
 
         vim.keymap.set('n', '<leader>s.', function()
-            builtin.find_files {
+            builtin.find_files({
                 cwd = find_project_root(),
                 hidden = true,
                 prompt_title = 'Find Project Files',
-            }
+            })
         end, { desc = '[S]earch [.] Project Files' })
     end,
 }

@@ -2,7 +2,7 @@ return {
     'mfussenegger/nvim-lint',
     event = { 'BufReadPre', 'BufNewFile' },
     config = function()
-        local lint = require 'lint'
+        local lint = require('lint')
         -- This way of setting linters_by_ft allows other plugins to add linters
         -- to require('lint').linters_by_ft.
         lint.linters_by_ft = lint.linters_by_ft or {}
