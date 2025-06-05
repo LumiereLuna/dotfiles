@@ -86,36 +86,68 @@ rtp:prepend(lazypath)
 -- ######## Configure and install plugins ########
 
 local plugins = {
-    -- Detect tabstop and shiftwidth automatically
+    -- "Blazing fast indentation style detection for Neovim written in Lua."
     'NMAC427/guess-indent.nvim',
-    -- Useful plugin to show you pending keybinds.
+    -- "WhichKey helps you remember your Neovim keymaps, by showing available
+    -- keybindings in a popup as you type."
     require('custom.plugins.which-key'),
-    -- Collection of various small independent plugins/modules
+    -- "Library of 40+ independent Lua modules improving overall Neovim [...]
+    -- experience with minimal effort."
     require('custom.plugins.mini'),
-    -- Fuzzy Finder (files, lsp, etc)
+    -- "[A] highly extendable fuzzy finder over lists."
+    -- Dependencies:
+    -- plenary.nvim: "All the lua functions I don't want to write twice."
+    -- telescope-fzf-native.nvim: "fzf-native is a c port of fzf. It only covers
+    -- the algorithm and implements few functions to support calculating the
+    -- score."
+    -- telescope-ui-select.nvim: "It sets vim.ui.select to telescope. That means
+    -- for example that neovim core stuff can fill the telescope picker. Example
+    -- would be lua vim.lsp.buf.code_action()."
+    -- nvim-web-devicons: "Provides Nerd Font icons (glyphs) for use by neovim
+    -- plugins"
     require('custom.plugins.telescope'),
-    -- Highlight, edit, and navigate code
+    -- "The goal of nvim-treesitter is both to provide a simple and easy way to
+    -- use the interface for tree-sitter in Neovim and to provide some basic
+    -- functionality such as highlighting based on it[.]"
     require('custom.plugins.nvim-treesitter'),
-    -- Add indentation guides even on blank lines
+    -- "[A]dds indentation guides to Neovim."
     require('custom.plugins.indent-blankline'),
+    -- "A super powerful autopair plugin for Neovim that supports multiple
+    -- characters."
     require('custom.plugins.nvim-autopairs'),
+    -- "[T]rims trailing whitespace and lines."
     require('custom.plugins.trim'),
+    -- "[A] community-driven pastel theme that aims to be the middle ground
+    -- between low and high contrast themes."
     require('custom.plugins.catppuccin'),
 }
 
 if not on_android_device then
     vim.list_extend(plugins, {
-        -- Configures Lua LSP for your Neovim config, runtime and plugins
-        -- used for completion, annotations and signatures of Neovim apis
+        -- "[A] plugin that properly configures LuaLS for editing your Neovim
+        -- config by lazily updating your workspace libraries."
         require('custom.plugins.lazydev'),
-        -- Main LSP Configuration
+        -- "[A] "data only" repo, providing basic, default Nvim LSP client
+        -- configurations for various LSP servers. View all configs or :help
+        -- lspconfig-all from Nvim."
+        -- Dependencies:
+        -- blink.cmp: see below.
         require('custom.plugins.nvim-lspconfig'),
-        -- Autoformat
+        -- "Lightweight yet powerful formatter plugin for Neovim"
         require('custom.plugins.conform'),
-        -- Autocompletion
+        -- "Performant, batteries-included completion plugin for Neovim"
+        -- Dependencies:
+        -- LuaSnip: "Snippet Engine for Neovim written in Lua."
+        --   Dependencies:
+        --   friendly-snippets: "Set of preconfigured snippets for
+        --   different languages."
+        -- lazydev: see above.
         require('custom.plugins.blink'),
-        -- Linting
+        -- "An asynchronous linter plugin for Neovim complementary to the
+        -- built-in Language Server Protocol support."
         require('custom.plugins.nvim-lint'),
+        -- "Dead simple plugin to center the currently focused buffer to the
+        -- middle of the screen."
         require('custom.plugins.no-neck-pain'),
     })
 end
