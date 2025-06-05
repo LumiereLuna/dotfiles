@@ -18,9 +18,10 @@ return {
             windows = { max_number = 3 },
         }
         if not vim.g.have_nerd_font then
-            vim.list_extend(minifiles_opts, { content = { prefix = function() end } })
+            minifiles_opts.content = { prefix = function() end }
         end
-        require('mini.files').setup { minifiles_opts }
+        vim.print(minifiles_opts)
+        require('mini.files').setup(minifiles_opts)
         vim.keymap.set('n', '<leader>o', MiniFiles.open, { desc = '[O]pen files' })
 
         require('mini.misc').setup()
