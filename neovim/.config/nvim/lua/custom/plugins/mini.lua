@@ -20,7 +20,6 @@ return {
         if not vim.g.have_nerd_font then
             minifiles_opts.content = { prefix = function() end }
         end
-        vim.print(minifiles_opts)
         require('mini.files').setup(minifiles_opts)
         vim.keymap.set('n', '<leader>o', MiniFiles.open, { desc = '[O]pen files' })
 
