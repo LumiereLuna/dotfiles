@@ -44,6 +44,7 @@ vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 vim.o.inccommand = 'split'
 vim.o.scrolloff = 3
 vim.o.confirm = true
+vim.o.autochdir = true
 
 -- ######## Keymaps ########
 
