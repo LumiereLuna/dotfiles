@@ -38,7 +38,7 @@ return {
         -- Returns project root dir or CWD if there isn't one.
         -- It returns $HOME if there's no CWD either.
         local find_project_root = function()
-            return require('mini.misc').find_root(0, { '.git', 'Makfile', '.project' }, vim.uv.cwd) or '$HOME'
+            return require('mini.misc').find_root(0, { '.git', 'Makfile', '.project' }) or vim.uv.cwd() or '$HOME'
         end
 
         vim.keymap.set('n', '<leader>sf', function()
