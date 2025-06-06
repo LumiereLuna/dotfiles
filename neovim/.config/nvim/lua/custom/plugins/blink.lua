@@ -48,5 +48,6 @@ return {
         snippets = { preset = 'luasnip' },
         fuzzy = { implementation = 'lua' },
         signature = { enabled = true },
+        cmdline = { completion = { menu = { auto_show = true } } },
     },
 }
