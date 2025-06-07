@@ -14,7 +14,6 @@ return {
         require('mini.notify').setup()
 
         local minifiles_opts = {
-            options = { permanent_delete = false },
             windows = { max_number = 3 },
         }
         if not vim.g.have_nerd_font then
