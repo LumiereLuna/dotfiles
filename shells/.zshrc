@@ -7,10 +7,13 @@ setopt extendedglob nomatch notify AUTO_LIST AUTO_PARAM_SLASH APPEND_HISTORY
 # Enable vi mode.
 bindkey -v
 
+# Automatically highlight first element of completion menu
+setopt MENU_COMPLETE
+# Automatically list choices on ambiguous completion.
+setopt AUTO_LIST
 zstyle :compinstall filename "$HOME/.zshrc"
-# Try first simple completion and, if that generates no matches, try
-# case-insensitive completion instead.
-zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' menu select
 
 autoload -Uz compinit promptinit vcs_info
 compinit
