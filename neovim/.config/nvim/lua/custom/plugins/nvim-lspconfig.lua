@@ -75,5 +75,6 @@ return {
             capabilities = capabilities,
         })
         vim.lsp.enable('lua_ls')
+        vim.lsp.enable('pyright')
     end,
 }
