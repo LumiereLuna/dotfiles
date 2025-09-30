@@ -32,6 +32,7 @@ return {
             json = { 'jq' },
             html = { 'prettier' },
             javascript = { 'prettier' },
+            python = { 'ruff_format' },
         },
     },
 }
