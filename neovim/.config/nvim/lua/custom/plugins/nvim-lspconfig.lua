@@ -113,7 +113,10 @@ return {
         --  So, we create new capabilities with blink.cmp, and then broadcast that to the servers.
         local capabilities = require('blink.cmp').get_lsp_capabilities()
 
-        require('lspconfig').lua_ls.setup({
+        vim.lsp.config('lua_ls', {
+            -- cmd = { 'lua-language-server' },
+            -- filetypes = { 'lua' },
+            -- root_markers = { { '.luarc.json', '.luarc.jsonc' }, '.git' },
             settings = {
                 Lua = {
                     completion = {
@@ -124,5 +127,6 @@ return {
             },
             capabilities = capabilities,
         })
+        vim.lsp.enable('lua_ls')
     end,
 }
