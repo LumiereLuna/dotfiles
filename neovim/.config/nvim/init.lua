@@ -33,9 +33,9 @@ vim.o.timeoutlen = 300
 vim.o.splitright = true
 vim.o.splitbelow = true
 
-vim.opt_global.expandtab = true
-vim.opt_global.shiftwidth = 4
-vim.opt_global.softtabstop = 4
+vim.o.expandtab = true
+vim.o.shiftwidth = 4
+vim.o.softtabstop = 4
 vim.o.textwidth = 80
 
 vim.o.list = true
