@@ -87,7 +87,7 @@ rtp:prepend(lazypath)
 
 local plugins = {
     -- "Blazing fast indentation style detection for Neovim written in Lua."
-    'NMAC427/guess-indent.nvim',
+    require('custom.plugins.guess-indent'),
     -- "WhichKey helps you remember your Neovim keymaps, by showing available
     -- keybindings in a popup as you type."
     require('custom.plugins.which-key'),
