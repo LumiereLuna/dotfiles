@@ -2,22 +2,22 @@ HISTFILE=~/.zhistory
 HISTSIZE=50
 SAVEHIST=100
 
-setopt extendedglob nomatch notify AUTO_LIST AUTO_PARAM_SLASH APPEND_HISTORY
+setopt extendedglob nomatch notify AUTO_PARAM_SLASH APPEND_HISTORY
 
 # Enable vi mode.
 bindkey -v
 
-# Automatically highlight first element of completion menu
-setopt MENU_COMPLETE
-# Automatically list choices on ambiguous completion.
-setopt AUTO_LIST
-zstyle :compinstall filename "$HOME/.zshrc"
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-zstyle ':completion:*' menu select
-
 autoload -Uz compinit promptinit vcs_info
 compinit
 promptinit
+
+zstyle :compinstall filename "$HOME/.zshrc"
+
+# First Tab autocompletes common prefix case-insensitively, second Tab shows
+# selection menu.
+setopt automenu
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' menu select=2
 
 # vcs_info supports many VCSs, you may not want all of these because
 # there is no point in running the code to detect systems you do not
