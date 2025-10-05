@@ -6,7 +6,6 @@ return {
         -- This way of setting linters_by_ft allows other plugins to add linters
         -- to require('lint').linters_by_ft.
         lint.linters_by_ft = lint.linters_by_ft or {}
-        lint.linters_by_ft['markdown'] = { 'markdownlint' }
 
         -- Disable the default linters.
         lint.linters_by_ft['clojure'] = nil
