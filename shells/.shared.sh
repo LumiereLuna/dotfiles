@@ -14,6 +14,7 @@ if [ $(command -v gio) ]; then
         (gio open $@ &)
     }
 fi
+alias mv='mv -i'
 alias e='emacsclient --alternate-editor emacs --tty'
 if [ $(command -v nvim) ]; then
     alias v='nvim'
