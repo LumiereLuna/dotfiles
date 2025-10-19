@@ -13,3 +13,4 @@ adjust-cell-height = 45%
 window-padding-balance = true
 theme = "Horizon Bright"
 window-padding-color = extend
+window-subtitle = working-directory
