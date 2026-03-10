@@ -117,9 +117,6 @@ local plugins = {
     require('custom.plugins.nvim-autopairs'),
     -- "[T]rims trailing whitespace and lines."
     require('custom.plugins.trim'),
-    -- "[A] community-driven pastel theme that aims to be the middle ground
-    -- between low and high contrast themes."
-    require('custom.plugins.catppuccin'),
 }
 
 if not on_android_device then
