@@ -146,6 +146,7 @@ if not on_android_device then
         -- "Dead simple plugin to center the currently focused buffer to the
         -- middle of the screen."
         require('custom.plugins.no-neck-pain'),
+        require('custom.plugins.theme'),
     })
 end
 
