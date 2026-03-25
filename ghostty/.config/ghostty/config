@@ -6,6 +6,7 @@ command = /usr/bin/zsh
 # See: https://github.com/ghostty-org/ghostty/discussions/7373
 keybind = ctrl+[=text:\x1b
 font-family = "Terminus"
+font-family = "Unifont"
 font-size = 16
 # Disable ligatures.
 font-feature = -calt, -liga, -dlig
