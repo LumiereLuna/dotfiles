@@ -16,5 +16,5 @@ window-padding-color = extend
 window-subtitle = working-directory
 theme = "Sea Shells"
 custom-shader = ~/.config/ghostty/in-game-crt-cursor.glsl
-custom-shader = ~/.config/ghostty/bloom.glsl
-custom-shader = ~/.config/ghostty/crt.glsl
+#custom-shader = ~/.config/ghostty/bloom.glsl
+#custom-shader = ~/.config/ghostty/crt.glsl
