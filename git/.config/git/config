@@ -20,3 +20,6 @@ ps = push
 st = status
 sw = switch
 graph = log --graph --oneline --decorate=short
+[user]
+	name = Selene Tamez Galván
+	email = tg.sln255@gmail.com
