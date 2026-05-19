@@ -36,7 +36,6 @@ vim.o.splitbelow = true
 vim.o.expandtab = true
 vim.o.shiftwidth = 4
 vim.o.softtabstop = 4
-vim.o.textwidth = 80
 
 vim.o.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
