@@ -1,9 +1,9 @@
+--continue
+--part
 --merge-output-format mkv
---format 'bv*+ba/b'
---format-sort 'res,vcodec:av01'
---no-overwrites
---embed-metadata
---embed-thumbnail
+--embed-chapters
+--sub-langs all
 --embed-subs
---sub-langs 'all'
---output '%(uploader)s %(channel_id)s %(upload_date>%Y-%m-%d)s %(title)s %(id)s.%(ext)s'
+--concurrent-fragments 4
+--cookies-from-browser firefox
+--output '%(uploader)s %(upload_date>%Y-%m-%d)s %(title)s [%(id)s].%(ext)s'
