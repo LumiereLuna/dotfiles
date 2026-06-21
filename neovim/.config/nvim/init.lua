@@ -170,4 +170,4 @@ require('lazy').setup(plugins, {
     },
 })
 
-vim.cmd([[colorscheme miniautumn]])
+vim.cmd([[colorscheme lunaperche]])
