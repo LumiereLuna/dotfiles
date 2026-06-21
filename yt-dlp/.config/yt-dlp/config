@@ -4,6 +4,6 @@
 --embed-chapters
 --sub-langs all
 --embed-subs
---concurrent-fragments 4
+#--concurrent-fragments 4
 --cookies-from-browser firefox
 --output '%(uploader)s %(upload_date>%Y-%m-%d)s %(title)s [%(id)s].%(ext)s'
