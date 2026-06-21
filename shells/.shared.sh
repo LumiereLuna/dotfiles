@@ -25,6 +25,7 @@ else
 fi
 alias g='git'
 alias lg='lazygit'
+alias beej='gcc -Wall -Wextra -std=c23 -pedantic'
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
