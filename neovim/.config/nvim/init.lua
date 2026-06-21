@@ -142,9 +142,6 @@ if not on_android_device then
         -- "An asynchronous linter plugin for Neovim complementary to the
         -- built-in Language Server Protocol support."
         require('custom.plugins.nvim-lint'),
-        -- "Dead simple plugin to center the currently focused buffer to the
-        -- middle of the screen."
-        require('custom.plugins.no-neck-pain'),
     })
 end
 
