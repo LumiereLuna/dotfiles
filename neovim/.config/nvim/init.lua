@@ -6,6 +6,7 @@ vim.g.maplocalleader = ' '
 
 vim.o.number = true
 vim.o.relativenumber = true
+vim.o.termguicolors = true
 
 vim.o.mouse = 'a'
 vim.o.showmode = false
@@ -142,6 +143,7 @@ if not on_android_device then
         -- "An asynchronous linter plugin for Neovim complementary to the
         -- built-in Language Server Protocol support."
         require('custom.plugins.nvim-lint'),
+        require('custom.plugins.colorizer'),
     })
 end
 
