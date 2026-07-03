@@ -3,6 +3,7 @@ export PAGER=less
 export LESS=-R
 export VISUAL=vi
 export EDITOR=vi
+export MANWIDTH=80
 
 alias ls='ls --color=auto --group-directories-first --human-readable --file-type -v'
 alias la='ls --almost-all'
