@@ -1,18 +1,34 @@
+# Black
 palette = 0=#03070f
+# Red
 palette = 1=#b83a82
+# Green
 palette = 2=#e2b8d9
+# Yellow
 palette = 3=#fdb8c7
+# Blue
 palette = 4=#a157ac
+# Magenta
 palette = 5=#d795cd
+# Cyan
 palette = 6=#eadff8
+# White
 palette = 7=#f2f5f1
+# Bright Black (Grey)
 palette = 8=#a5abb0
+# Bright Red
 palette = 9=#b83a82
+# Bright Green
 palette = 10=#e2b8d9
+# Bright Yellow
 palette = 11=#fdb8c7
+# Bright Blue
 palette = 12=#a157ac
+# Bright Magenta
 palette = 13=#d795cd
+# Bright Cyan
 palette = 14=#eadff8
+# Bright White
 palette = 15=#ffffff
 background = #03070f
 foreground = #f2f5f1
