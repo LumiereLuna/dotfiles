@@ -7,6 +7,7 @@ vim.g.maplocalleader = ' '
 vim.o.number = true
 vim.o.relativenumber = true
 vim.o.termguicolors = true
+vim.o.winborder = 'rounded'
 
 vim.o.mouse = 'a'
 vim.o.showmode = false
@@ -117,6 +118,14 @@ local plugins = {
     require('custom.plugins.nvim-autopairs'),
     -- "[T]rims trailing whitespace and lines."
     require('custom.plugins.trim'),
+    {
+        dir = '~/repos/kuromi.nvim',
+        lazy = false,
+        priority = 1000,
+        config = function()
+            vim.cmd('colorscheme kuromi')
+        end,
+    },
 }
 
 if not on_android_device then
@@ -168,5 +177,3 @@ require('lazy').setup(plugins, {
         },
     },
 })
-
-vim.cmd([[colorscheme lunaperche]])
