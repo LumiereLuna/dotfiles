@@ -196,32 +196,34 @@ require('which-key').setup({
 
 -- "Library of 40+ independent Lua modules improving overall Neovim [...]
 -- experience with minimal effort."
-vim.pack.add({ gh('echasnovski/mini.nvim') })
-require('mini.ai').setup({ n_lines = 500 })
-require('mini.surround').setup()
+do
+    vim.pack.add({ gh('echasnovski/mini.nvim') })
+    require('mini.ai').setup({ n_lines = 500 })
+    require('mini.surround').setup()
 
-local statusline = require('mini.statusline')
-statusline.setup({ use_icons = vim.g.have_nerd_font })
-statusline.section_location = function()
-    return '%2l:%-2v'
+    local statusline = require('mini.statusline')
+    statusline.setup({ use_icons = vim.g.have_nerd_font })
+    statusline.section_location = function()
+        return '%2l:%-2v'
+    end
+
+    require('mini.diff').setup({ view = { style = 'sign', signs = { add = '+', change = '~', delete = '-' } } })
+    require('mini.notify').setup()
+
+    local minifiles_opts = {
+        windows = { max_number = 3 },
+    }
+    if not vim.g.have_nerd_font then
+        minifiles_opts.content = { prefix = function() end }
+    end
+    require('mini.files').setup(minifiles_opts)
+    vim.keymap.set('n', '<leader>o', function()
+        -- Start always at parent dir of current file.
+        MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
+    end, { desc = '[O]pen files' })
+
+    require('mini.misc').setup()
 end
-
-require('mini.diff').setup({ view = { style = 'sign', signs = { add = '+', change = '~', delete = '-' } } })
-require('mini.notify').setup()
-
-local minifiles_opts = {
-    windows = { max_number = 3 },
-}
-if not vim.g.have_nerd_font then
-    minifiles_opts.content = { prefix = function() end }
-end
-require('mini.files').setup(minifiles_opts)
-vim.keymap.set('n', '<leader>o', function()
-    -- Start always at parent dir of current file.
-    MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
-end, { desc = '[O]pen files' })
-
-require('mini.misc').setup()
 
 -- "[A] highly extendable fuzzy finder over lists."
 -- plenary.nvim: "All the lua functions I don't want to write twice."
@@ -231,92 +233,94 @@ require('mini.misc').setup()
 -- telescope-ui-select.nvim: "It sets vim.ui.select to telescope. That means
 -- for example that neovim core stuff can fill the telescope picker. Example
 -- would be lua vim.lsp.buf.code_action()."
-local telescope_plugins = {
-    gh('nvim-lua/plenary.nvim'),
-    gh('nvim-telescope/telescope.nvim'),
-    gh('nvim-telescope/telescope-ui-select.nvim'),
-}
-if vim.fn.executable('make') == 1 then
-    table.insert(telescope_plugins, gh('nvim-telescope/telescope-fzf-native.nvim'))
+do
+    local telescope_plugins = {
+        gh('nvim-lua/plenary.nvim'),
+        gh('nvim-telescope/telescope.nvim'),
+        gh('nvim-telescope/telescope-ui-select.nvim'),
+    }
+    if vim.fn.executable('make') == 1 then
+        table.insert(telescope_plugins, gh('nvim-telescope/telescope-fzf-native.nvim'))
+    end
+    vim.pack.add(telescope_plugins)
+    require('telescope').setup({
+        extensions = {
+            ['ui-select'] = {
+                require('telescope.themes').get_dropdown(),
+            },
+        },
+        pickers = {
+            find_files = {
+                file_ignore_patterns = { '%.git/' },
+                cwd = '$HOME',
+            },
+            live_grep = {
+                file_ignore_patterns = { '%.git/' },
+                cwd = '$HOME',
+            },
+            buffers = {
+                sort_lastused = true,
+                sort_mru = true,
+            },
+        },
+    })
+
+    pcall(require('telescope').load_extension, 'fzf')
+    pcall(require('telescope').load_extension, 'ui-select')
+
+    local builtin = require('telescope.builtin')
+
+    -- Returns project root dir or CWD if there isn't one.
+    -- It returns $HOME if there's no CWD either.
+    local find_project_root = function()
+        return require('mini.misc').find_root(0, { '.git', 'Makfile', '.project' }) or vim.uv.cwd() or '$HOME'
+    end
+
+    vim.keymap.set('n', '<leader>sf', function()
+        builtin.find_files({
+            cwd = find_project_root(),
+            hidden = true,
+            prompt_title = 'Find Project Files',
+        })
+    end, { desc = '[S]earch project [F]iles' })
+
+    vim.keymap.set('n', '<leader>sg', function()
+        builtin.live_grep({
+            cwd = find_project_root(),
+            additional_args = { '--hidden' },
+            prompt_title = 'Live Grep in Project',
+        })
+    end, { desc = '[S]earch by [G]rep in project' })
+
+    vim.keymap.set('n', '<leader>s<A-f>', function()
+        builtin.find_files({
+            hidden = true,
+            prompt_title = 'Find All Files',
+        })
+    end, { desc = '[S]earch all [A-f]iles' })
+
+    vim.keymap.set('n', '<leader>s<A-g>', function()
+        builtin.find_files({
+            additional_args = { '--hidden' },
+            prompt_title = 'Live Grep All',
+        })
+    end, { desc = '[S]earch all by [A-g]rep' })
+
+    vim.keymap.set('n', '<leader>sF', builtin.find_files, { desc = '[S]earch [F]iles' })
+    vim.keymap.set('n', '<leader>sG', builtin.live_grep, { desc = '[S]earch by [G]rep' })
+    vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+    vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
+    vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
+    vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
+    vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
+
+    vim.keymap.set('n', '<leader>/', function()
+        builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown({
+            winblend = 10,
+            previewer = false,
+        }))
+    end, { desc = '[/] Fuzzily search in current buffer' })
 end
-vim.pack.add(telescope_plugins)
-require('telescope').setup({
-    extensions = {
-        ['ui-select'] = {
-            require('telescope.themes').get_dropdown(),
-        },
-    },
-    pickers = {
-        find_files = {
-            file_ignore_patterns = { '%.git/' },
-            cwd = '$HOME',
-        },
-        live_grep = {
-            file_ignore_patterns = { '%.git/' },
-            cwd = '$HOME',
-        },
-        buffers = {
-            sort_lastused = true,
-            sort_mru = true,
-        },
-    },
-})
-
-pcall(require('telescope').load_extension, 'fzf')
-pcall(require('telescope').load_extension, 'ui-select')
-
-local builtin = require('telescope.builtin')
-
--- Returns project root dir or CWD if there isn't one.
--- It returns $HOME if there's no CWD either.
-local find_project_root = function()
-    return require('mini.misc').find_root(0, { '.git', 'Makfile', '.project' }) or vim.uv.cwd() or '$HOME'
-end
-
-vim.keymap.set('n', '<leader>sf', function()
-    builtin.find_files({
-        cwd = find_project_root(),
-        hidden = true,
-        prompt_title = 'Find Project Files',
-    })
-end, { desc = '[S]earch project [F]iles' })
-
-vim.keymap.set('n', '<leader>sg', function()
-    builtin.live_grep({
-        cwd = find_project_root(),
-        additional_args = { '--hidden' },
-        prompt_title = 'Live Grep in Project',
-    })
-end, { desc = '[S]earch by [G]rep in project' })
-
-vim.keymap.set('n', '<leader>s<A-f>', function()
-    builtin.find_files({
-        hidden = true,
-        prompt_title = 'Find All Files',
-    })
-end, { desc = '[S]earch all [A-f]iles' })
-
-vim.keymap.set('n', '<leader>s<A-g>', function()
-    builtin.find_files({
-        additional_args = { '--hidden' },
-        prompt_title = 'Live Grep All',
-    })
-end, { desc = '[S]earch all by [A-g]rep' })
-
-vim.keymap.set('n', '<leader>sF', builtin.find_files, { desc = '[S]earch [F]iles' })
-vim.keymap.set('n', '<leader>sG', builtin.live_grep, { desc = '[S]earch by [G]rep' })
-vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
-vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
-vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
-vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
-
-vim.keymap.set('n', '<leader>/', function()
-    builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown({
-        winblend = 10,
-        previewer = false,
-    }))
-end, { desc = '[/] Fuzzily search in current buffer' })
 
 -- "[A]dds indentation guides to Neovim."
 vim.pack.add({ gh('lukas-reineke/indent-blankline.nvim') })
