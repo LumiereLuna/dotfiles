@@ -480,9 +480,9 @@ if not on_android_device then
         require('conform').format({ async = true, lsp_format = 'fallback' })
     end, { desc = '[F]ormat buffer' })
 
+    -- "An asynchronous linter plugin for Neovim complementary to the
+    -- built-in Language Server Protocol support."
     do
-        -- "An asynchronous linter plugin for Neovim complementary to the
-        -- built-in Language Server Protocol support."
         vim.pack.add({ gh('mfussenegger/nvim-lint') })
         local lint = require('lint')
         -- This way of setting linters_by_ft allows other plugins to add linters
@@ -517,6 +517,7 @@ if not on_android_device then
         })
     end
 
+    -- "The fastest Neovim colorizer."
     vim.pack.add({ gh('norcalli/nvim-colorizer.lua') })
     require('colorizer').setup({
         DEFAULT_OPTIONS = {
