@@ -109,13 +109,94 @@ rtp:prepend(lazypath)
 
 local plugins = {
     -- "Blazing fast indentation style detection for Neovim written in Lua."
-    require('custom.plugins.guess-indent'),
+    {
+        'NMAC427/guess-indent.nvim',
+        config = function()
+            require('guess-indent').setup({})
+        end,
+    },
+
     -- "WhichKey helps you remember your Neovim keymaps, by showing available
     -- keybindings in a popup as you type."
-    require('custom.plugins.which-key'),
+    {
+        'folke/which-key.nvim',
+        event = 'VimEnter',
+        opts = {
+            delay = 0,
+            icons = {
+                mappings = vim.g.have_nerd_font,
+                keys = vim.g.have_nerd_font and {} or {
+                    Up = '<Up> ',
+                    Down = '<Down> ',
+                    Left = '<Left> ',
+                    Right = '<Right> ',
+                    C = '<C-…> ',
+                    M = '<M-…> ',
+                    D = '<D-…> ',
+                    S = '<S-…> ',
+                    CR = '<CR> ',
+                    Esc = '<Esc> ',
+                    ScrollWheelDown = '<ScrollWheelDown> ',
+                    ScrollWheelUp = '<ScrollWheelUp> ',
+                    NL = '<NL> ',
+                    BS = '<BS> ',
+                    Space = '<Space> ',
+                    Tab = '<Tab> ',
+                    F1 = '<F1>',
+                    F2 = '<F2>',
+                    F3 = '<F3>',
+                    F4 = '<F4>',
+                    F5 = '<F5>',
+                    F6 = '<F6>',
+                    F7 = '<F7>',
+                    F8 = '<F8>',
+                    F9 = '<F9>',
+                    F10 = '<F10>',
+                    F11 = '<F11>',
+                    F12 = '<F12>',
+                },
+            },
+            spec = {
+                { '<leader>s', group = '[S]earch' },
+                { '<leader>t', group = '[T]oggle' },
+                { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+            },
+        },
+    },
+
     -- "Library of 40+ independent Lua modules improving overall Neovim [...]
     -- experience with minimal effort."
-    require('custom.plugins.mini'),
+    {
+        'echasnovski/mini.nvim',
+        config = function()
+            require('mini.ai').setup({ n_lines = 500 })
+            require('mini.surround').setup()
+
+            local statusline = require('mini.statusline')
+            statusline.setup({ use_icons = vim.g.have_nerd_font })
+            statusline.section_location = function()
+                return '%2l:%-2v'
+            end
+
+            require('mini.diff').setup({ view = { style = 'sign', signs = { add = '+', change = '~', delete = '-' } } })
+            require('mini.notify').setup()
+
+            local minifiles_opts = {
+                windows = { max_number = 3 },
+            }
+            if not vim.g.have_nerd_font then
+                minifiles_opts.content = { prefix = function() end }
+            end
+            require('mini.files').setup(minifiles_opts)
+            vim.keymap.set('n', '<leader>o', function()
+                -- Start always at parent dir of current file.
+                MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
+            end, { desc = '[O]pen files' })
+
+            require('mini.misc').setup()
+        end,
+    },
+
     -- "[A] highly extendable fuzzy finder over lists."
     -- Dependencies:
     -- plenary.nvim: "All the lua functions I don't want to write twice."
@@ -127,18 +208,155 @@ local plugins = {
     -- would be lua vim.lsp.buf.code_action()."
     -- nvim-web-devicons: "Provides Nerd Font icons (glyphs) for use by neovim
     -- plugins"
-    require('custom.plugins.telescope'),
+    {
+        'nvim-telescope/telescope.nvim',
+        event = 'VimEnter',
+        dependencies = {
+            'nvim-lua/plenary.nvim',
+            {
+                'nvim-telescope/telescope-fzf-native.nvim',
+                build = 'make',
+                cond = function()
+                    return vim.fn.executable('make') == 1
+                end,
+            },
+            { 'nvim-telescope/telescope-ui-select.nvim' },
+            { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
+        },
+        config = function()
+            require('telescope').setup({
+                extensions = {
+                    ['ui-select'] = {
+                        require('telescope.themes').get_dropdown(),
+                    },
+                },
+                pickers = {
+                    find_files = {
+                        file_ignore_patterns = { '%.git/' },
+                        cwd = '$HOME',
+                    },
+                    live_grep = {
+                        file_ignore_patterns = { '%.git/' },
+                        cwd = '$HOME',
+                    },
+                    buffers = {
+                        sort_lastused = true,
+                        sort_mru = true,
+                    },
+                },
+            })
+
+            pcall(require('telescope').load_extension, 'fzf')
+            pcall(require('telescope').load_extension, 'ui-select')
+
+            local builtin = require('telescope.builtin')
+
+            -- Returns project root dir or CWD if there isn't one.
+            -- It returns $HOME if there's no CWD either.
+            local find_project_root = function()
+                return require('mini.misc').find_root(0, { '.git', 'Makfile', '.project' }) or vim.uv.cwd() or '$HOME'
+            end
+
+            vim.keymap.set('n', '<leader>sf', function()
+                builtin.find_files({
+                    cwd = find_project_root(),
+                    hidden = true,
+                    prompt_title = 'Find Project Files',
+                })
+            end, { desc = '[S]earch project [F]iles' })
+
+            vim.keymap.set('n', '<leader>sg', function()
+                builtin.live_grep({
+                    cwd = find_project_root(),
+                    additional_args = { '--hidden' },
+                    prompt_title = 'Live Grep in Project',
+                })
+            end, { desc = '[S]earch by [G]rep in project' })
+
+            vim.keymap.set('n', '<leader>s<A-f>', function()
+                builtin.find_files({
+                    hidden = true,
+                    prompt_title = 'Find All Files',
+                })
+            end, { desc = '[S]earch all [A-f]iles' })
+
+            vim.keymap.set('n', '<leader>s<A-g>', function()
+                builtin.find_files({
+                    additional_args = { '--hidden' },
+                    prompt_title = 'Live Grep All',
+                })
+            end, { desc = '[S]earch all by [A-g]rep' })
+
+            vim.keymap.set('n', '<leader>sF', builtin.find_files, { desc = '[S]earch [F]iles' })
+            vim.keymap.set('n', '<leader>sG', builtin.live_grep, { desc = '[S]earch by [G]rep' })
+            vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+            vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
+            vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
+            vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
+            vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
+
+            vim.keymap.set('n', '<leader>/', function()
+                builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown({
+                    winblend = 10,
+                    previewer = false,
+                }))
+            end, { desc = '[/] Fuzzily search in current buffer' })
+        end,
+    },
+
     -- "The goal of nvim-treesitter is both to provide a simple and easy way to
     -- use the interface for tree-sitter in Neovim and to provide some basic
     -- functionality such as highlighting based on it[.]"
-    require('custom.plugins.nvim-treesitter'),
+    {
+        'nvim-treesitter/nvim-treesitter',
+        build = ':TSUpdate',
+        opts = {
+            ensure_installed = {
+                'bash',
+                'c',
+                'diff',
+                'html',
+                'lua',
+                'luadoc',
+                'markdown',
+                'markdown_inline',
+                'query',
+                'vim',
+                'vimdoc',
+            },
+            auto_install = true,
+            highlight = {
+                enable = true,
+                -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
+                --  If you are experiencing weird indenting issues, add the language to
+                --  the list of additional_vim_regex_highlighting and disabled languages for indent.
+                additional_vim_regex_highlighting = { 'ruby' },
+            },
+            indent = { enable = true, disable = { 'ruby' } },
+        },
+    },
+
     -- "[A]dds indentation guides to Neovim."
-    require('custom.plugins.indent-blankline'),
+    {
+        'lukas-reineke/indent-blankline.nvim',
+        main = 'ibl',
+        opts = { indent = { char = '╎' } },
+    },
+
     -- "A super powerful autopair plugin for Neovim that supports multiple
     -- characters."
-    require('custom.plugins.nvim-autopairs'),
+    {
+        'windwp/nvim-autopairs',
+        event = 'InsertEnter',
+        opts = {},
+    },
+
     -- "[T]rims trailing whitespace and lines."
-    require('custom.plugins.trim'),
+    {
+        'cappyzawa/trim.nvim',
+        opts = {},
+    },
+
     {
         dir = '~/repos/kuromi.nvim',
         lazy = false,
@@ -153,15 +371,143 @@ if not on_android_device then
     vim.list_extend(plugins, {
         -- "[A] plugin that properly configures LuaLS for editing your Neovim
         -- config by lazily updating your workspace libraries."
-        require('custom.plugins.lazydev'),
+        {
+            'folke/lazydev.nvim',
+            ft = 'lua',
+            opts = {
+                library = {
+                    -- Load luvit types when the `vim.uv` word is found
+                    { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+                },
+            },
+        },
+
         -- "[A] "data only" repo, providing basic, default Nvim LSP client
         -- configurations for various LSP servers. View all configs or :help
         -- lspconfig-all from Nvim."
         -- Dependencies:
         -- blink.cmp: see below.
-        require('custom.plugins.nvim-lspconfig'),
+        {
+            'neovim/nvim-lspconfig',
+            dependencies = {
+                -- Allows extra capabilities provided by blink.cmp
+                'saghen/blink.cmp',
+            },
+            config = function()
+                --  This function gets run when an LSP attaches to a particular buffer.
+                --  That is to say, every time a new file is opened that is associated with
+                --  an lsp (for example, opening `main.rs` is associated with `rust_analyzer`) this
+                --  function will be executed to configure the current buffer
+                vim.api.nvim_create_autocmd('LspAttach', {
+                    group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
+                    callback = function(event)
+                        local map = function(keys, func, desc, mode)
+                            mode = mode or 'n'
+                            vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
+                        end
+
+                        map('grn', vim.lsp.buf.rename, '[R]e[n]ame')
+                        map('gra', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
+                        map('grr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+                        map('gri', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
+                        map('grd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+                        map('grD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+                        map('gO', require('telescope.builtin').lsp_document_symbols, 'Open Document Symbols')
+                        map('gW', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Open Workspace Symbols')
+                        map('grt', require('telescope.builtin').lsp_type_definitions, '[G]oto [T]ype Definition')
+                    end,
+                })
+
+                -- Diagnostic Config
+                vim.diagnostic.config({
+                    severity_sort = true,
+                    float = { border = 'rounded', source = 'if_many' },
+                    underline = { severity = vim.diagnostic.severity.ERROR },
+                    signs = vim.g.have_nerd_font and {
+                        text = {
+                            [vim.diagnostic.severity.ERROR] = '󰅚 ',
+                            [vim.diagnostic.severity.WARN] = '󰀪 ',
+                            [vim.diagnostic.severity.INFO] = '󰋽 ',
+                            [vim.diagnostic.severity.HINT] = '󰌶 ',
+                        },
+                    } or {},
+                    virtual_text = {
+                        source = 'if_many',
+                        spacing = 2,
+                        format = function(diagnostic)
+                            local diagnostic_message = {
+                                [vim.diagnostic.severity.ERROR] = diagnostic.message,
+                                [vim.diagnostic.severity.WARN] = diagnostic.message,
+                                [vim.diagnostic.severity.INFO] = diagnostic.message,
+                                [vim.diagnostic.severity.HINT] = diagnostic.message,
+                            }
+                            return diagnostic_message[diagnostic.severity]
+                        end,
+                    },
+                })
+
+                -- LSP servers and clients are able to communicate to each other what features they support.
+                --  By default, Neovim doesn't support everything that is in the LSP specification.
+                --  When you add blink.cmp, luasnip, etc. Neovim now has *more* capabilities.
+                --  So, we create new capabilities with blink.cmp, and then broadcast that to the servers.
+                local capabilities = require('blink.cmp').get_lsp_capabilities()
+
+                vim.lsp.config('lua_ls', {
+                    settings = {
+                        Lua = {
+                            completion = {
+                                callSnippet = 'Replace',
+                            },
+                            diagnostics = { disable = { 'missing-fields' } },
+                        },
+                    },
+                    capabilities = capabilities,
+                })
+                vim.lsp.enable('lua_ls')
+                vim.lsp.enable('pyright')
+            end,
+        },
+
         -- "Lightweight yet powerful formatter plugin for Neovim"
-        require('custom.plugins.conform'),
+        {
+            'stevearc/conform.nvim',
+            event = { 'BufWritePre' },
+            cmd = { 'ConformInfo' },
+            keys = {
+                {
+                    '<leader>f',
+                    function()
+                        require('conform').format({ async = true, lsp_format = 'fallback' })
+                    end,
+                    mode = '',
+                    desc = '[F]ormat buffer',
+                },
+            },
+            opts = {
+                format_on_save = function(bufnr)
+                    -- Disable "format_on_save lsp_fallback" for languages that don't
+                    -- have a well standardized coding style. You can add additional
+                    -- languages here or re-enable it for the disabled ones.
+                    local disable_filetypes = { c = true, cpp = true }
+                    if disable_filetypes[vim.bo[bufnr].filetype] then
+                        return nil
+                    else
+                        return {
+                            timeout_ms = 500,
+                            lsp_format = 'fallback',
+                        }
+                    end
+                end,
+                formatters_by_ft = {
+                    lua = { 'stylua' },
+                    json = { 'jq' },
+                    html = { 'prettier' },
+                    javascript = { 'prettier' },
+                    python = { 'ruff_format' },
+                },
+            },
+        },
+
         -- "Performant, batteries-included completion plugin for Neovim"
         -- Dependencies:
         -- LuaSnip: "Snippet Engine for Neovim written in Lua."
@@ -169,11 +515,113 @@ if not on_android_device then
         --   friendly-snippets: "Set of preconfigured snippets for
         --   different languages."
         -- lazydev: see above.
-        require('custom.plugins.blink'),
+        {
+            'saghen/blink.cmp',
+            event = 'VimEnter',
+            version = '1.*',
+            dependencies = {
+                {
+                    'L3MON4D3/LuaSnip',
+                    version = '2.*',
+                    build = (function()
+                        -- Build Step is needed for regex support in snippets.
+                        -- This step is not supported in many windows environments.
+                        -- Remove the below condition to re-enable on windows.
+                        if vim.fn.has('win32') == 1 or vim.fn.executable('make') == 0 then
+                            return
+                        end
+                        return 'make install_jsregexp'
+                    end)(),
+                    dependencies = {
+                        {
+                            'rafamadriz/friendly-snippets',
+                            config = function()
+                                require('luasnip.loaders.from_vscode').lazy_load()
+                            end,
+                        },
+                    },
+                    opts = {},
+                },
+                'folke/lazydev.nvim',
+            },
+            --- @module 'blink.cmp'
+            --- @type blink.cmp.Config
+            opts = {
+                keymap = {
+                    preset = 'default',
+                },
+                appearance = {
+                    nerd_font_variant = 'mono',
+                },
+                completion = {
+                    documentation = { auto_show = true, auto_show_delay_ms = 2000 },
+                },
+                sources = {
+                    default = { 'lsp', 'path', 'snippets', 'lazydev' },
+                    providers = {
+                        lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
+                    },
+                },
+                snippets = { preset = 'luasnip' },
+                fuzzy = { implementation = 'lua' },
+                signature = { enabled = true },
+                cmdline = { completion = { menu = { auto_show = true } } },
+            },
+        },
+
         -- "An asynchronous linter plugin for Neovim complementary to the
         -- built-in Language Server Protocol support."
-        require('custom.plugins.nvim-lint'),
-        require('custom.plugins.colorizer'),
+        {
+            'mfussenegger/nvim-lint',
+            event = { 'BufReadPre', 'BufNewFile' },
+            config = function()
+                local lint = require('lint')
+                -- This way of setting linters_by_ft allows other plugins to add linters
+                -- to require('lint').linters_by_ft.
+                lint.linters_by_ft = lint.linters_by_ft or {}
+
+                -- Disable the default linters.
+                lint.linters_by_ft['clojure'] = nil
+                lint.linters_by_ft['dockerfile'] = nil
+                lint.linters_by_ft['inko'] = nil
+                lint.linters_by_ft['janet'] = nil
+                lint.linters_by_ft['json'] = nil
+                lint.linters_by_ft['markdown'] = nil
+                lint.linters_by_ft['rst'] = nil
+                lint.linters_by_ft['ruby'] = nil
+                lint.linters_by_ft['terraform'] = nil
+                lint.linters_by_ft['text'] = nil
+
+                -- Create autocommand which carries out the actual linting
+                -- on the specified events.
+                local lint_augroup = vim.api.nvim_create_augroup('lint', { clear = true })
+                vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePost', 'InsertLeave' }, {
+                    group = lint_augroup,
+                    callback = function()
+                        -- Only run the linter in buffers that you can modify in order to
+                        -- avoid superfluous noise, notably within the handy LSP pop-ups that
+                        -- describe the hovered symbol using Markdown.
+                        if vim.bo.modifiable then
+                            lint.try_lint()
+                        end
+                    end,
+                })
+            end,
+        },
+
+        {
+            'norcalli/nvim-colorizer.lua',
+            opts = {
+                DEFAULT_OPTIONS = {
+                    names = false,
+                    RRGGBBAA = true,
+                },
+                'javascript',
+                css = {
+                    css = true,
+                },
+            },
+        },
     })
 end
 
