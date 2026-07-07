@@ -137,14 +137,6 @@ vim.api.nvim_create_autocmd('PackChanged', {
             end
             return
         end
-
-        if name == 'nvim-treesitter' then
-            if not ev.data.active then
-                vim.cmd.packadd('nvim-treesitter')
-            end
-            vim.cmd('TSUpdate')
-            return
-        end
     end,
 })
 
@@ -347,8 +339,23 @@ require('nvim-autopairs').setup()
 vim.pack.add({ gh('cappyzawa/trim.nvim') })
 require('trim').setup()
 
-vim.pack.add({ 'file:///home/selene/repos/kuromi.nvim' })
-vim.cmd('colorscheme kuromi')
+-- "A lightweight Tree-sitter parser manager for Neovim."
+vim.pack.add({ gh('romus204/tree-sitter-manager.nvim') })
+require('tree-sitter-manager').setup({
+    -- Use built-in Neovim treesitter parsers
+    noauto_install = {
+        'c',
+        'lua',
+        'markdown',
+        'markdown_inline',
+        'query',
+        'vim',
+        'vimdoc',
+    },
+})
+vim.opt.foldenable = false
+vim.opt.foldmethod = 'expr'
+vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 
 if not on_android_device then
     -- "[A] plugin that properly configures LuaLS for editing your Neovim
@@ -522,3 +529,6 @@ if not on_android_device then
         },
     })
 end
+
+vim.pack.add({ 'file:///home/selene/repos/kuromi.nvim' })
+vim.cmd('colorscheme kuromi')
