@@ -442,35 +442,35 @@ if not on_android_device then
     end
 
     -- "Lightweight yet powerful formatter plugin for Neovim"
-    do
-        vim.pack.add({ gh('stevearc/conform.nvim') })
-        require('conform').setup({
-            format_on_save = function(bufnr)
-                -- Disable "format_on_save lsp_fallback" for languages that don't
-                -- have a well standardized coding style. You can add additional
-                -- languages here or re-enable it for the disabled ones.
-                local disable_filetypes = { c = true, cpp = true }
-                if disable_filetypes[vim.bo[bufnr].filetype] then
-                    return nil
-                else
-                    return {
-                        timeout_ms = 500,
-                        lsp_format = 'fallback',
-                    }
-                end
-            end,
-            formatters_by_ft = {
-                lua = { 'stylua' },
-                json = { 'jq' },
-                html = { 'prettier' },
-                javascript = { 'prettier' },
-                python = { 'ruff_format' },
-            },
-        })
-        vim.keymap.set('n', '<leader>f', function()
-            require('conform').format({ async = true, lsp_format = 'fallback' })
-        end, { desc = '[F]ormat buffer' })
+    vim.pack.add({ gh('stevearc/conform.nvim') })
+    require('conform').setup({
+        format_on_save = function(bufnr)
+            -- Disable "format_on_save lsp_fallback" for languages that don't
+            -- have a well standardized coding style. You can add additional
+            -- languages here or re-enable it for the disabled ones.
+            local disable_filetypes = { c = true, cpp = true }
+            if disable_filetypes[vim.bo[bufnr].filetype] then
+                return nil
+            else
+                return {
+                    timeout_ms = 500,
+                    lsp_format = 'fallback',
+                }
+            end
+        end,
+        formatters_by_ft = {
+            lua = { 'stylua' },
+            json = { 'jq' },
+            html = { 'prettier' },
+            javascript = { 'prettier' },
+            python = { 'ruff_format' },
+        },
+    })
+    vim.keymap.set('n', '<leader>f', function()
+        require('conform').format({ async = true, lsp_format = 'fallback' })
+    end, { desc = '[F]ormat buffer' })
 
+    do
         -- "An asynchronous linter plugin for Neovim complementary to the
         -- built-in Language Server Protocol support."
         vim.pack.add({ gh('mfussenegger/nvim-lint') })
