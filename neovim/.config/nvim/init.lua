@@ -224,7 +224,6 @@ end, { desc = '[O]pen files' })
 require('mini.misc').setup()
 
 -- "[A] highly extendable fuzzy finder over lists."
--- Dependencies:
 -- plenary.nvim: "All the lua functions I don't want to write twice."
 -- telescope-fzf-native.nvim: "fzf-native is a c port of fzf. It only covers
 -- the algorithm and implements few functions to support calculating the
@@ -232,8 +231,6 @@ require('mini.misc').setup()
 -- telescope-ui-select.nvim: "It sets vim.ui.select to telescope. That means
 -- for example that neovim core stuff can fill the telescope picker. Example
 -- would be lua vim.lsp.buf.code_action()."
--- nvim-web-devicons: "Provides Nerd Font icons (glyphs) for use by neovim
--- plugins"
 local telescope_plugins = {
     gh('nvim-lua/plenary.nvim'),
     gh('nvim-telescope/telescope.nvim'),
@@ -337,262 +334,203 @@ require('trim').setup()
 vim.pack.add({ 'file:///home/selene/repos/kuromi.nvim' })
 vim.cmd('colorscheme kuromi')
 
---[[
 if not on_android_device then
-    vim.list_extend(plugins, {
-        -- "[A] plugin that properly configures LuaLS for editing your Neovim
-        -- config by lazily updating your workspace libraries."
-        {
-            'folke/lazydev.nvim',
-            ft = 'lua',
-            opts = {
-                library = {
-                    -- Load luvit types when the `vim.uv` word is found
-                    { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
-                },
+    -- "[A] plugin that properly configures LuaLS for editing your Neovim
+    -- config by lazily updating your workspace libraries."
+    vim.pack.add({ gh('folke/lazydev.nvim') })
+    require('lazydev').setup({
+        library = {
+            -- Load luvit types when the `vim.uv` word is found
+            { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+        },
+    })
+
+    -- "Snippet Engine for Neovim written in Lua."
+    vim.pack.add({ { src = gh('L3MON4D3/LuaSnip'), version = vim.version.range('2.*') } })
+    require('luasnip').setup({})
+
+    -- "Set of preconfigured snippets for different languages."
+    vim.pack.add({ gh('rafamadriz/friendly-snippets') })
+    require('luasnip.loaders.from_vscode').lazy_load()
+
+    -- "Performant, batteries-included completion plugin for Neovim"
+    -- Dependencies:
+    vim.pack.add({ { src = gh('saghen/blink.cmp'), version = vim.version.range('1.*') } })
+    require('blink.cmp').setup({
+        keymap = {
+            preset = 'default',
+        },
+        appearance = {
+            nerd_font_variant = 'mono',
+        },
+        completion = {
+            documentation = { auto_show = true, auto_show_delay_ms = 2000 },
+        },
+        sources = {
+            default = { 'lsp', 'path', 'snippets', 'lazydev' },
+            providers = {
+                lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
             },
         },
+        snippets = { preset = 'luasnip' },
+        fuzzy = { implementation = 'lua' },
+        signature = { enabled = true },
+        cmdline = { completion = { menu = { auto_show = true } } },
+    })
 
-        -- "[A] "data only" repo, providing basic, default Nvim LSP client
-        -- configurations for various LSP servers. View all configs or :help
-        -- lspconfig-all from Nvim."
-        -- Dependencies:
-        -- blink.cmp: see below.
-        {
-            'neovim/nvim-lspconfig',
-            dependencies = {
-                -- Allows extra capabilities provided by blink.cmp
-                'saghen/blink.cmp',
-            },
-            config = function()
-                --  This function gets run when an LSP attaches to a particular buffer.
-                --  That is to say, every time a new file is opened that is associated with
-                --  an lsp (for example, opening `main.rs` is associated with `rust_analyzer`) this
-                --  function will be executed to configure the current buffer
-                vim.api.nvim_create_autocmd('LspAttach', {
-                    group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
-                    callback = function(event)
-                        local map = function(keys, func, desc, mode)
-                            mode = mode or 'n'
-                            vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
-                        end
+    -- "[A] "data only" repo, providing basic, default Nvim LSP client
+    -- configurations for various LSP servers. View all configs or :help
+    -- lspconfig-all from Nvim."
+    do
+        vim.pack.add({ gh('neovim/nvim-lspconfig') })
+        --  This function gets run when an LSP attaches to a particular buffer.
+        --  That is to say, every time a new file is opened that is associated with
+        --  an lsp (for example, opening `main.rs` is associated with `rust_analyzer`) this
+        --  function will be executed to configure the current buffer
+        vim.api.nvim_create_autocmd('LspAttach', {
+            group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
+            callback = function(event)
+                local map = function(keys, func, desc, mode)
+                    mode = mode or 'n'
+                    vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
+                end
 
-                        map('grn', vim.lsp.buf.rename, '[R]e[n]ame')
-                        map('gra', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
-                        map('grr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-                        map('gri', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
-                        map('grd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
-                        map('grD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-                        map('gO', require('telescope.builtin').lsp_document_symbols, 'Open Document Symbols')
-                        map('gW', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Open Workspace Symbols')
-                        map('grt', require('telescope.builtin').lsp_type_definitions, '[G]oto [T]ype Definition')
-                    end,
-                })
-
-                -- Diagnostic Config
-                vim.diagnostic.config({
-                    severity_sort = true,
-                    float = { border = 'rounded', source = 'if_many' },
-                    underline = { severity = vim.diagnostic.severity.ERROR },
-                    signs = vim.g.have_nerd_font and {
-                        text = {
-                            [vim.diagnostic.severity.ERROR] = '󰅚 ',
-                            [vim.diagnostic.severity.WARN] = '󰀪 ',
-                            [vim.diagnostic.severity.INFO] = '󰋽 ',
-                            [vim.diagnostic.severity.HINT] = '󰌶 ',
-                        },
-                    } or {},
-                    virtual_text = {
-                        source = 'if_many',
-                        spacing = 2,
-                        format = function(diagnostic)
-                            local diagnostic_message = {
-                                [vim.diagnostic.severity.ERROR] = diagnostic.message,
-                                [vim.diagnostic.severity.WARN] = diagnostic.message,
-                                [vim.diagnostic.severity.INFO] = diagnostic.message,
-                                [vim.diagnostic.severity.HINT] = diagnostic.message,
-                            }
-                            return diagnostic_message[diagnostic.severity]
-                        end,
-                    },
-                })
-
-                -- LSP servers and clients are able to communicate to each other what features they support.
-                --  By default, Neovim doesn't support everything that is in the LSP specification.
-                --  When you add blink.cmp, luasnip, etc. Neovim now has *more* capabilities.
-                --  So, we create new capabilities with blink.cmp, and then broadcast that to the servers.
-                local capabilities = require('blink.cmp').get_lsp_capabilities()
-
-                vim.lsp.config('lua_ls', {
-                    settings = {
-                        Lua = {
-                            completion = {
-                                callSnippet = 'Replace',
-                            },
-                            diagnostics = { disable = { 'missing-fields' } },
-                        },
-                    },
-                    capabilities = capabilities,
-                })
-                vim.lsp.enable('lua_ls')
-                vim.lsp.enable('pyright')
+                map('grn', vim.lsp.buf.rename, '[R]e[n]ame')
+                map('gra', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
+                map('grr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+                map('gri', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
+                map('grd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+                map('grD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+                map('gO', require('telescope.builtin').lsp_document_symbols, 'Open Document Symbols')
+                map('gW', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Open Workspace Symbols')
+                map('grt', require('telescope.builtin').lsp_type_definitions, '[G]oto [T]ype Definition')
             end,
-        },
+        })
 
-        -- "Lightweight yet powerful formatter plugin for Neovim"
-        {
-            'stevearc/conform.nvim',
-            event = { 'BufWritePre' },
-            cmd = { 'ConformInfo' },
-            keys = {
-                {
-                    '<leader>f',
-                    function()
-                        require('conform').format({ async = true, lsp_format = 'fallback' })
-                    end,
-                    mode = '',
-                    desc = '[F]ormat buffer',
+        -- Diagnostic Config
+        vim.diagnostic.config({
+            severity_sort = true,
+            float = { border = 'rounded', source = 'if_many' },
+            underline = { severity = vim.diagnostic.severity.ERROR },
+            signs = vim.g.have_nerd_font and {
+                text = {
+                    [vim.diagnostic.severity.ERROR] = '󰅚 ',
+                    [vim.diagnostic.severity.WARN] = '󰀪 ',
+                    [vim.diagnostic.severity.INFO] = '󰋽 ',
+                    [vim.diagnostic.severity.HINT] = '󰌶 ',
                 },
-            },
-            opts = {
-                format_on_save = function(bufnr)
-                    -- Disable "format_on_save lsp_fallback" for languages that don't
-                    -- have a well standardized coding style. You can add additional
-                    -- languages here or re-enable it for the disabled ones.
-                    local disable_filetypes = { c = true, cpp = true }
-                    if disable_filetypes[vim.bo[bufnr].filetype] then
-                        return nil
-                    else
-                        return {
-                            timeout_ms = 500,
-                            lsp_format = 'fallback',
-                        }
-                    end
+            } or {},
+            virtual_text = {
+                source = 'if_many',
+                spacing = 2,
+                format = function(diagnostic)
+                    local diagnostic_message = {
+                        [vim.diagnostic.severity.ERROR] = diagnostic.message,
+                        [vim.diagnostic.severity.WARN] = diagnostic.message,
+                        [vim.diagnostic.severity.INFO] = diagnostic.message,
+                        [vim.diagnostic.severity.HINT] = diagnostic.message,
+                    }
+                    return diagnostic_message[diagnostic.severity]
                 end,
-                formatters_by_ft = {
-                    lua = { 'stylua' },
-                    json = { 'jq' },
-                    html = { 'prettier' },
-                    javascript = { 'prettier' },
-                    python = { 'ruff_format' },
-                },
             },
-        },
+        })
 
-        -- "Performant, batteries-included completion plugin for Neovim"
-        -- Dependencies:
-        -- LuaSnip: "Snippet Engine for Neovim written in Lua."
-        --   Dependencies:
-        --   friendly-snippets: "Set of preconfigured snippets for
-        --   different languages."
-        -- lazydev: see above.
-        {
-            'saghen/blink.cmp',
-            event = 'VimEnter',
-            version = '1.*',
-            dependencies = {
-                {
-                    'L3MON4D3/LuaSnip',
-                    version = '2.*',
-                    build = (function()
-                        -- Build Step is needed for regex support in snippets.
-                        -- This step is not supported in many windows environments.
-                        -- Remove the below condition to re-enable on windows.
-                        if vim.fn.has('win32') == 1 or vim.fn.executable('make') == 0 then
-                            return
-                        end
-                        return 'make install_jsregexp'
-                    end)(),
-                    dependencies = {
-                        {
-                            'rafamadriz/friendly-snippets',
-                            config = function()
-                                require('luasnip.loaders.from_vscode').lazy_load()
-                            end,
-                        },
+        -- LSP servers and clients are able to communicate to each other what features they support.
+        --  By default, Neovim doesn't support everything that is in the LSP specification.
+        --  When you add blink.cmp, luasnip, etc. Neovim now has *more* capabilities.
+        --  So, we create new capabilities with blink.cmp, and then broadcast that to the servers.
+        local capabilities = require('blink.cmp').get_lsp_capabilities()
+
+        vim.lsp.config('lua_ls', {
+            settings = {
+                Lua = {
+                    completion = {
+                        callSnippet = 'Replace',
                     },
-                    opts = {},
+                    diagnostics = { disable = { 'missing-fields' } },
                 },
-                'folke/lazydev.nvim',
             },
-            --- @module 'blink.cmp'
-            --- @type blink.cmp.Config
-            opts = {
-                keymap = {
-                    preset = 'default',
-                },
-                appearance = {
-                    nerd_font_variant = 'mono',
-                },
-                completion = {
-                    documentation = { auto_show = true, auto_show_delay_ms = 2000 },
-                },
-                sources = {
-                    default = { 'lsp', 'path', 'snippets', 'lazydev' },
-                    providers = {
-                        lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
-                    },
-                },
-                snippets = { preset = 'luasnip' },
-                fuzzy = { implementation = 'lua' },
-                signature = { enabled = true },
-                cmdline = { completion = { menu = { auto_show = true } } },
+            capabilities = capabilities,
+        })
+        vim.lsp.enable('lua_ls')
+        vim.lsp.enable('pyright')
+    end
+
+    -- "Lightweight yet powerful formatter plugin for Neovim"
+    do
+        vim.pack.add({ gh('stevearc/conform.nvim') })
+        require('conform').setup({
+            format_on_save = function(bufnr)
+                -- Disable "format_on_save lsp_fallback" for languages that don't
+                -- have a well standardized coding style. You can add additional
+                -- languages here or re-enable it for the disabled ones.
+                local disable_filetypes = { c = true, cpp = true }
+                if disable_filetypes[vim.bo[bufnr].filetype] then
+                    return nil
+                else
+                    return {
+                        timeout_ms = 500,
+                        lsp_format = 'fallback',
+                    }
+                end
+            end,
+            formatters_by_ft = {
+                lua = { 'stylua' },
+                json = { 'jq' },
+                html = { 'prettier' },
+                javascript = { 'prettier' },
+                python = { 'ruff_format' },
             },
-        },
+        })
+        vim.keymap.set('n', '<leader>f', function()
+            require('conform').format({ async = true, lsp_format = 'fallback' })
+        end, { desc = '[F]ormat buffer' })
 
         -- "An asynchronous linter plugin for Neovim complementary to the
         -- built-in Language Server Protocol support."
-        {
-            'mfussenegger/nvim-lint',
-            event = { 'BufReadPre', 'BufNewFile' },
-            config = function()
-                local lint = require('lint')
-                -- This way of setting linters_by_ft allows other plugins to add linters
-                -- to require('lint').linters_by_ft.
-                lint.linters_by_ft = lint.linters_by_ft or {}
+        vim.pack.add({ gh('mfussenegger/nvim-lint') })
+        local lint = require('lint')
+        -- This way of setting linters_by_ft allows other plugins to add linters
+        -- to require('lint').linters_by_ft.
+        lint.linters_by_ft = lint.linters_by_ft or {}
 
-                -- Disable the default linters.
-                lint.linters_by_ft['clojure'] = nil
-                lint.linters_by_ft['dockerfile'] = nil
-                lint.linters_by_ft['inko'] = nil
-                lint.linters_by_ft['janet'] = nil
-                lint.linters_by_ft['json'] = nil
-                lint.linters_by_ft['markdown'] = nil
-                lint.linters_by_ft['rst'] = nil
-                lint.linters_by_ft['ruby'] = nil
-                lint.linters_by_ft['terraform'] = nil
-                lint.linters_by_ft['text'] = nil
+        -- Disable the default linters.
+        lint.linters_by_ft['clojure'] = nil
+        lint.linters_by_ft['dockerfile'] = nil
+        lint.linters_by_ft['inko'] = nil
+        lint.linters_by_ft['janet'] = nil
+        lint.linters_by_ft['json'] = nil
+        lint.linters_by_ft['markdown'] = nil
+        lint.linters_by_ft['rst'] = nil
+        lint.linters_by_ft['ruby'] = nil
+        lint.linters_by_ft['terraform'] = nil
+        lint.linters_by_ft['text'] = nil
 
-                -- Create autocommand which carries out the actual linting
-                -- on the specified events.
-                local lint_augroup = vim.api.nvim_create_augroup('lint', { clear = true })
-                vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePost', 'InsertLeave' }, {
-                    group = lint_augroup,
-                    callback = function()
-                        -- Only run the linter in buffers that you can modify in order to
-                        -- avoid superfluous noise, notably within the handy LSP pop-ups that
-                        -- describe the hovered symbol using Markdown.
-                        if vim.bo.modifiable then
-                            lint.try_lint()
-                        end
-                    end,
-                })
+        -- Create autocommand which carries out the actual linting
+        -- on the specified events.
+        local lint_augroup = vim.api.nvim_create_augroup('lint', { clear = true })
+        vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePost', 'InsertLeave' }, {
+            group = lint_augroup,
+            callback = function()
+                -- Only run the linter in buffers that you can modify in order to
+                -- avoid superfluous noise, notably within the handy LSP pop-ups that
+                -- describe the hovered symbol using Markdown.
+                if vim.bo.modifiable then
+                    lint.try_lint()
+                end
             end,
-        },
+        })
+    end
 
-        {
-            'norcalli/nvim-colorizer.lua',
-            opts = {
-                DEFAULT_OPTIONS = {
-                    names = false,
-                    RRGGBBAA = true,
-                },
-                'javascript',
-                css = {
-                    css = true,
-                },
-            },
+    vim.pack.add({ gh('norcalli/nvim-colorizer.lua') })
+    require('colorizer').setup({
+        DEFAULT_OPTIONS = {
+            names = false,
+            RRGGBBAA = true,
+        },
+        'javascript',
+        css = {
+            css = true,
         },
     })
 end
--]]
