@@ -91,7 +91,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 -- ######## Kickstart's vim.pack helper functions #########
---
+
 local function run_build(name, cmd, cwd)
     local result = vim.system(cmd, { cwd = cwd }):wait()
     if result.code ~= 0 then
@@ -145,266 +145,199 @@ end
 
 -- ######## Configure and install plugins ########
 
-local plugins = {
-    -- "Blazing fast indentation style detection for Neovim written in Lua."
-    {
-        'NMAC427/guess-indent.nvim',
-        config = function()
-            require('guess-indent').setup({})
-        end,
-    },
+-- "Blazing fast indentation style detection for Neovim written in Lua."
+vim.pack.add({ gh('NMAC427/guess-indent.nvim') })
+require('guess-indent').setup({})
 
-    -- "WhichKey helps you remember your Neovim keymaps, by showing available
-    -- keybindings in a popup as you type."
-    {
-        'folke/which-key.nvim',
-        event = 'VimEnter',
-        opts = {
-            delay = 0,
-            icons = {
-                mappings = vim.g.have_nerd_font,
-                keys = vim.g.have_nerd_font and {} or {
-                    Up = '<Up> ',
-                    Down = '<Down> ',
-                    Left = '<Left> ',
-                    Right = '<Right> ',
-                    C = '<C-…> ',
-                    M = '<M-…> ',
-                    D = '<D-…> ',
-                    S = '<S-…> ',
-                    CR = '<CR> ',
-                    Esc = '<Esc> ',
-                    ScrollWheelDown = '<ScrollWheelDown> ',
-                    ScrollWheelUp = '<ScrollWheelUp> ',
-                    NL = '<NL> ',
-                    BS = '<BS> ',
-                    Space = '<Space> ',
-                    Tab = '<Tab> ',
-                    F1 = '<F1>',
-                    F2 = '<F2>',
-                    F3 = '<F3>',
-                    F4 = '<F4>',
-                    F5 = '<F5>',
-                    F6 = '<F6>',
-                    F7 = '<F7>',
-                    F8 = '<F8>',
-                    F9 = '<F9>',
-                    F10 = '<F10>',
-                    F11 = '<F11>',
-                    F12 = '<F12>',
-                },
-            },
-            spec = {
-                { '<leader>s', group = '[S]earch' },
-                { '<leader>t', group = '[T]oggle' },
-                { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
-            },
+-- "WhichKey helps you remember your Neovim keymaps, by showing available
+-- keybindings in a popup as you type."
+vim.pack.add({ gh('folke/which-key.nvim') })
+require('which-key').setup({
+    delay = 0,
+    icons = {
+        mappings = vim.g.have_nerd_font,
+        keys = vim.g.have_nerd_font and {} or {
+            Up = '<Up> ',
+            Down = '<Down> ',
+            Left = '<Left> ',
+            Right = '<Right> ',
+            C = '<C-…> ',
+            M = '<M-…> ',
+            D = '<D-…> ',
+            S = '<S-…> ',
+            CR = '<CR> ',
+            Esc = '<Esc> ',
+            ScrollWheelDown = '<ScrollWheelDown> ',
+            ScrollWheelUp = '<ScrollWheelUp> ',
+            NL = '<NL> ',
+            BS = '<BS> ',
+            Space = '<Space> ',
+            Tab = '<Tab> ',
+            F1 = '<F1>',
+            F2 = '<F2>',
+            F3 = '<F3>',
+            F4 = '<F4>',
+            F5 = '<F5>',
+            F6 = '<F6>',
+            F7 = '<F7>',
+            F8 = '<F8>',
+            F9 = '<F9>',
+            F10 = '<F10>',
+            F11 = '<F11>',
+            F12 = '<F12>',
         },
     },
-
-    -- "Library of 40+ independent Lua modules improving overall Neovim [...]
-    -- experience with minimal effort."
-    {
-        'echasnovski/mini.nvim',
-        config = function()
-            require('mini.ai').setup({ n_lines = 500 })
-            require('mini.surround').setup()
-
-            local statusline = require('mini.statusline')
-            statusline.setup({ use_icons = vim.g.have_nerd_font })
-            statusline.section_location = function()
-                return '%2l:%-2v'
-            end
-
-            require('mini.diff').setup({ view = { style = 'sign', signs = { add = '+', change = '~', delete = '-' } } })
-            require('mini.notify').setup()
-
-            local minifiles_opts = {
-                windows = { max_number = 3 },
-            }
-            if not vim.g.have_nerd_font then
-                minifiles_opts.content = { prefix = function() end }
-            end
-            require('mini.files').setup(minifiles_opts)
-            vim.keymap.set('n', '<leader>o', function()
-                -- Start always at parent dir of current file.
-                MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
-            end, { desc = '[O]pen files' })
-
-            require('mini.misc').setup()
-        end,
+    spec = {
+        { '<leader>s', group = '[S]earch' },
+        { '<leader>t', group = '[T]oggle' },
+        { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
     },
+})
 
-    -- "[A] highly extendable fuzzy finder over lists."
-    -- Dependencies:
-    -- plenary.nvim: "All the lua functions I don't want to write twice."
-    -- telescope-fzf-native.nvim: "fzf-native is a c port of fzf. It only covers
-    -- the algorithm and implements few functions to support calculating the
-    -- score."
-    -- telescope-ui-select.nvim: "It sets vim.ui.select to telescope. That means
-    -- for example that neovim core stuff can fill the telescope picker. Example
-    -- would be lua vim.lsp.buf.code_action()."
-    -- nvim-web-devicons: "Provides Nerd Font icons (glyphs) for use by neovim
-    -- plugins"
-    {
-        'nvim-telescope/telescope.nvim',
-        event = 'VimEnter',
-        dependencies = {
-            'nvim-lua/plenary.nvim',
-            {
-                'nvim-telescope/telescope-fzf-native.nvim',
-                build = 'make',
-                cond = function()
-                    return vim.fn.executable('make') == 1
-                end,
-            },
-            { 'nvim-telescope/telescope-ui-select.nvim' },
-            { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
-        },
-        config = function()
-            require('telescope').setup({
-                extensions = {
-                    ['ui-select'] = {
-                        require('telescope.themes').get_dropdown(),
-                    },
-                },
-                pickers = {
-                    find_files = {
-                        file_ignore_patterns = { '%.git/' },
-                        cwd = '$HOME',
-                    },
-                    live_grep = {
-                        file_ignore_patterns = { '%.git/' },
-                        cwd = '$HOME',
-                    },
-                    buffers = {
-                        sort_lastused = true,
-                        sort_mru = true,
-                    },
-                },
-            })
+-- "Library of 40+ independent Lua modules improving overall Neovim [...]
+-- experience with minimal effort."
+vim.pack.add({ gh('echasnovski/mini.nvim') })
+require('mini.ai').setup({ n_lines = 500 })
+require('mini.surround').setup()
 
-            pcall(require('telescope').load_extension, 'fzf')
-            pcall(require('telescope').load_extension, 'ui-select')
+local statusline = require('mini.statusline')
+statusline.setup({ use_icons = vim.g.have_nerd_font })
+statusline.section_location = function()
+    return '%2l:%-2v'
+end
 
-            local builtin = require('telescope.builtin')
+require('mini.diff').setup({ view = { style = 'sign', signs = { add = '+', change = '~', delete = '-' } } })
+require('mini.notify').setup()
 
-            -- Returns project root dir or CWD if there isn't one.
-            -- It returns $HOME if there's no CWD either.
-            local find_project_root = function()
-                return require('mini.misc').find_root(0, { '.git', 'Makfile', '.project' }) or vim.uv.cwd() or '$HOME'
-            end
-
-            vim.keymap.set('n', '<leader>sf', function()
-                builtin.find_files({
-                    cwd = find_project_root(),
-                    hidden = true,
-                    prompt_title = 'Find Project Files',
-                })
-            end, { desc = '[S]earch project [F]iles' })
-
-            vim.keymap.set('n', '<leader>sg', function()
-                builtin.live_grep({
-                    cwd = find_project_root(),
-                    additional_args = { '--hidden' },
-                    prompt_title = 'Live Grep in Project',
-                })
-            end, { desc = '[S]earch by [G]rep in project' })
-
-            vim.keymap.set('n', '<leader>s<A-f>', function()
-                builtin.find_files({
-                    hidden = true,
-                    prompt_title = 'Find All Files',
-                })
-            end, { desc = '[S]earch all [A-f]iles' })
-
-            vim.keymap.set('n', '<leader>s<A-g>', function()
-                builtin.find_files({
-                    additional_args = { '--hidden' },
-                    prompt_title = 'Live Grep All',
-                })
-            end, { desc = '[S]earch all by [A-g]rep' })
-
-            vim.keymap.set('n', '<leader>sF', builtin.find_files, { desc = '[S]earch [F]iles' })
-            vim.keymap.set('n', '<leader>sG', builtin.live_grep, { desc = '[S]earch by [G]rep' })
-            vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
-            vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
-            vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-            vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
-            vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
-
-            vim.keymap.set('n', '<leader>/', function()
-                builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown({
-                    winblend = 10,
-                    previewer = false,
-                }))
-            end, { desc = '[/] Fuzzily search in current buffer' })
-        end,
-    },
-
-    -- "The goal of nvim-treesitter is both to provide a simple and easy way to
-    -- use the interface for tree-sitter in Neovim and to provide some basic
-    -- functionality such as highlighting based on it[.]"
-    {
-        'nvim-treesitter/nvim-treesitter',
-        build = ':TSUpdate',
-        opts = {
-            ensure_installed = {
-                'bash',
-                'c',
-                'diff',
-                'html',
-                'lua',
-                'luadoc',
-                'markdown',
-                'markdown_inline',
-                'query',
-                'vim',
-                'vimdoc',
-            },
-            auto_install = true,
-            highlight = {
-                enable = true,
-                -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
-                --  If you are experiencing weird indenting issues, add the language to
-                --  the list of additional_vim_regex_highlighting and disabled languages for indent.
-                additional_vim_regex_highlighting = { 'ruby' },
-            },
-            indent = { enable = true, disable = { 'ruby' } },
-        },
-    },
-
-    -- "[A]dds indentation guides to Neovim."
-    {
-        'lukas-reineke/indent-blankline.nvim',
-        main = 'ibl',
-        opts = { indent = { char = '╎' } },
-    },
-
-    -- "A super powerful autopair plugin for Neovim that supports multiple
-    -- characters."
-    {
-        'windwp/nvim-autopairs',
-        event = 'InsertEnter',
-        opts = {},
-    },
-
-    -- "[T]rims trailing whitespace and lines."
-    {
-        'cappyzawa/trim.nvim',
-        opts = {},
-    },
-
-    {
-        dir = '~/repos/kuromi.nvim',
-        lazy = false,
-        priority = 1000,
-        config = function()
-            vim.cmd('colorscheme kuromi')
-        end,
-    },
+local minifiles_opts = {
+    windows = { max_number = 3 },
 }
+if not vim.g.have_nerd_font then
+    minifiles_opts.content = { prefix = function() end }
+end
+require('mini.files').setup(minifiles_opts)
+vim.keymap.set('n', '<leader>o', function()
+    -- Start always at parent dir of current file.
+    MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
+end, { desc = '[O]pen files' })
 
+require('mini.misc').setup()
+
+-- "[A] highly extendable fuzzy finder over lists."
+-- Dependencies:
+-- plenary.nvim: "All the lua functions I don't want to write twice."
+-- telescope-fzf-native.nvim: "fzf-native is a c port of fzf. It only covers
+-- the algorithm and implements few functions to support calculating the
+-- score."
+-- telescope-ui-select.nvim: "It sets vim.ui.select to telescope. That means
+-- for example that neovim core stuff can fill the telescope picker. Example
+-- would be lua vim.lsp.buf.code_action()."
+-- nvim-web-devicons: "Provides Nerd Font icons (glyphs) for use by neovim
+-- plugins"
+local telescope_plugins = {
+    gh('nvim-lua/plenary.nvim'),
+    gh('nvim-telescope/telescope.nvim'),
+    gh('nvim-telescope/telescope-ui-select.nvim'),
+}
+if vim.fn.executable('make') == 1 then
+    table.insert(telescope_plugins, gh('nvim-telescope/telescope-fzf-native.nvim'))
+end
+vim.pack.add(telescope_plugins)
+require('telescope').setup({
+    extensions = {
+        ['ui-select'] = {
+            require('telescope.themes').get_dropdown(),
+        },
+    },
+    pickers = {
+        find_files = {
+            file_ignore_patterns = { '%.git/' },
+            cwd = '$HOME',
+        },
+        live_grep = {
+            file_ignore_patterns = { '%.git/' },
+            cwd = '$HOME',
+        },
+        buffers = {
+            sort_lastused = true,
+            sort_mru = true,
+        },
+    },
+})
+
+pcall(require('telescope').load_extension, 'fzf')
+pcall(require('telescope').load_extension, 'ui-select')
+
+local builtin = require('telescope.builtin')
+
+-- Returns project root dir or CWD if there isn't one.
+-- It returns $HOME if there's no CWD either.
+local find_project_root = function()
+    return require('mini.misc').find_root(0, { '.git', 'Makfile', '.project' }) or vim.uv.cwd() or '$HOME'
+end
+
+vim.keymap.set('n', '<leader>sf', function()
+    builtin.find_files({
+        cwd = find_project_root(),
+        hidden = true,
+        prompt_title = 'Find Project Files',
+    })
+end, { desc = '[S]earch project [F]iles' })
+
+vim.keymap.set('n', '<leader>sg', function()
+    builtin.live_grep({
+        cwd = find_project_root(),
+        additional_args = { '--hidden' },
+        prompt_title = 'Live Grep in Project',
+    })
+end, { desc = '[S]earch by [G]rep in project' })
+
+vim.keymap.set('n', '<leader>s<A-f>', function()
+    builtin.find_files({
+        hidden = true,
+        prompt_title = 'Find All Files',
+    })
+end, { desc = '[S]earch all [A-f]iles' })
+
+vim.keymap.set('n', '<leader>s<A-g>', function()
+    builtin.find_files({
+        additional_args = { '--hidden' },
+        prompt_title = 'Live Grep All',
+    })
+end, { desc = '[S]earch all by [A-g]rep' })
+
+vim.keymap.set('n', '<leader>sF', builtin.find_files, { desc = '[S]earch [F]iles' })
+vim.keymap.set('n', '<leader>sG', builtin.live_grep, { desc = '[S]earch by [G]rep' })
+vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
+vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
+vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
+vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
+
+vim.keymap.set('n', '<leader>/', function()
+    builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown({
+        winblend = 10,
+        previewer = false,
+    }))
+end, { desc = '[/] Fuzzily search in current buffer' })
+
+-- "[A]dds indentation guides to Neovim."
+vim.pack.add({ gh('lukas-reineke/indent-blankline.nvim') })
+require('ibl').setup({ indent = { char = '╎' } })
+
+-- "A super powerful autopair plugin for Neovim that supports multiple
+-- characters."
+vim.pack.add({ gh('windwp/nvim-autopairs') })
+require('nvim-autopairs').setup()
+
+-- "[T]rims trailing whitespace and lines."
+vim.pack.add({ gh('cappyzawa/trim.nvim') })
+require('trim').setup()
+
+vim.pack.add({ 'file:///home/selene/repos/kuromi.nvim' })
+vim.cmd('colorscheme kuromi')
+
+--[[
 if not on_android_device then
     vim.list_extend(plugins, {
         -- "[A] plugin that properly configures LuaLS for editing your Neovim
@@ -662,3 +595,4 @@ if not on_android_device then
         },
     })
 end
+-]]
