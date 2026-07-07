@@ -22,9 +22,11 @@ return {
             },
             pickers = {
                 find_files = {
+                    file_ignore_patterns = { '%.git/' },
                     cwd = '$HOME',
                 },
                 live_grep = {
+                    file_ignore_patterns = { '%.git/' },
                     cwd = '$HOME',
                 },
                 buffers = {
