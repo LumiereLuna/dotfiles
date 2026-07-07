@@ -1,5 +1,8 @@
+-- Enable faster startup by caching compiled Lua modules
+vim.loader.enable()
+
 local on_android_device = string.find(vim.uv.os_uname().release, 'android') and true or false
-vim.g.have_nerd_font = not on_android_device and true or false
+vim.g.have_nerd_font = not on_android_device and (os.getenv('TERM') == 'xterm-ghostty') or false
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
@@ -20,7 +23,6 @@ vim.schedule(function()
 end)
 
 vim.o.breakindent = true
-vim.o.undofile = true
 
 vim.o.ignorecase = true
 vim.o.smartcase = true
@@ -43,9 +45,28 @@ vim.o.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
 vim.o.inccommand = 'split'
-vim.o.scrolloff = 3
 vim.o.confirm = true
 vim.o.autochdir = true
+
+vim.diagnostic.config({
+    update_in_insert = false,
+    severity_sort = true,
+    float = { border = 'rounded', source = 'if_many' },
+    underline = { severity = { min = vim.diagnostic.severity.WARN } },
+
+    virtual_text = true, -- Text shows up at the end of the line
+
+    -- Auto open the float, so you can easily read the errors when jumping with `[d` and `]d`
+    jump = {
+        on_jump = function(_, bufnr)
+            vim.diagnostic.open_float({
+                bufnr = bufnr,
+                scope = 'cursor',
+                focus = false,
+            })
+        end,
+    },
+})
 
 -- ######## Keymaps ########
 
