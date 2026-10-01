@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+local f
+local total_frames
+local duration
+local fps
+for f in "$@"; do
+    total_frames="$(exiftool "$f" -b -FrameCount)"
+    duration="$(exiftool "$f" -b -Duration)"
+    fps="$(echo "$total_frames/$duration" | bc)"
+    mkdir /tmp/giftoavif
+    magick "$f" -compress none /tmp/giftoavif/%d.png
+    ffmpeg -y -i /tmp/giftoavif/%d.png -strict -1 -pix_fmt yuva444p -f yuv4mpegpipe - | avifenc --stdin --fps $fps "$(basename "$f" .gif).avif"
+    command rm -rf /tmp/giftoavif
+done
