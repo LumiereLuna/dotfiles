@@ -76,8 +76,8 @@ vcs_info_wrapper() {
 # https://unix.stackexchange.com/questions/273529/shorten-path-in-zsh-prompt
 PROMPT='%S%n@%M $(prompt_exit_code)%(5~|%-1~/.../%3~|%4~) $(vcs_info_wrapper)%%%s '
 
-if [ -f "${HOME}/.shared.sh" ]; then
-    . "${HOME}/.shared.sh"
+if [ -f "${HOME}/.posix.sh" ]; then
+    . "${HOME}/.posix.sh"
 fi
 
 if [ $(command -v fzf) ]; then

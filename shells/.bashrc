@@ -39,8 +39,8 @@ export PS1="${BGFLIP}\u@\H \w \$${RESET} "
 unset FRED FGREEN FYELLOW FBLUE FMAGENTA FCYAN FWHITE BRED BGREEN BYELLOW \
     BBLUE BCYAN BWHITE BGFLIP UNDERLINE BOLD RESET
 
-if [ -f "${HOME}/.shared.sh" ]; then
-    . "${HOME}/.shared.sh"
+if [ -f "${HOME}/.posix.sh" ]; then
+    . "${HOME}/.posix.sh"
 fi
 
 if [ $(command -v fzf) ]; then
